@@ -5,5 +5,5 @@ Functions:
 1. Image stabilization using information from and MPU6050 IMU
 1. Target detection using OpenCv
 1. Prec landing
-
+1. From Pi
 

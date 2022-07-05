@@ -47,7 +47,7 @@ while count < 10000:
         # print(str(accel.x) + " " + str(accel.y) + " " + str(accel.z))
         if (accel.x > 12000) or (accel.x < -12000) or (accel.y > 12000) or \
                 (accel.y < -12000) or (accel.z > 12000) or (accel.z < -12000):
-            crazy_high += 1
+            crazy_high_number += 1
 
 end_time = time.time()
 delta_time = end_time - start_time

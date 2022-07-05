@@ -74,7 +74,8 @@ while count < 10000:
         grav = mpu.DMP_get_gravity(quat)
         roll_pitch_yaw = mpu.DMP_get_euler_roll_pitch_yaw(quat, grav)
         if count % 2 == 0:
-            print('roll: ' + str(roll_pitch_yaw.x))
-            print('pitch: ' + str(roll_pitch_yaw.y))
-            print('yaw: ' + str(roll_pitch_yaw.z))
+            print('roll: {}    pitch: {}   yaw:{}'.format(  str(round(roll_pitch_yaw.x,2)),
+                                                            str(round(roll_pitch_yaw.y,2)),
+                                                            str(round(roll_pitch_yaw.z,2)))
+
         count += 1

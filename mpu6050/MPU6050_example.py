@@ -76,6 +76,6 @@ while count < 10000:
         if count % 2 == 0:
             print('roll: {}    pitch: {}   yaw:{}'.format(  str(round(roll_pitch_yaw.x,2)),
                                                             str(round(roll_pitch_yaw.y,2)),
-                                                            str(round(roll_pitch_yaw.z,2)))
+                                                            str(round(roll_pitch_yaw.z,2))))
 
         count += 1

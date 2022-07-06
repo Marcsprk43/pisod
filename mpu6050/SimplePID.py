@@ -92,7 +92,7 @@ class SimplePID():
         self.__update_coeffs()
 
     def check_time(self):
-        current_time_ms = 1000*(time.clock())
+        current_time_ms = 1000*(time.time())
         if current_time_ms - self.__last_time_ms > self.__delta_time_ms:
             self.__last_time_ms = current_time_ms
             return True

@@ -45,7 +45,7 @@ class SimplePID():
 
     def __init__(self, a_set_point, a_min_output, a_max_output, a_kp, a_ki,
                  a_kd, a_delta_time_ms=100, a_direction_direct=True):
-        self.__last_time_ms = time.clock()
+        self.__last_time_ms = time.time()
         self.__set_point = a_set_point
         self.__min_output = a_min_output
         self.__max_output = a_max_output

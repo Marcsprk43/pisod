@@ -69,6 +69,8 @@ while count < 10000:
         while FIFO_count < packet_size:
             FIFO_count = mpu.get_FIFO_count()
         FIFO_buffer = mpu.get_FIFO_bytes(packet_size)
+        mpu.reset_FIFO()
+
         accel = mpu.DMP_get_acceleration_int16(FIFO_buffer)
         quat = mpu.DMP_get_quaternion_int16(FIFO_buffer)
         grav = mpu.DMP_get_gravity(quat)

@@ -77,7 +77,7 @@ class MPU6050:
         self.set_full_scale_gyro_range(C.MPU6050_GYRO_FS_250)
         # Take the MPU out of time.sleep mode
         self.wake_up()
-        # Set offsets
+        # Set offsetsG
         if a_xAOff:
             self.set_x_accel_offset(a_xAOff)
         if a_yAOff:
@@ -469,8 +469,8 @@ class MPU6050:
                 self.set_int_enable(0x12)
 
                 if self.__debug:
-                    print('Setting sample rate to 200Hz')
-                self.set_rate(4)
+                    print('Setting sample rate to 100Hz')
+                self.set_rate(1)
 
                 if self.__debug:
                     print('Setting external frame sync to TEMP_OUT_L[0]')

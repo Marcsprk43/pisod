@@ -81,6 +81,7 @@ print('Gyro offsets: {}'.format(gyro_offset))
 
 
 z_offset = 0
+y_offset = 0
 
 try:
     for i in range(15):
@@ -101,9 +102,11 @@ try:
         print('Accl x: {}  y: {}  z:{}'.format(x_accel_reading, y_accel_reading, z_accel_reading))
 
         z_offset += int(z_gyro_avg/20)
+        y_offset += int(y_gyro_avg/20)
+
         print('#### z_offset: {}'.format(z_offset))
         mpu.set_x_gyro_offset_TC(0)
-        mpu.set_y_gyro_offset_TC(0)
+        mpu.set_y_gyro_offset_TC(y_offset)
         mpu.set_z_gyro_offset_TC(z_offset)
 
         gyro_offset[0] = mpu.get_x_gyro_offset_TC()

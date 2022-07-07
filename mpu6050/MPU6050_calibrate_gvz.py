@@ -96,7 +96,7 @@ try:
         print('Accl x: {}  y: {}  z:{}'.format(x_accel_reading, y_accel_reading, z_accel_reading))
 
     mpu = MPU6050(i2c_bus, device_address, x_accel_offset, y_accel_offset,
-                z_accel_offset, int(x_gyro_avg), int(y_gyro_avg), int(z_gyro_avg),
+                z_accel_offset, int(-x_gyro_avg/4), int(-y_gyro_avg/4), int(-z_gyro_avg/4),
                 enable_debug_output)
 
     for i in range(100):

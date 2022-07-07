@@ -11,7 +11,7 @@ z_accel_offset = 0
 
 x_gyro_offset = 0
 y_gyro_offset = 0
-z_gyro_offset = -20
+z_gyro_offset = -10
 
 enable_debug_output = True
 
@@ -51,7 +51,7 @@ gxindex = 0
 gyindex = 0
 gzindex = 0
 
-alpha = 0.1
+alpha = 0.05
 one_minus_alpha = 1.0 - alpha
 
 try:

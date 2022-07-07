@@ -7,10 +7,10 @@ device_address = 0x68
 # accordingly using a calibration procedure
 x_accel_offset = 0
 y_accel_offset = 0
-z_accel_offset =0
-x_gyro_offset = 35
-y_gyro_offset = 16
-z_gyro_offset = -83
+z_accel_offset = 0
+x_gyro_offset = 0
+y_gyro_offset = 0
+z_gyro_offset = 0
 enable_debug_output = True
 
 mpu = MPU6050(i2c_bus, device_address, x_accel_offset, y_accel_offset,

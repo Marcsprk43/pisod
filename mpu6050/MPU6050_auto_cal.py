@@ -70,7 +70,7 @@ gyro_offset[2] = mpu.get_z_gyro_offset_TC()
 print('Gyro offsets: {}'.format(gyro_offset))
 
 mpu.set_x_gyro_offset_TC(0)
-mpu.set_y_gyro_offset_TC(0)
+mpu.set_y_gyro_offset_TC(117)
 mpu.set_z_gyro_offset_TC(0)
 
 gyro_offset[0] = mpu.get_x_gyro_offset_TC()

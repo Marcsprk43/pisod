@@ -9,9 +9,9 @@ x_accel_offset = 0
 y_accel_offset = 0
 z_accel_offset = 0
 
-x_gyro_offset = -2657
-y_gyro_offset = -262
-z_gyro_offset = 31
+x_gyro_offset = 0
+y_gyro_offset = 0
+z_gyro_offset = 0
 
 enable_debug_output = True
 

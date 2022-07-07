@@ -69,6 +69,7 @@ try:
 
         print('RawG x: {}  y: {}  z:{}'.format(gyro_reading[0], gyro_reading[1], gyro_reading[2]))
         print('Gyro x: {}  y: {}  z:{}'.format(x_gyro_avg, y_gyro_avg, z_gyro_avg))
+        print('Accl x: {}  y: {}  z:{}'.format(x_accel_reading, y_accel_reading, z_accel_reading))
 
 
 except KeyboardInterrupt:

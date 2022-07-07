@@ -99,6 +99,13 @@ try:
     mpu.set_y_gyro_offset_TC(int(y_gyro_avg))
     mpu.set_z_gyro_offset_TC(int(z_gyro_avg))
 
+    gyro_offset[0] = mpu.get_x_gyro_offset_TC()
+    gyro_offset[1] = mpu.get_y_gyro_offset_TC()
+    gyro_offset[2] = mpu.get_z_gyro_offset_TC()
+
+    print('Gyro offsets: {}'.format(gyro_offset))
+
+
     for i in range(100):
         accel_reading = mpu.get_acceleration()
         x_accel_reading = accel_reading[0]

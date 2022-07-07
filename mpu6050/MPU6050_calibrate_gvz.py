@@ -8,9 +8,9 @@ device_address = 0x68
 x_accel_offset = 0
 y_accel_offset = 0
 z_accel_offset =0
-x_gyro_offset = 0
-y_gyro_offset = 0
-z_gyro_offset = 0
+x_gyro_offset = 35
+y_gyro_offset = 16
+z_gyro_offset = -83
 enable_debug_output = True
 
 mpu = MPU6050(i2c_bus, device_address, x_accel_offset, y_accel_offset,
@@ -26,10 +26,6 @@ z_accel_reading = accel_reading[2]
 x_accel_avg = [0]*100
 y_accel_avg = [0]*100
 z_accel_avg = [0]*100
-
-x_accel_offset_avg = [0]*100
-y_accel_offset_avg = [0]*100
-z_accel_offset_avg = [0]*100
 
 axindex = 0
 ayindex = 0

@@ -65,6 +65,7 @@ try:
         z_gyro_avg = alpha*gyro_reading[2] + one_minus_alpha*z_gyro_avg
         
 
+        print('RawG x: {}  y: {}  z:{}'.format(gyro_reading[0], gyro_reading[1], gyro_reading[2]))
         print('Gyro x: {}  y: {}  z:{}'.format(x_gyro_avg, y_gyro_avg, z_gyro_avg))
 
 

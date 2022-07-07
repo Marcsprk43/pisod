@@ -1,5 +1,9 @@
 from MPU6050 import MPU6050
 
+def int_to_bytes(i: int, *, signed: bool = False) -> bytes:
+
+    length = ((i + ((i * signed) < 0)).bit_length() + 7 + signed) // 8
+    return i.to_bytes(length, byteorder='big', signed=signed)
 
 i2c_bus = 1
 device_address = 0x68
@@ -79,7 +83,7 @@ print('Gyro offsets: {}'.format(gyro_offset))
 z_offset = 0
 
 try:
-    for i in range(25):
+    for i in range(15):
         for j in range(100):
             accel_reading = mpu.get_acceleration()
             x_accel_reading = accel_reading[0]
@@ -96,11 +100,11 @@ try:
         print('Gyro x: {}  y: {}  z:{}'.format(x_gyro_avg, y_gyro_avg, z_gyro_avg))
         print('Accl x: {}  y: {}  z:{}'.format(x_accel_reading, y_accel_reading, z_accel_reading))
 
-        z_offset += 10
+        z_offset += 8
         print('#### z_offset: {}'.format(z_offset))
         mpu.set_x_gyro_offset_TC(0)
         mpu.set_y_gyro_offset_TC(0)
-        mpu.set_z_gyro_offset_TC(z_offset)
+        mpu.set_z_gyro_offset_TC(bytes(z_offset))
 
         gyro_offset[0] = mpu.get_x_gyro_offset_TC()
         gyro_offset[1] = mpu.get_y_gyro_offset_TC()

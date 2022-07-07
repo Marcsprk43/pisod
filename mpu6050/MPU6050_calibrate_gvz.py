@@ -11,7 +11,7 @@ z_accel_offset = 0
 
 x_gyro_offset = 0
 y_gyro_offset = 0
-z_gyro_offset = -10
+z_gyro_offset = -20
 
 enable_debug_output = True
 

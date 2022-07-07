@@ -95,9 +95,9 @@ try:
         print('Gyro x: {}  y: {}  z:{}'.format(x_gyro_avg, y_gyro_avg, z_gyro_avg))
         print('Accl x: {}  y: {}  z:{}'.format(x_accel_reading, y_accel_reading, z_accel_reading))
 
-    mpu = MPU6050(i2c_bus, device_address, x_accel_offset, y_accel_offset,
-                z_accel_offset, int(-x_gyro_avg/4), int(-y_gyro_avg/4), int(-z_gyro_avg/8),
-                enable_debug_output)
+    mpu.set_x_gyro_offset_TC(int(-x_gyro_avg/4))
+    mpu.set_y_gyro_offset_TC(int(-y_gyro_avg/4))
+    mpu.set_z_gyro_offset_TC(int(-z_gyro_avg/4))
 
     for i in range(100):
         accel_reading = mpu.get_acceleration()

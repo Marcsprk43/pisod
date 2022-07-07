@@ -54,6 +54,14 @@ gzindex = 0
 alpha = 0.05
 one_minus_alpha = 1.0 - alpha
 
+gyro_offset = [0]*3
+
+gyro_offset[0] = get_x_gyro_offset_TC()
+gyro_offset[1] = get_y_gyro_offset_TC()
+gyro_offset[2] = get_z_gyro_offset_TC()
+
+print('Gyro offsets: {}'.format(gyro_offset))
+
 try:
     for i in range(1000):
         accel_reading = mpu.get_acceleration()
@@ -71,6 +79,24 @@ try:
         print('Gyro x: {}  y: {}  z:{}'.format(x_gyro_avg, y_gyro_avg, z_gyro_avg))
         print('Accl x: {}  y: {}  z:{}'.format(x_accel_reading, y_accel_reading, z_accel_reading))
 
+    mpu = MPU6050(i2c_bus, device_address, x_accel_offset, y_accel_offset,
+                z_accel_offset, x_gyro_avg, y_gyro_avg, z_gyro_avg,
+                enable_debug_output)
 
+    for i in range(100):
+        accel_reading = mpu.get_acceleration()
+        x_accel_reading = accel_reading[0]
+        y_accel_reading = accel_reading[1]
+        z_accel_reading = accel_reading[2]
+
+        gyro_reading = mpu.get_rotation()
+        x_gyro_avg = alpha*gyro_reading[0] + one_minus_alpha*x_gyro_avg
+        y_gyro_avg = alpha*gyro_reading[1] + one_minus_alpha*y_gyro_avg
+        z_gyro_avg = alpha*gyro_reading[2] + one_minus_alpha*z_gyro_avg
+        
+
+        print('**RawG x: {}  y: {}  z:{}'.format(gyro_reading[0], gyro_reading[1], gyro_reading[2]))
+        print('**Gyro x: {}  y: {}  z:{}'.format(x_gyro_avg, y_gyro_avg, z_gyro_avg))
+        print('**Accl x: {}  y: {}  z:{}'.format(x_accel_reading, y_accel_reading, z_accel_reading))
 except KeyboardInterrupt:
     pass

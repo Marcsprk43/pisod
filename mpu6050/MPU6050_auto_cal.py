@@ -104,7 +104,7 @@ try:
         print('#### z_offset: {}'.format(z_offset))
         mpu.set_x_gyro_offset_TC(0)
         mpu.set_y_gyro_offset_TC(0)
-        mpu.set_z_gyro_offset_TC(int_to_bytes(z_offset,signed=True))
+        mpu.set_z_gyro_offset_TC(z_offset)
 
         gyro_offset[0] = mpu.get_x_gyro_offset_TC()
         gyro_offset[1] = mpu.get_y_gyro_offset_TC()

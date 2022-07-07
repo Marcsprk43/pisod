@@ -100,7 +100,7 @@ try:
         print('Gyro x: {}  y: {}  z:{}'.format(x_gyro_avg, y_gyro_avg, z_gyro_avg))
         print('Accl x: {}  y: {}  z:{}'.format(x_accel_reading, y_accel_reading, z_accel_reading))
 
-        z_offset -= 4
+        z_offset += int(z_gyro_avg/20)
         print('#### z_offset: {}'.format(z_offset))
         mpu.set_x_gyro_offset_TC(0)
         mpu.set_y_gyro_offset_TC(0)

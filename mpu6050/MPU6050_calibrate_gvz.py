@@ -56,9 +56,9 @@ one_minus_alpha = 1.0 - alpha
 
 gyro_offset = [0]*3
 
-gyro_offset[0] = get_x_gyro_offset_TC()
-gyro_offset[1] = get_y_gyro_offset_TC()
-gyro_offset[2] = get_z_gyro_offset_TC()
+gyro_offset[0] = mpu.get_x_gyro_offset_TC()
+gyro_offset[1] = mpu.get_y_gyro_offset_TC()
+gyro_offset[2] = mpu.get_z_gyro_offset_TC()
 
 print('Gyro offsets: {}'.format(gyro_offset))
 

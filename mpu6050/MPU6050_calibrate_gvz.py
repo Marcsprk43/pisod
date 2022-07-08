@@ -54,7 +54,7 @@ gxindex = 0
 gyindex = 0
 gzindex = 0
 
-alpha = 0.1
+alpha = 0.05
 one_minus_alpha = 1.0 - alpha
 
 gyro_offset = [0]*3
@@ -134,5 +134,9 @@ try:
         print('**RawG x: {}  y: {}  z:{}'.format(gyro_reading[0], gyro_reading[1], gyro_reading[2]))
         print('**Gyro x: {}  y: {}  z:{}'.format(x_gyro_avg, y_gyro_avg, z_gyro_avg))
         print('**Accl x: {}  y: {}  z:{}'.format(x_accel_reading, y_accel_reading, z_accel_reading))
+
+
+    print('Gyro offsets: {}'.format(gyro_offset))
+    
 except KeyboardInterrupt:
     pass

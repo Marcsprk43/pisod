@@ -75,6 +75,12 @@ mpu.set_x_gyro_offset(int(756/4))
 mpu.set_y_gyro_offset(int(108/4))
 mpu.set_z_gyro_offset(int(28/4))
 
+
+mpu.set_x_gyro_offset(0)
+mpu.set_y_gyro_offset(0)
+mpu.set_z_gyro_offset(0)
+
+
 print('After offset changes:')
 gyro_offset[0] = mpu.get_x_gyro_offset()
 gyro_offset[1] = mpu.get_y_gyro_offset()
@@ -102,9 +108,9 @@ try:
         print('Gyro x: {}  y: {}  z:{}'.format(x_gyro_avg, y_gyro_avg, z_gyro_avg))
         print('Accl x: {}  y: {}  z:{}'.format(x_accel_reading, y_accel_reading, z_accel_reading))
 
-    mpu.set_x_gyro_offset_TC(int(x_gyro_avg/16))
-    mpu.set_y_gyro_offset_TC(int(y_gyro_avg/16))
-    mpu.set_z_gyro_offset_TC(int(z_gyro_avg/16))
+    mpu.set_x_gyro_offset_TC(int(x_gyro_avg/4))
+    mpu.set_y_gyro_offset_TC(int(y_gyro_avg/4))
+    mpu.set_z_gyro_offset_TC(int(z_gyro_avg/4))
 
     gyro_offset[0] = mpu.get_x_gyro_offset_TC()
     gyro_offset[1] = mpu.get_y_gyro_offset_TC()

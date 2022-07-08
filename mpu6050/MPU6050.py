@@ -719,6 +719,11 @@ class MPU6050:
         self.__bus.write_byte_data(self.__dev_id, C.MPU6050_RA_XG_OFFS_USRL,
                                    ctypes.c_int8(a_offset).value)
 
+    def get_x_gyro_offset(self):
+        h_b = self.__bus.read_byte_data(self.__dev_id, C.MPU6050_RA_XG_OFFS_USRH)
+        l_b = self.__bus.read_byte_data(self.__dev_id, C.MPU6050_RA_XG_OFFS_USRL)
+        return h_b << 8 | l_b
+
     def set_y_gyro_offset(self, a_offset):
         self.__bus.write_byte_data(self.__dev_id, C.MPU6050_RA_YG_OFFS_USRH,
                                    ctypes.c_int8(a_offset >> 8).value)

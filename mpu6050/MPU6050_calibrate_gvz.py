@@ -112,6 +112,8 @@ try:
     mpu.set_y_gyro_offset(int(-y_gyro_avg/4))
     mpu.set_z_gyro_offset(int(-z_gyro_avg/4))
 
+    saved_offsets = [int(-x_gyro_avg/4),int(-y_gyro_avg/4),int(-z_gyro_avg/4)]
+
     gyro_offset[0] = mpu.get_x_gyro_offset()
     gyro_offset[1] = mpu.get_y_gyro_offset()
     gyro_offset[2] = mpu.get_z_gyro_offset()
@@ -136,7 +138,7 @@ try:
         print('**Accl x: {}  y: {}  z:{}'.format(x_accel_reading, y_accel_reading, z_accel_reading))
 
 
-    print('Gyro offsets: {}'.format(gyro_offset))
+    print('Gyro offsets: {}'.format(saved_offsets))
     
 except KeyboardInterrupt:
     pass

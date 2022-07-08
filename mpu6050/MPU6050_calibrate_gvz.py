@@ -66,9 +66,9 @@ gyro_offset[2] = mpu.get_z_gyro_offset_TC()
 print('Gyro offsets: {}'.format(gyro_offset))
 
 # supply your own gyro offsets here, scaled for min sensitivity
-mpu.set_x_gyro_offset_TC(int(756/4))
-mpu.set_y_gyro_offset_TC(int(108/4))
-mpu.set_z_gyro_offset_TC(int(28/4))
+#mpu.set_x_gyro_offset_TC(int(756/4))
+#mpu.set_y_gyro_offset_TC(int(108/4))
+#mpu.set_z_gyro_offset_TC(int(28/4))
 
 gyro_offset[0] = mpu.get_x_gyro_offset_TC()
 gyro_offset[1] = mpu.get_y_gyro_offset_TC()

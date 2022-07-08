@@ -92,7 +92,7 @@ print(gyro_offset)
 
 
 try:
-    for i in range(2000):
+    for i in range(5000):
         accel_reading = mpu.get_acceleration()
         x_accel_reading = accel_reading[0]
         y_accel_reading = accel_reading[1]
@@ -119,7 +119,7 @@ try:
     print('Gyro offsets: {}'.format(gyro_offset))
 
 
-    for i in range(100):
+    for i in range(1000):
         accel_reading = mpu.get_acceleration()
         x_accel_reading = accel_reading[0]
         y_accel_reading = accel_reading[1]

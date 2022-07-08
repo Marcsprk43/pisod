@@ -54,7 +54,7 @@ gxindex = 0
 gyindex = 0
 gzindex = 0
 
-alpha = 0.05
+alpha = 0.02
 one_minus_alpha = 1.0 - alpha
 
 gyro_offset = [0]*3
@@ -92,7 +92,7 @@ print(gyro_offset)
 
 
 try:
-    for i in range(1000):
+    for i in range(2000):
         accel_reading = mpu.get_acceleration()
         x_accel_reading = accel_reading[0]
         y_accel_reading = accel_reading[1]

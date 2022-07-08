@@ -54,7 +54,7 @@ gxindex = 0
 gyindex = 0
 gzindex = 0
 
-alpha = 0.02
+alpha = 0.1
 one_minus_alpha = 1.0 - alpha
 
 gyro_offset = [0]*3

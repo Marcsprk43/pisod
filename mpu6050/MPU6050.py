@@ -478,16 +478,16 @@ class MPU6050:
                 self.set_int_enable(0x12)
 
                 if self.__debug:
-                    print('Setting sample rate to 100Hz')
-                self.set_rate(1)       # this should be 25hz   
+                    print('Setting sample rate to 50Hz')
+                self.set_rate(3)       # this should be 25hz   
 
                 if self.__debug:
                     print('Setting external frame sync to TEMP_OUT_L[0]')
                 self.set_external_frame_sync(C.MPU6050_EXT_SYNC_TEMP_OUT_L)
 
                 if self.__debug:
-                    print('Setting DLPF bandwidth to 256Hz')
-                self.set_DLF_mode(C.MPU6050_DLPF_BW_256)
+                    print('Setting DLPF bandwidth to 42Hz')
+                self.set_DLF_mode(C.MPU6050_DLPF_BW_42)
 
                 if self.__debug:
                     print('Setting gyro sensitivity to +/- 250 deg/sec')

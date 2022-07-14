@@ -428,7 +428,7 @@ class MPU6050:
         y_g_offset = self.get_y_gyro_offset()
         z_g_offset = self.get_z_gyro_offset()
 
-       if self.__debug:
+        if self.__debug:
             print("X gyro offset TC = ", repr(x_g_offset_TC))
             print("Y gyro offset TC = ", repr(y_g_offset_TC))
             print("Z gyro offset TC = ", repr(z_g_offset_TC))

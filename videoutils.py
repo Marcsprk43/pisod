@@ -1,5 +1,184 @@
-# A function to translate an image by dx, xy pixels
+from math import tan, degrees, radians
 
+# A function to calculate pixel shift based on roll/pitch and camera properties
+
+# sensor and camera properties
+sensor_IMX219 = {
+    'name': 'Sony IMX219 CMOS color 8 Megapixel',
+    'size_h_w':(2.76, 3.674),
+    'pixels_h_w':(2464, 3296),
+    'pixel_size':(0.00112,0.00112),
+    'sensor_mode':{
+        1:{
+            'resolution':'1920x1080',
+            'res_h':1080,
+            'res_w':1920,
+            'aspect_ratio':'16:9',
+            'frame_rates':'1 < fps <= 30',
+            'max_frame_rate':30,
+            'binning':1
+        },
+        2:{
+            'resolution':'3280x2464',
+            'res_h':2464,
+            'res_w':3280,
+            'aspect_ratio':'4:3',
+            'frame_rates':'1 < fps <= 15',
+            'max_frame_rate':15,
+            'binning':1
+        },
+        3:{
+            'resolution':'3280x2464',
+            'res_h':2464,
+            'res_w':3280,
+            'aspect_ratio':'4:3',
+            'frame_rates':'1 <= fps <= 15',
+            'max_frame_rate':15,
+            'binning':1
+        },
+        4:{
+            'resolution':'1640x1232',
+            'res_h':1232,
+            'res_w':1640,
+            'aspect_ratio':'4:3',
+            'frame_rates':'1 < fps <= 40',
+            'max_frame_rate':40,
+            'binning':2
+        },
+        5:{
+            'resolution':'1640x922',
+            'res_h':922,
+            'res_w':1640,
+            'aspect_ratio':'16:9',
+            'frame_rates':'1 < fps <= 40',
+            'max_frame_rate':40,
+            'binning':2
+        },
+        6:{
+            'resolution':'1280x720',
+            'res_h':720,
+            'res_w':1280,
+            'aspect_ratio':'16:9',
+            'frame_rates':'40 < fps <= 90',
+            'max_frame_rate':90,
+            'binning':2
+        },
+        7:{
+            'resolution':'640x480',
+            'res_h':480,
+            'res_w':640,
+            'aspect_ratio':'4:3',
+            'frame_rates':'40 < fps <= 90',
+            'max_frame_rate':90,
+            'binning':2
+        }
+    }
+}
+
+# image area: 3673.6 μm x 2738.4 μm
+sensor_OV5647 = {
+    'name': 'Omnivision OV5647 CMOS color 5 Megapixel',
+    'size_h_w':(2.738, 3.674),
+    'pixels_h_w':(1944, 2592),
+    'pixel_size':(0.0014,0.0014),
+    'sensor_mode':{
+        1:{
+            'resolution':'1920x1080',
+            'res_h':1080,
+            'res_w':1920,
+            'aspect_ratio':'16:9',
+            'frame_rates':'1 < fps <= 30',
+            'max_frame_rate':30,
+            'binning':1
+        },
+        2:{
+            'resolution':'2592x1944',
+            'res_h':1944,
+            'res_w':2592,
+            'aspect_ratio':'4:3',
+            'frame_rates':'1 < fps <= 15',
+            'max_frame_rate':15,
+            'binning':1
+        },
+        3:{
+            'resolution':'2592x1944',
+            'res_h':1944,
+            'res_w':2592,
+            'aspect_ratio':'4:3',
+            'frame_rates':'1/6 <= fps <= 1',
+            'max_frame_rate':1,
+            'binning':1
+        },
+        4:{
+            'resolution':'1296x972',
+            'res_h':972,
+            'res_w':1296,
+            'aspect_ratio':'4:3',
+            'frame_rates':'1 < fps <= 42',
+            'max_frame_rate':42,
+            'binning':2
+        },
+        5:{
+            'resolution':'1296x730',
+            'res_h':730,
+            'res_w':1296,
+            'aspect_ratio':'16:9',
+            'frame_rates':'1 < fps <= 49',
+            'max_frame_rate':49,
+            'binning':2
+        },
+        6:{
+            'resolution':'640x480',
+            'res_h':480,
+            'res_w':640,
+            'aspect_ratio':'16:9',
+            'frame_rates':'1 < fps <= 49',
+            'max_frame_rate':49,
+            'binning':2
+        },
+        7:{
+            'resolution':'1296x730',
+            'res_h':730,
+            'res_w':1296,
+            'aspect_ratio':'16:9',
+            'frame_rates':'1 < fps <= 49',
+            'max_frame_rate':49,
+            'binning':2
+        }
+    
+    }
+}
+
+
+def configure_camera(sensor, lens_f=None, image_mode=None, frame_rate=None):
+    cam = {}
+    cam['sensor'] = sensor
+    cam['lens_f'] = lens_f
+    cam['image_mode'] = image_mode
+    cam['frame_rate'] =  frame_rate
+
+    return cam
+
+
+
+def get_pixel_shift(roll, pitch, camera):
+    dpw = -1 * (camera['sensor']['pixels_h_w'][1]     # sensor px
+           * camera['lens_f']                    # focal length
+           / camera['sensor']['sensor_mode'][camera['image_mode']]['binning'] # binning factor
+           / camera['sensor']['size_h_w'][1]
+           * tan(roll))
+
+    dph =  (camera['sensor']['pixels_h_w'][0]     #sensor px
+                * camera['lens_f']                    # focal length
+                / camera['sensor']['sensor_mode'][camera['image_mode']]['binning'] # binning factor
+                / camera['sensor']['size_h_w'][0]
+                * tan(pitch))
+
+    return dph, dpw
+
+
+
+# A function to translate an image by dx, xy pixels very quickly
 def image_tranlate(img, dx, dy):
 
     import cv2

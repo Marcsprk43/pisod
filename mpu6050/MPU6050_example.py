@@ -58,6 +58,8 @@ FIFO_buffer = [0]*64
 
 FIFO_count_list = list()
 
+gyro_offset = [0]*3
+
 print('Gyro offsets: [181, 32, 6] 2022-07-13 :')
 gyro_offset[0] = mpu.get_x_gyro_offset()
 gyro_offset[1] = mpu.get_y_gyro_offset()

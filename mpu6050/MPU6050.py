@@ -507,6 +507,9 @@ class MPU6050:
                 self.set_x_gyro_offset_TC(x_g_offset_TC)
                 self.set_y_gyro_offset_TC(y_g_offset_TC)
                 self.set_z_gyro_offset_TC(z_g_offset_TC)
+                self.set_x_gyro_offset(x_g_offset)
+                self.set_y_gyro_offset(y_g_offset)
+                self.set_z_gyro_offset(z_g_offset)
 
                 # Uncomment this to zero offsets when dmp_initialize is called
                 # if self.__debug:

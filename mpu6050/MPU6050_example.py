@@ -43,6 +43,14 @@ mpu = MPU6050(i2c_bus, device_address, x_accel_offset, y_accel_offset,
               z_accel_offset, x_gyro_offset, y_gyro_offset, z_gyro_offset,
               enable_debug_output)
 
+gyro_offset = [0]*3
+
+print('Gyro offsets before dmp: [181, 32, 6] 2022-07-13 :')
+gyro_offset[0] = mpu.get_x_gyro_offset()
+gyro_offset[1] = mpu.get_y_gyro_offset()
+gyro_offset[2] = mpu.get_z_gyro_offset()
+print(gyro_offset)
+
 mpu.dmp_initialize()
 mpu.set_DMP_enabled(True)
 mpu_int_status = mpu.get_int_status()
@@ -75,7 +83,7 @@ while count < 10000:
         mpu.reset_FIFO()
         print('overflow!')
     # Check if fifo data is ready
-    elif (mpu_int_status & 0x02):
+    else:
         # Wait until packet_size number of bytes are ready for reading, default
         # is 42 bytes
         while FIFO_count < packet_size:

@@ -478,8 +478,8 @@ class MPU6050:
                 self.set_int_enable(0x12)
 
                 if self.__debug:
-                    print('Setting sample rate to 10Hz')
-                self.set_rate(19)       # this should be 25hz   
+                    print('Setting sample rate to 100Hz')
+                self.set_rate(2)       # this should be 25hz   
 
                 if self.__debug:
                     print('Setting external frame sync to TEMP_OUT_L[0]')

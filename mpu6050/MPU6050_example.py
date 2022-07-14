@@ -80,7 +80,7 @@ print(gyro_offset)
 
 while count < 10000:
     FIFO_count = mpu.get_FIFO_count()
-    mpu_int_status = mpu.get_int_status()
+    #mpu_int_status = mpu.get_int_status()
 
     # If overflow is detected by status or fifo count we want to reset
     if (FIFO_count == 1024) or (mpu_int_status & 0x10):
@@ -93,12 +93,12 @@ while count < 10000:
         while FIFO_count < packet_size:
             FIFO_count = mpu.get_FIFO_count()
         FIFO_buffer = mpu.get_FIFO_bytes(packet_size)
-        #mpu.reset_FIFO()
-        accel = mpu.DMP_get_acceleration_int16(FIFO_buffer)
+        mpu.reset_FIFO()
+        #accel = mpu.DMP_get_acceleration_int16(FIFO_buffer)
         quat = mpu.DMP_get_quaternion_int16(FIFO_buffer)
         grav = mpu.DMP_get_gravity(quat)
         roll_pitch_yaw = mpu.DMP_get_euler_roll_pitch_yaw(quat, grav)
-        if count % 2 == 0:
+        if count % 10 == 0:
             print('roll: {}    pitch: {}   yaw:{}'.format(  str(round(roll_pitch_yaw.x,2)),
                                                             str(round(roll_pitch_yaw.y,2)),
                                                             str(round(roll_pitch_yaw.z,2))))

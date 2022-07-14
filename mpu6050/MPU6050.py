@@ -420,13 +420,22 @@ class MPU6050:
         # get X/Y/Z gyro offsets
         if self.__debug:
             print('Reading gyro offet TC values')
+
         x_g_offset_TC = self.get_x_gyro_offset_TC()
         y_g_offset_TC = self.get_y_gyro_offset_TC()
         z_g_offset_TC = self.get_z_gyro_offset_TC()
+        x_g_offset = self.get_x_gyro_offset()
+        y_g_offset = self.get_y_gyro_offset()
+        z_g_offset = self.get_z_gyro_offset()
+
+       if self.__debug:
+            print("X gyro offset TC = ", repr(x_g_offset_TC))
+            print("Y gyro offset TC = ", repr(y_g_offset_TC))
+            print("Z gyro offset TC = ", repr(z_g_offset_TC))
         if self.__debug:
-            print("X gyro offset = ", repr(x_g_offset_TC))
-            print("Y gyro offset = ", repr(y_g_offset_TC))
-            print("Z gyro offset = ", repr(z_g_offset_TC))
+            print("X gyro offset = ", repr(x_g_offset))
+            print("Y gyro offset = ", repr(y_g_offset))
+            print("Z gyro offset = ", repr(z_g_offset))
 
         # setup weird slave stuff (?)
         if self.__debug:

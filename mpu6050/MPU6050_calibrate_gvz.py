@@ -76,9 +76,9 @@ mpu.set_y_gyro_offset(int(31/4))
 mpu.set_z_gyro_offset(int(6/4))
 
 #Gyro offsets: [181, 31, 6]
-#mpu.set_x_gyro_offset(0)
-#mpu.set_y_gyro_offset(0)
-#mpu.set_z_gyro_offset(0)
+mpu.set_x_gyro_offset(0)
+mpu.set_y_gyro_offset(0)
+mpu.set_z_gyro_offset(0)
 
 
 print('After offset changes:')

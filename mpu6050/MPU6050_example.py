@@ -31,10 +31,12 @@ device_address = 0x68
 x_accel_offset = -5489
 y_accel_offset = -1441
 z_accel_offset = 1305
-#Gyro offsets: [184, 28, 5]
-x_gyro_offset = 184
-y_gyro_offset = 28
-z_gyro_offset = 5
+
+# Gyro offsets: [181, 32, 6] 2022-07-13
+x_gyro_offset = 181
+y_gyro_offset = 32
+z_gyro_offset = 6
+
 enable_debug_output = True
 
 mpu = MPU6050(i2c_bus, device_address, x_accel_offset, y_accel_offset,
@@ -55,6 +57,13 @@ count = 0
 FIFO_buffer = [0]*64
 
 FIFO_count_list = list()
+
+print('Gyro offsets: [181, 32, 6] 2022-07-13 :')
+gyro_offset[0] = mpu.get_x_gyro_offset()
+gyro_offset[1] = mpu.get_y_gyro_offset()
+gyro_offset[2] = mpu.get_z_gyro_offset()
+print(gyro_offset)
+
 while count < 10000:
     FIFO_count = mpu.get_FIFO_count()
     mpu_int_status = mpu.get_int_status()

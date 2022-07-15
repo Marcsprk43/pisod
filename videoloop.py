@@ -80,7 +80,7 @@ fps.start()
 roll, pitch = get_roll_pitch()
 
 
-mode =  ST_RAW_VIDEO
+mode =  ST_STABILIZE_VIDEO
 osd_overlay = 'Screen1'
 
 ##############################################

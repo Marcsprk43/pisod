@@ -26,17 +26,17 @@ mpu = MPU6050(i2c_bus, device_address, x_accel_offset, y_accel_offset,
               sample_rate_divider=1, dlpf=0x04,
               a_debug=enable_debug_output)
 
-roll = 0
-pitch = 0
+filtered_roll = 0
+filtered_pitch = 0
 filter = 0.6
 one_minus_filter = 1-filter
 
 # function to get roll and pitch (in radians)
 def get_roll_pitch():
     accel = mpu.get_acceleration()    
-    pitch = filter*pitch + one_minus_filter*asin(accel[0]/sqrt(accel[0]*accel[0] + accel[1]*accel[1]+ accel[2]*accel[2] ))
-    roll = filter*roll + one_minus_filter*atan(accel[1]/accel[2])
-    return roll, pitch
+    filtered_pitch = filter*filtered_pitch + one_minus_filter*asin(accel[0]/sqrt(accel[0]*accel[0] + accel[1]*accel[1]+ accel[2]*accel[2] ))
+    filtered_roll = filter*filtered_roll + one_minus_filter*atan(accel[1]/accel[2])
+    return filtered_roll, filtered_pitch
 
 
 ####################################################################

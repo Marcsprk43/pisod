@@ -53,7 +53,7 @@ fps = vu.FPS()
 
 sensor = vu.sensor_IMX219 # select the PiCamera V2.1 sensor
 
-camera = vu.configure_camera(sensor, lens_f=2.1, image_mode=6, frame_rate=15)
+camera = vu.configure_camera(sensor, lens_f=2.1, image_mode=5, frame_rate=15)
 
 cam = PiCamera()
 cam.resolution = (camera['sensor']['sensor_mode'][camera['image_mode']]['res_w'],

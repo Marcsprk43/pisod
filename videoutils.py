@@ -222,7 +222,7 @@ class FPS:
         return self._numFrames / self.elapsed()
 
 
-font = cv2.FONT_HERSHEY_PLAIN
+font = cv2.FONT_HERSHEY_SIMPLEX
 
 def apply_osd(frame, osd):
     # possibly move this to functions:

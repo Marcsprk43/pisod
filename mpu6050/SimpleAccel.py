@@ -1,5 +1,5 @@
 from MPU6050_no_fifo import MPU6050
-from math import sqrt, asin, atan 
+from math import sqrt, asin, atan, degrees
 
 i2c_bus = 1
 device_address = 0x68
@@ -74,6 +74,6 @@ while count < 10000:
 
     pitch = asin(accel[0]/sqrt(accel[0]*accel[0] + accel[1]*accel[1]+ accel[2]*accel[2] ))
     roll = atan(accel[1]/accel[2])
-    print(FIFO_count, accel, dmp_accel.x, dmp_accel.y, dmp_accel.z, roll, pitch)
+    print('{:03d} - {} :: {:7d} {:7d} {:7d} :: {:7.2f}  {:7.2f}'.format( FIFO_count, accel, dmp_accel.x, dmp_accel.y, dmp_accel.z, round(roll,2), round(pitch,2) ))
 
     count += 1

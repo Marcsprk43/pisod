@@ -28,7 +28,7 @@ mpu = MPU6050(i2c_bus, device_address, x_accel_offset, y_accel_offset,
 
 filtered_roll = 0
 filtered_pitch = 0
-filter = 0.6
+filter = 0.4
 one_minus_filter = 1-filter
 
 # function to get roll and pitch (in radians)

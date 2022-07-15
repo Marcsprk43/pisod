@@ -33,6 +33,7 @@ one_minus_filter = 1-filter
 
 # function to get roll and pitch (in radians)
 def get_roll_pitch():
+    global filtered_roll, filtered_pitch
     accel = mpu.get_acceleration()    
     filtered_pitch = filter*filtered_pitch + one_minus_filter*asin(accel[0]/sqrt(accel[0]*accel[0] + accel[1]*accel[1]+ accel[2]*accel[2] ))
     filtered_roll = filter*filtered_roll + one_minus_filter*atan(accel[1]/accel[2])

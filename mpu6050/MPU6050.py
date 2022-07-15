@@ -70,6 +70,9 @@ class MPU6050:
                  gyro_FS=C.MPU6050_GYRO_FS_1000,
                  dlpf=C.MPU6050_DLPF_BW_256,
                  a_debug=False):
+        self.srd = sample_rate_divider
+        self.gyro_FS = gyro_FS
+        self.dlpf = dlpf
         self.__dev_id = a_address
         # Connect to num 1 SMBus
         self.__bus = smbus.SMBus(a_bus)
@@ -482,20 +485,20 @@ class MPU6050:
                 self.set_int_enable(0x12)
 
                 if self.__debug:
-                    print('Setting sample rate to :', sample_rate_divider)
-                self.set_rate(sample_rate_divider)       # this should be 25hz   
+                    print('Setting sample rate to :', self.sample_rate_divider)
+                self.set_rate(self.sample_rate_divider)       # this should be 25hz   
 
                 if self.__debug:
                     print('Setting external frame sync to TEMP_OUT_L[0]')
                 self.set_external_frame_sync(C.MPU6050_EXT_SYNC_TEMP_OUT_L)
 
                 if self.__debug:
-                    print('Setting DLPF bandwidth to 42Hz')
-                self.set_DLF_mode(dlpf)
+                    print('Setting DLPF bandwidth to ',self.dlpf)
+                self.set_DLF_mode(self.dlpf)
 
                 if self.__debug:
-                    print('Setting gyro sensitivity to +/- 250 deg/sec')
-                self.set_full_scale_gyro_range(gyro_FS)
+                    print('Setting gyro sensitivity to ',self.gyro_FS)
+                self.set_full_scale_gyro_range(self.gyro_FS)
 
                 if self.__debug:
                     print('Setting DMP configuration bytes (function unknown)')

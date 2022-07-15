@@ -29,9 +29,9 @@ gyro_offset[1] = mpu.get_y_gyro_offset()
 gyro_offset[2] = mpu.get_z_gyro_offset()
 print(gyro_offset)
 
-mpu.dmp_initialize()
-mpu.set_DMP_enabled(True)
-mpu_int_status = mpu.get_int_status()
+#mpu.dmp_initialize()
+#mpu.set_DMP_enabled(True)
+#mpu_int_status = mpu.get_int_status()
 print(hex(mpu_int_status))
 
 packet_size = mpu.DMP_get_FIFO_packet_size()
@@ -59,10 +59,10 @@ print(gyro_offset)
 while count < 10000:
     
     #mpu_int_status = mpu.get_int_status()
-    mpu.reset_FIFO()
+    #mpu.reset_FIFO()
 
     accel = mpu.get_acceleration()
-    
+    """
     FIFO_count = mpu.get_FIFO_count()
     while (FIFO_count < packet_size):
         FIFO_count = mpu.get_FIFO_count()
@@ -71,10 +71,12 @@ while count < 10000:
 
     dmp_accel = mpu.DMP_get_acceleration_int16(FIFO_buffer)
     FIFO_count = mpu.get_FIFO_count()
-
+    """
     pitch = asin(accel[0]/sqrt(accel[0]*accel[0] + accel[1]*accel[1]+ accel[2]*accel[2] ))
     roll = atan(accel[1]/accel[2])
-    print('{:03d} - {} :: {:7d} {:7d} {:7d} :: {:7.2f}  {:7.2f}'.format( FIFO_count, accel, dmp_accel.x, dmp_accel.y, dmp_accel.z, 
+    #print('{:03d} - {} :: {:7d} {:7d} {:7d} :: {:7.2f}  {:7.2f}'.format( FIFO_count, accel, dmp_accel.x, dmp_accel.y, dmp_accel.z, 
+    #                                                                    round(degrees(roll),2), round(degrees(pitch),2) ))
+    print('{:03d} - {}  :: {:7.2f}  {:7.2f}'.format( FIFO_count, accel,  
                                                                         round(degrees(roll),2), round(degrees(pitch),2) ))
 
     count += 1

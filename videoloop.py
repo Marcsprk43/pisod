@@ -7,7 +7,7 @@ import videoutils as vu
 ####################################################################
 # Set up the accelerometer for roll/pitch calcs
 ####################################################################
-from MPU6050 import MPU6050
+from mpu6050.MPU6050 import MPU6050
 from math import sqrt, asin, atan, degrees
 
 i2c_bus = 1

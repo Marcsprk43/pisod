@@ -108,7 +108,7 @@ while(1):
 
     if mode == ST_RAW_VIDEO:
       # set the final frame to frame
-      f_frame = vu.apply_osd(frame, osd_overlay)
+      vu.apply_osd(frame, osd_overlay)
 
     elif mode == ST_STABILIZE_VIDEO:
       # calc the pixel shift
@@ -116,7 +116,7 @@ while(1):
 
       f_frame = vu.image_tranlate(frame, dph, dpw)
 
-      f_rame = vu.apply_osd(f_frame, osd_overlay)
+      vu.apply_osd(f_frame, osd_overlay)
 
     elif mode == ST_FIND_TARGET:
       # calc the pixel shift
@@ -127,7 +127,7 @@ while(1):
       ### do other stuff here
 
     else:
-      f_frame = frame
+      f_frame = frame.copy()
 
     
     # Display the resulting frame

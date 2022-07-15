@@ -17,7 +17,7 @@ enable_debug_output = True
 
 mpu = MPU6050(i2c_bus, device_address, x_accel_offset, y_accel_offset,
               z_accel_offset, x_gyro_offset, y_gyro_offset, z_gyro_offset,
-              sample_rate_divider=1,
+              sample_rate_divider=1, dlpf=0x04,
               a_debug=enable_debug_output)
 
 gyro_offset = [0]*3

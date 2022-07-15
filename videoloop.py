@@ -60,7 +60,7 @@ cap = cv2.VideoCapture(0)
 
 cap.set(cv2.CAP_PROP_FRAME_WIDTH, 800)  # Set horizontal resolution
 cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 600)  # Set vertical resolution
-cap.set(cv2.CAP_PROP_FPS, 30)
+cap.set(cv2.CAP_PROP_FPS, 10)
 
 # Check if camera opened successfully
 if (cap.isOpened()== False): 

@@ -68,7 +68,7 @@ if (cap.isOpened()== False):
   print("Error opening video stream or file")
 
 fps.start()
-
+roll, pitch = get_roll_pitch()
 
 while(1):
 
@@ -76,7 +76,9 @@ while(1):
   ret, frame = cap.read()
   if ret == True:
     # get the instantaneous roll/pitch
-    roll, pitch = get_roll_pitch()
+    curr_roll, curr_pitch = get_roll_pitch()
+    roll = 0.8*roll + 0.2*curr_roll
+    pitch = 0.8*pitch + 0.2*curr_pitch
 
     # calc the pixel shift
     dph, dpw = vu.get_pixel_shift(roll, pitch, camera)

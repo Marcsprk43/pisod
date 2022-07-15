@@ -32,7 +32,7 @@ print(gyro_offset)
 #mpu.dmp_initialize()
 #mpu.set_DMP_enabled(True)
 #mpu_int_status = mpu.get_int_status()
-print(hex(mpu_int_status))
+#print(hex(mpu_int_status))
 
 packet_size = mpu.DMP_get_FIFO_packet_size()
 print(packet_size)

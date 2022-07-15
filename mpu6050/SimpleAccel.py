@@ -1,4 +1,5 @@
 from MPU6050_no_fifo import MPU6050
+from math import sqrt, asin, atan 
 
 i2c_bus = 1
 device_address = 0x68
@@ -70,6 +71,9 @@ while count < 10000:
 
     dmp_accel = mpu.DMP_get_acceleration_int16(FIFO_buffer)
     FIFO_count = mpu.get_FIFO_count()
-    print(FIFO_count, accel, dmp_accel.x, dmp_accel.y, dmp_accel.z)
+
+    pitch = asin(accel[0]/sqrt(accel[0]*accel[0] + accel[1]*accel[1]+ accel[2]*accel[2] ))
+    roll = atan(accel[1]/accel[2])
+    print(FIFO_count, accel, dmp_accel.x, dmp_accel.y, dmp_accel.z, roll, pitch)
 
     count += 1

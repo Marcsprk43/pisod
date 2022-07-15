@@ -3,8 +3,7 @@
 import cv2
 import numpy as np
 import videoutils as vu
-from picamera.array import PiRGBArray
-from picamera import PiCamera
+
 
 ####################################################################
 # Set up the accelerometer for roll/pitch calcs

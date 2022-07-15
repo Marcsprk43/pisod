@@ -586,8 +586,8 @@ class MPU6050:
                 self.reset_FIFO()
 
                 if self.__debug:
-                    print('Disabling FIFO')
-                self.set_FIFO_enabled(False)
+                    print('Enabling FIFO')
+                self.set_FIFO_enabled(True)
 
                 if self.__debug:
                     print('Enabling DMP')

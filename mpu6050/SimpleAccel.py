@@ -69,7 +69,7 @@ while count < 10000:
     FIFO_buffer = mpu.get_FIFO_bytes(packet_size)
 
     dmp_accel = mpu.DMP_get_acceleration_int16(FIFO_buffer)
-    
-    print(accel, dmp_accel.x, dmp_accel.y, dmp_accel.z)
+    FIFO_count = mpu.get_FIFO_count()
+    print(FIFO_count, accel, dmp_accel.x, dmp_accel.y, dmp_accel.z)
 
     count += 1

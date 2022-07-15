@@ -155,8 +155,8 @@ while True:
 	    gyroYAngle = gyroYAngle * dt
 
 		#compAngle = constant * (old_compAngle + angle_obtained_from_gyro) + constant * angle_obtained from accelerometer
-	    compAngleX = 0.93 * (compAngleX + gyroXRate * dt) + 0.07 * roll
-	    compAngleY = 0.93 * (compAngleY + gyroYRate * dt) + 0.07 * pitch
+	    compAngleX = 0.85 * (compAngleX + gyroXRate * dt) + 0.15 * roll
+	    compAngleY = 0.85 * (compAngleY + gyroYRate * dt) + 0.15 * pitch
 
 	    if ((gyroXAngle < -180) or (gyroXAngle > 180)):
 	        gyroXAngle = kalAngleX

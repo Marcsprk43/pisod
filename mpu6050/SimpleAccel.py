@@ -74,6 +74,7 @@ while count < 10000:
 
     pitch = asin(accel[0]/sqrt(accel[0]*accel[0] + accel[1]*accel[1]+ accel[2]*accel[2] ))
     roll = atan(accel[1]/accel[2])
-    print('{:03d} - {} :: {:7d} {:7d} {:7d} :: {:7.2f}  {:7.2f}'.format( FIFO_count, accel, dmp_accel.x, dmp_accel.y, dmp_accel.z, round(roll,2), round(pitch,2) ))
+    print('{:03d} - {} :: {:7d} {:7d} {:7d} :: {:7.2f}  {:7.2f}'.format( FIFO_count, accel, dmp_accel.x, dmp_accel.y, dmp_accel.z, 
+                                                                        round(degrees(roll),2), round(degrees(pitch),2) ))
 
     count += 1

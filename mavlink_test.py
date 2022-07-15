@@ -1,7 +1,7 @@
 from pymavlink import mavutil
 
 # Start a connection listening on a UDP port
-mv_con = mavutil.mavlink_connection('/dev/ttyAMA0')
+mv_con = mavutil.mavlink_connection('/dev/ttyAMA0',57600)
 
 print('Connecting to /dev/ttyAMA0')
 

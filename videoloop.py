@@ -50,9 +50,8 @@ def get_roll_pitch():
 ####################################################################
 # this is simple class to calculate frames per second
 ####################################################################
+
 fps = vu.FPS()
-
-
 
 ####################################################################
 # Setup the camera
@@ -60,7 +59,7 @@ fps = vu.FPS()
 
 sensor = vu.sensor_IMX219 # select the PiCamera V2.1 sensor
 
-camera = vu.configure_camera(sensor, lens_f=2.1, image_mode=5, frame_rate=15)
+camera = vu.configure_camera(sensor, lens_f=2.1, image_mode=5, frame_rate=50)
 
 # Create a VideoCapture object and read from input file
 # If the input is the camera, pass 0 instead of the video file name
@@ -116,6 +115,7 @@ while(1):
 
       frame = vu.image_tranlate(frame, dph, dpw)
 
+      # always do this last
       vu.apply_osd(frame, osd_overlay)
 
     elif mode == ST_FIND_TARGET:

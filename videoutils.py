@@ -168,7 +168,7 @@ def get_pixel_shift(roll, pitch, camera):
            / camera['sensor']['size_h_w'][1]
            * tan(roll))
 
-    dph =  (camera['sensor']['pixels_h_w'][0]     #sensor px
+    dph = -1*(camera['sensor']['pixels_h_w'][0]     #sensor px
                 * camera['lens_f']                    # focal length
                 / camera['sensor']['sensor_mode'][camera['image_mode']]['binning'] # binning factor
                 / camera['sensor']['size_h_w'][0]

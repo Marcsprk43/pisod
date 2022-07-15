@@ -228,15 +228,15 @@ def draw_altitude(frame):
     cv2.putText(frame, 'A:{:2.1f}'.format(mv.data['Altitude']), (650, 25), font, 1, (0, 0, 255), 2, cv2.LINE_AA)
 
 def draw_lat_lon(frame):
-    cv2.putText(frame, 'Lat:{:.6f}'.format(mv.data['Lat']), (5, 25), font, 1, (255, 255, 255), 2, cv2.LINE_AA)
-    cv2.putText(frame, 'Lon:{:.6f}'.format(mv.data['Lat']), (300, 25), font, 1, (255,255, 255), 2, cv2.LINE_AA)
+    cv2.putText(frame, 'Lat:{:.6f}'.format(mv.data['Lat']), (5, 25), font, 1, (255,0, 0), 2, cv2.LINE_AA)
+    cv2.putText(frame, 'Lon:{:.6f}'.format(mv.data['Lat']), (300, 25), font, 1, (255,0, 0), 2, cv2.LINE_AA)
 
 def draw_battery(frame):
     cv2.putText(frame, 'Batt:{:3.1f}  {:3d}%'.format(mv.data['BattV'], int(mv.data['BattPercent'])), (5, 590), font, 1, (255,255, 255), 2, cv2.LINE_AA)
 
 def draw_cross_hairs(frame):
-    cv2.line(frame, (400,250), (400,350), (255, 255, 255), 1) 
-    cv2.line(frame, (350,300), (450,300), (255, 255, 255), 1) 
+    cv2.line(frame, (400,250), (400,350), (0, 0, 255), 3) 
+    cv2.line(frame, (350,300), (450,300), (0, 0, 255), 3) 
 
 def apply_osd(frame, osd):
     # possibly move this to functions:

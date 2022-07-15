@@ -112,7 +112,7 @@ while(1):
 
     elif mode == ST_STABILIZE_VIDEO:
       # calc the pixel shift
-      dph, dpw = vu.get_pixel_shift(roll, pitch, camera, factor=.8)
+      dph, dpw = vu.get_pixel_shift(roll, pitch, camera, factor=.75)
 
       frame = vu.image_tranlate(frame, dph, dpw)
 

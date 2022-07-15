@@ -59,8 +59,8 @@ camera = vu.configure_camera(sensor, lens_f=2.1, image_mode=1, frame_rate=1)
 # If the input is the camera, pass 0 instead of the video file name
 cap = cv2.VideoCapture(0)
 
-cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1250)  # Set horizontal resolution
-cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)  # Set vertical resolution
+cap.set(cv2.CAP_PROP_FRAME_WIDTH, 800)  # Set horizontal resolution
+cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 600)  # Set vertical resolution
 # cap.set(cv2.CAP_PROP_FPS, 15)
 
 # Check if camera opened successfully

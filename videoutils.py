@@ -162,14 +162,14 @@ def configure_camera(sensor, lens_f=None, image_mode=None, frame_rate=None):
 
 
 
-def get_pixel_shift(roll, pitch, camera):
-    dpw = -1 * (camera['sensor']['pixels_h_w'][1]     # sensor px
+def get_pixel_shift(roll, pitch, camera, factor=1.0):
+    dpw = -1 * factor * (camera['sensor']['pixels_h_w'][1]     # sensor px
            * camera['lens_f']                    # focal length
            / camera['sensor']['sensor_mode'][camera['image_mode']]['binning'] # binning factor
            / camera['sensor']['size_h_w'][1]
            * tan(roll))
 
-    dph = -1*(camera['sensor']['pixels_h_w'][0]     #sensor px
+    dph = -1 * factor * (camera['sensor']['pixels_h_w'][0]     #sensor px
                 * camera['lens_f']                    # focal length
                 / camera['sensor']['sensor_mode'][camera['image_mode']]['binning'] # binning factor
                 / camera['sensor']['size_h_w'][0]

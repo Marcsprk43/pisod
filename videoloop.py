@@ -4,6 +4,13 @@ import cv2
 import numpy as np
 import videoutils as vu
 
+####################################################################
+# Video system states
+####################################################################
+ST_RAW_VIDEO = 0
+ST_STABILIZE_VIDEO = 1
+ST_FIND_TARGET = 2
+
 
 ####################################################################
 # Set up the accelerometer for roll/pitch calcs
@@ -67,8 +74,20 @@ cap.set(cv2.CAP_PROP_FPS, 10)
 if (cap.isOpened()== False): 
   print("Error opening video stream or file")
 
+# initialize the FPS tracker
 fps.start()
+# initialize the roll pitch
 roll, pitch = get_roll_pitch()
+
+
+mode =  ST_RAW_VIDEO
+osd_overlay = 'Screen1'
+
+##############################################
+##############################################
+# Main loop
+##############################################
+##############################################
 
 while(1):
 
@@ -82,17 +101,34 @@ while(1):
     # get the instantaneous roll/pitch
     roll, pitch = get_roll_pitch()
 
-    # calc the pixel shift
-    dph, dpw = vu.get_pixel_shift(roll, pitch, camera)
 
     ##############################################
-    # State machine for vidoe modes 
+    # State machine for video modes 
     ##############################################
 
-    shift_frame = vu.image_tranlate(frame, dph, dpw)
+    if mode == ST_RAW_VIDEO:
+      # set the final frame to frame
+      f_rame = vu.apply_osd(frame, osd_overlay)
+
+    elif mode == ST_STABILIZE_VIDEO:
+      # calc the pixel shift
+      dph, dpw = vu.get_pixel_shift(roll, pitch, camera)
+
+      f_frame = vu.image_tranlate(frame, dph, dpw)
+
+      f_rame = vu.apply_osd(f_frame, osd_overlay)
+
+    elif mode == ST_FIND_TARGET:
+      # calc the pixel shift
+      dph, dpw = vu.get_pixel_shift(roll, pitch, camera)
+      # stabilize the frame
+      f_frame = vu.image_tranlate(frame, dph, dpw)
+
+      ### do other stuff here
+
     
     # Display the resulting frame
-    cv2.imshow('Frame',shift_frame)
+    cv2.imshow('Frame',f_frame)
 
     fps.update()
 
@@ -103,8 +139,10 @@ while(1):
   # Break the loop
   else: 
     break
-fps.stop()
 
+
+# print the fps   
+fps.stop()
 print('Frames per second: ',fps.fps())
 
 # When everything done, release the video capture object

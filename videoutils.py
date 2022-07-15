@@ -1,4 +1,5 @@
 from math import tan, degrees, radians
+import cv2
 
 # A function to calculate pixel shift based on roll/pitch and camera properties
 
@@ -219,3 +220,38 @@ class FPS:
     def fps(self):
         # compute the (approximate) frames per second
         return self._numFrames / self.elapsed()
+
+
+font = cv2.FONT_HERSHEY_SIMPLEX
+
+def apply_osd(frame, osd):
+    # possibly move this to functions:
+
+    if (osd):
+        if (osd == 'Screen1'):
+            # print altitude
+            cv2.putText(frame, 'A:{:2.1f}'.format(mv.data['Altitude']), (5, 580), font, 1, 'red', 2, cv2.LINE_AA)
+        elif (osd == 'Screen2'):
+            cv2.putText(frame, 'A:{:2.1f}'.format(mv.data['Altitude']), (5, 580), font, 1, 'red', 2, cv2.LINE_AA)
+
+
+
+    else:
+        return frame
+
+class Mavlink():
+    data = {
+        'Altitude':13,
+        'Lat':33.521117, 
+        'Lon':-84.581361, 
+        'BattV':14.5,
+        'BattPercent':45,
+        'FlightMode':'STAB',
+        'DisplayMode':'st'
+
+
+    }
+
+mv = Mavlink
+
+

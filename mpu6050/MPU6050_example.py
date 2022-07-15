@@ -41,8 +41,8 @@ enable_debug_output = True
 
 mpu = MPU6050(i2c_bus, device_address, x_accel_offset, y_accel_offset,
               z_accel_offset, x_gyro_offset, y_gyro_offset, z_gyro_offset,
-              sample_rate_divider=0,
-                a_debug=enable_debug_output)
+              sample_rate_divider=1,
+              a_debug=enable_debug_output)
 
 gyro_offset = [0]*3
 
@@ -99,7 +99,7 @@ while count < 10000:
         quat = mpu.DMP_get_quaternion_int16(FIFO_buffer)
         grav = mpu.DMP_get_gravity(quat)
         roll_pitch_yaw = mpu.DMP_get_euler_roll_pitch_yaw(quat, grav)
-        if count % 10 == 0:
+        if count % 1 == 0:
             print('roll: {}    pitch: {}   yaw:{}'.format(  str(round(roll_pitch_yaw.x,2)),
                                                             str(round(roll_pitch_yaw.y,2)),
                                                             str(round(roll_pitch_yaw.z,2))))

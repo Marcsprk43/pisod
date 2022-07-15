@@ -54,18 +54,13 @@ sensor = vu.sensor_IMX219 # select the PiCamera V2.1 sensor
 
 camera = vu.configure_camera(sensor, lens_f=2.1, image_mode=5, frame_rate=15)
 
-cam = PiCamera()
-cam.resolution = (camera['sensor']['sensor_mode'][camera['image_mode']]['res_w'],
-                    camera['sensor']['sensor_mode'][camera['image_mode']]['res_h'])
-cam.framerate = 15
-
 # Create a VideoCapture object and read from input file
 # If the input is the camera, pass 0 instead of the video file name
 cap = cv2.VideoCapture(0)
 
 cap.set(cv2.CAP_PROP_FRAME_WIDTH, 800)  # Set horizontal resolution
 cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 600)  # Set vertical resolution
-# cap.set(cv2.CAP_PROP_FPS, 15)
+cap.set(cv2.CAP_PROP_FPS, 15)
 
 # Check if camera opened successfully
 if (cap.isOpened()== False): 

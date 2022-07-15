@@ -179,7 +179,7 @@ def get_pixel_shift(roll, pitch, camera):
 
 
 # A function to translate an image by dx, xy pixels very quickly
-def image_tranlate(img, dx, dy):
+def image_tranlate(img, dy, dx):
 
     import cv2
     import numpy as np

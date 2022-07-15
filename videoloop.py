@@ -79,7 +79,7 @@ while(1):
     roll, pitch = get_roll_pitch()
 
     # calc the pixel shift
-    dph, dpw = get_pixel_shift(roll, pitch, camera)
+    dph, dpw = vu.get_pixel_shift(roll, pitch, camera)
 
 
     shift_frame = vu.image_tranlate(frame, dph, dpw)

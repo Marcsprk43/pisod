@@ -59,6 +59,7 @@ while count < 10000:
     FIFO_count = mpu.get_FIFO_count()
     #mpu_int_status = mpu.get_int_status()
 
-    print(FIFO_count)
+    accel = mpu.get_acceleration()
+    print(accel)
 
     count += 1

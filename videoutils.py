@@ -222,7 +222,7 @@ class FPS:
         return self._numFrames / self.elapsed()
 
 
-font = cv2.FONT_HERSHEY_SIMPLEX
+font = cv2.FONT_HERSHEY_PLAIN
 
 def apply_osd(frame, osd):
     # possibly move this to functions:
@@ -230,11 +230,12 @@ def apply_osd(frame, osd):
     if (osd):
         if (osd == 'Screen1'):
             # print altitude
-            cv2.putText(frame, 'A:{:2.1f}'.format(mv.data['Altitude']), (5, 590), font, 1, (0, 0, 255), 2, cv2.LINE_AA)
-            cv2.putText(frame, 'Lat:{:.6f}'.format(mv.data['Lat']), (5, 20), font, 1, (255, 255, 255), 2, cv2.LINE_AA)
-            cv2.putText(frame, 'Lon:{:.6f}'.format(mv.data['Lat']), (300, 20), font, 1, (255,255, 255), 2, cv2.LINE_AA)
+            cv2.putText(frame, 'A:{:2.1f}'.format(mv.data['Altitude']), (700, 25), font, 1, (0, 0, 255), 2, cv2.LINE_AA)
+            cv2.putText(frame, 'Lat:{:.6f}'.format(mv.data['Lat']), (5, 25), font, 1, (255, 255, 255), 2, cv2.LINE_AA)
+            cv2.putText(frame, 'Lon:{:.6f}'.format(mv.data['Lat']), (300, 25), font, 1, (255,255, 255), 2, cv2.LINE_AA)
+            cv2.putText(frame, 'Batt:{:3.1f}  {:3d}%'.format(mv.data['BattV'], int(mv.data['BattPercent'])), (5, 590), font, 1, (255,255, 255), 2, cv2.LINE_AA)
         elif (osd == 'Screen2'):
-            cv2.putText(frame, 'A:{:2.1f}'.format(mv.data['Altitude']), (5, 590), font, 1, (0, 0, 255), 2, cv2.LINE_AA)
+            cv2.putText(frame, 'A:{:2.1f}'.format(mv.data['Altitude']), (700, 25), font, 1, (0, 0, 255), 2, cv2.LINE_AA)
 
 
     else:

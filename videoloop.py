@@ -3,6 +3,8 @@
 import cv2
 import numpy as np
 import videoutils as vu
+from picamera.array import PiRGBArray
+from picamera import PiCamera
 
 ####################################################################
 # Set up the accelerometer for roll/pitch calcs
@@ -51,9 +53,12 @@ fps = vu.FPS()
 
 sensor = vu.sensor_IMX219 # select the PiCamera V2.1 sensor
 
-camera = vu.configure_camera(sensor, lens_f=2.1, image_mode=1, frame_rate=1)
+camera = vu.configure_camera(sensor, lens_f=2.1, image_mode=6, frame_rate=15)
 
-
+cam = PiCamera()
+cam.resolution = (camera['sensor']['sensor_mode'][camera['image_mode']]['res_w'],
+                    camera['sensor']['sensor_mode'][camera['image_mode']]['res_h'])
+cam.framerate = 15
 
 # Create a VideoCapture object and read from input file
 # If the input is the camera, pass 0 instead of the video file name

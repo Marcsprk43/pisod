@@ -174,7 +174,7 @@ def get_pixel_shift(roll, pitch, camera):
                 / camera['sensor']['size_h_w'][0]
                 * tan(pitch))
 
-    return dph, dpw
+    return seimage
 
 
 

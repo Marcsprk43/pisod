@@ -13,29 +13,29 @@ from math import sqrt, asin, atan, degrees
 
 i2c_bus = 1
 device_address = 0x68
-# The offsets are different for each device and should be changed
-# accordingly using a calibration procedure
 x_accel_offset = -0
 y_accel_offset = -0
 z_accel_offset = 0
-
-# Gyro offsets: [181, 32, 6] 2022-07-13
 x_gyro_offset = 181
 y_gyro_offset = 32
 z_gyro_offset = 6
-
-enable_debug_output = True
+enable_debug_output = False
 
 mpu = MPU6050(i2c_bus, device_address, x_accel_offset, y_accel_offset,
               z_accel_offset, x_gyro_offset, y_gyro_offset, z_gyro_offset,
               sample_rate_divider=1, dlpf=0x04,
               a_debug=enable_debug_output)
 
+roll = 0
+pitch = 0
+filter = 0.6
+one_minus_filter = 1-filter
+
 # function to get roll and pitch (in radians)
 def get_roll_pitch():
     accel = mpu.get_acceleration()    
-    pitch = asin(accel[0]/sqrt(accel[0]*accel[0] + accel[1]*accel[1]+ accel[2]*accel[2] ))
-    roll = atan(accel[1]/accel[2])
+    pitch = filter*pitch + one_minus_filter*asin(accel[0]/sqrt(accel[0]*accel[0] + accel[1]*accel[1]+ accel[2]*accel[2] ))
+    roll = filter*roll + one_minus_filter*atan(accel[1]/accel[2])
     return roll, pitch
 
 
@@ -74,14 +74,19 @@ while(1):
   # Capture frame-by-frame
   ret, frame = cap.read()
   if ret == True:
+
+    ##############################################
+    # instructions that must always run 
+    ##############################################
     # get the instantaneous roll/pitch
-    curr_roll, curr_pitch = get_roll_pitch()
-    roll = 0.8*roll + 0.2*curr_roll
-    pitch = 0.8*pitch + 0.2*curr_pitch
+    roll, pitch = get_roll_pitch()
 
     # calc the pixel shift
     dph, dpw = vu.get_pixel_shift(roll, pitch, camera)
 
+    ##############################################
+    # State machine for vidoe modes 
+    ##############################################
 
     shift_frame = vu.image_tranlate(frame, dph, dpw)
     

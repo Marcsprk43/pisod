@@ -230,10 +230,9 @@ def apply_osd(frame, osd):
     if (osd):
         if (osd == 'Screen1'):
             # print altitude
-            cv2.putText(frame, 'A:{:2.1f}'.format(mv.data['Altitude']), (5, 580), font, 1, 'red', 2, cv2.LINE_AA)
+            cv2.putText(frame, 'A:{:2.1f}'.format(mv.data['Altitude']), (5, 580), font, 1, (0, 255, 0), 2, cv2.LINE_AA)
         elif (osd == 'Screen2'):
-            cv2.putText(frame, 'A:{:2.1f}'.format(mv.data['Altitude']), (5, 580), font, 1, 'red', 2, cv2.LINE_AA)
-
+            cv2.putText(frame, 'A:{:2.1f}'.format(mv.data['Altitude']), (5, 580), font, 1, (0, 255, 0), 2, cv2.LINE_AA)
 
 
     else:

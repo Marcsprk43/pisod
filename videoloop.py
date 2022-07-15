@@ -114,15 +114,15 @@ while(1):
       # calc the pixel shift
       dph, dpw = vu.get_pixel_shift(roll, pitch, camera)
 
-      f_frame = vu.image_tranlate(frame, dph, dpw)
+      frame = vu.image_tranlate(frame, dph, dpw)
 
-      vu.apply_osd(f_frame, osd_overlay)
+      vu.apply_osd(frame, osd_overlay)
 
     elif mode == ST_FIND_TARGET:
       # calc the pixel shift
       dph, dpw = vu.get_pixel_shift(roll, pitch, camera)
       # stabilize the frame
-      f_frame = vu.image_tranlate(frame, dph, dpw)
+      frame = vu.image_tranlate(frame, dph, dpw)
 
       ### do other stuff here
 
@@ -131,7 +131,7 @@ while(1):
 
     
     # Display the resulting frame
-    cv2.imshow('Frame',f_frame)
+    cv2.imshow('Frame',frame)
 
     fps.update()
 

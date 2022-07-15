@@ -56,10 +56,20 @@ gyro_offset[2] = mpu.get_z_gyro_offset()
 print(gyro_offset)
 
 while count < 10000:
-    FIFO_count = mpu.get_FIFO_count()
+    
     #mpu_int_status = mpu.get_int_status()
+    mpu.reset_FIFO()
 
     accel = mpu.get_acceleration()
-    print(accel)
+    
+    FIFO_count = mpu.get_FIFO_count()
+    while (FIFO_count < packet_size):
+        FIFO_count = mpu.get_FIFO_count()
+    
+    FIFO_buffer = mpu.get_FIFO_bytes(packet_size)
+
+    dmp_accel = mpu.DMP_get_acceleration_int16(FIFO_buffer)
+    
+    print(accel, dmp_accel.x, dmp_accel.y, dmp_accel.z)
 
     count += 1

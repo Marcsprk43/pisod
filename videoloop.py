@@ -59,7 +59,7 @@ fps = vu.FPS()
 
 sensor = vu.sensor_IMX219 # select the PiCamera V2.1 sensor
 
-camera = vu.configure_camera(sensor, lens_f=2.1, image_mode=5, frame_rate=50)
+camera = vu.configure_camera(sensor, lens_f=2.1, image_mode=5, frame_rate=30)
 
 # Create a VideoCapture object and read from input file
 # If the input is the camera, pass 0 instead of the video file name

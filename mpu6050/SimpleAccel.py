@@ -21,7 +21,7 @@ mpu = MPU6050(i2c_bus, device_address, x_accel_offset, y_accel_offset,
               sample_rate_divider=1, dlpf=0x04,
               a_debug=enable_debug_output)
 
-
+count = 0
 
 while count < 10000:
     

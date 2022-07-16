@@ -10,7 +10,7 @@ the_connection.wait_heartbeat()
 print("Heartbeat from system (system %u component %u)" % (the_connection.target_system, the_connection.target_component))
 
 count = 0 
-while ( count < 10 ):
+while ( count < 30 ):
     try:
         print(the_connection.recv_match().to_dict())
     except:
@@ -25,6 +25,8 @@ while ( 1 ):
     try: 
         altitude = the_connection.messages['AHRS2'].pitch  # Note, you can access message fields as attributes!
         timestamp = the_connection.time_since('AHRS2')
+        print('Alt:  {} - Time since last read: {}'.format(altitude, timestamp))
     except Exception as e:
         print(e)
+
     time.sleep(0.2)

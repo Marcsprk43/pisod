@@ -45,6 +45,15 @@ while True:
         pass
     time.sleep(0.1)
 
+    try: 
+        altitude = mv_con.messages['GPS_RAW_INT'].alt  # Note, you can access message fields as attributes!
+        timestamp = mv_con.time_since('GPS_RAW_INT')
+        print('Alt: {} - {}'.format(altitude, timestamp))
+    except:
+        print('No GPS_RAW_INT message received')
+
+
+
 # Output:
 # {'mavpackettype': 'AHRS2', 'roll': -0.11364290863275528, 'pitch': -0.02841472253203392, 'yaw': 2.0993032455444336, 'altitude': 0.0, 'lat': 0, 'lng': 0}
 # {'mavpackettype': 'AHRS3', 'roll': 0.025831475853919983, 'pitch': 0.006112074479460716, 'yaw': 2.1514968872070312, 'altitude': 0.0, 'lat': 0, 'lng': 0, 'v1': 0.0, 'v2': 0.0, 'v3': 0.0, 'v4': 0.0}

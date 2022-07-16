@@ -1,32 +1,52 @@
 from pymavlink import mavutil
 import time
 
-def wait_conn(conn):
-    """
-    Sends a ping to stabilish the UDP communication and awaits for a response
-    """
-    msg = None
-    while not msg:
-        conn.mav.ping_send(
-            int(time.time() * 1e6), # Unix time in microseconds
-            0, # Ping number
-            0, # Request ping of all systems
-            0 # Request ping of all components
-        )
-        msg = conn.recv_match()
-        time.sleep(0.5)
+class SimpleMavlink:
+
+    def __init__(self, dev, baud, verbose=False):
+
+        self.device = dev
+        self.baud = baud
+        self.verbose = verbose
+
+        self.conn = mavutil.mavlink_connection(self.device, self.baud)
+
+        if (verbose):
+            print('Connecting to : {}'.format(self.device))
+            print('Waiting for heartbeat')
+        
+
+    def wait_heartbeat(self):
+        self.conn.wait_heartbeat()
+        if (self.verbose):
+            print("Heartbeat from system received")
+
+
+    def ping_conn(self):
+        """
+        Sends a ping to stabilish the UDP communication and awaits for a response
+        """
+        msg = None
+        while not msg:
+            self.conn.mav.ping_send(
+                int(time.time() * 1e6), # Unix time in microseconds
+                0, # Ping number
+                0, # Request ping of all systems
+                0 # Request ping of all components
+            )
+            msg = self.conn.recv_match()
+            time.sleep(0.5)
+        if (self.verbose):
+            print('Response from ping....')
+
 
 # Start a connection listening on a UDP port
-mv_con = mavutil.mavlink_connection('/dev/ttyAMA0',57600)
-
-print('Connecting to /dev/ttyAMA0')
-
-
+mv_con = SimpleMavlink('/dev/ttyAMA0',57600)
 
 # Wait for the first heartbeat 
 #   This sets the system and component ID of remote system for the link
 mv_con.wait_heartbeat()
-print("Heartbeat from system (system %u component %u)" % (mv_con.target_system, mv_con.target_component))
+print("Heartbeat from system (system %u component %u)" % (mv_con.conn.target_system, mv_con.conn.target_component))
 
 # Once connected, use 'the_connection' to get and send messages
 
@@ -35,7 +55,8 @@ print("Heartbeat from system (system %u component %u)" % (mv_con.target_system, 
 #  as described before, 'udpout' connects to 'udpin',
 #  and needs to send something to allow 'udpin' to start
 #  sending data.
-wait_conn(mv_con)
+
+mv_con.ping_conn()
 
 # Get some information !
 while True:

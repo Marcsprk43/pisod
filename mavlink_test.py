@@ -66,6 +66,7 @@ while True:
 
     count += 1
     try:
+        
         if (count%100 == 0):
             mv_con.conn.mav.heartbeat_send(mavutil.mavlink.MAV_TYPE_ONBOARD_CONTROLLER,
                                                 mavutil.mavlink.MAV_AUTOPILOT_INVALID, 0, 0, 0)

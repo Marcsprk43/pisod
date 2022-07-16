@@ -16,6 +16,7 @@ while ( count < 100 ):
     except:
         pass
     time.sleep(0.1)
+    count += 1
 
 
 

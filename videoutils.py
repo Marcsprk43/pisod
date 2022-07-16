@@ -260,7 +260,8 @@ def apply_osd(frame, osd):
     else:
         return frame
 
-class Mavlink():
+class Mavlink:
+
     data = {
         'Altitude':13,
         'Lat':33.521117, 
@@ -269,10 +270,7 @@ class Mavlink():
         'BattPercent':45,
         'FlightMode':'STAB',
         'DisplayMode':'st'
-
-
     }
 
-mv = Mavlink
 
 

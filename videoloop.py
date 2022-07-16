@@ -3,6 +3,8 @@
 import cv2
 import numpy as np
 import videoutils as vu
+from pymavlink import mavutil
+
 
 ####################################################################
 # Video system states
@@ -83,6 +85,20 @@ mode =  ST_STABILIZE_VIDEO
 osd_overlay = 'Screen1'
 
 ##############################################
+# Mavlink
+##############################################
+
+# Start a connection 
+the_connection = mavutil.mavlink_connection('/dev/ttyAMA0', 57600)
+
+# Wait for the first heartbeat 
+#   This sets the system and component ID of remote system for the link
+the_connection.wait_heartbeat()
+print("Heartbeat from system (system %u component %u)" % (the_connection.target_system, the_connection.target_component))
+
+mv = vu.Mavlink()
+
+##############################################
 ##############################################
 # Main loop
 ##############################################
@@ -100,6 +116,15 @@ while(1):
     # get the instantaneous roll/pitch
     roll, pitch = get_roll_pitch()
 
+    try: 
+        the_connection.recv_match(blocking=False)
+        vu.data['Lat'] = the_connection.messages['AHRS2'].lat  # Note, you can access message fields as attributes!
+        vu.data['Lon'] = the_connection.messages['AHRS2'].lng  # Note, you can access message fields as attributes!
+        vu.data['Altitude'] = the_connection.messages['AHRS2'].altitude  # Note, you can access message fields as attributes!
+        vu.data['BattV'] = the_connection.messages['SYS_STATUS'].voltage_battery  # Note, you can access message fields as attributes!
+        vu.data['BattPercent'] = the_connection.messages['SYS_STATUS'].battery_remaining
+    except Exception as e:
+        print(e)
 
     ##############################################
     # State machine for video modes 

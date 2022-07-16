@@ -10,9 +10,9 @@ the_connection.wait_heartbeat()
 print("Heartbeat from system (system %u component %u)" % (the_connection.target_system, the_connection.target_component))
 
 count = 0 
-while ( count < 30 ):
+while ( count < 100 ):
     try:
-       the_connection.recv_match(blocking=False)
+       print(the_connection.recv_match(blocking=False).to_dict())
     except:
         pass
     time.sleep(0.1)

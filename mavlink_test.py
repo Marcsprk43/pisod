@@ -16,7 +16,8 @@ while(1):
     try: 
         altitude = mv_con.messages['GPS_RAW_INT'].alt  # Note, you can access message fields as attributes!
         timestamp = mv_con.time_since('GPS_RAW_INT')
+        firmware_version = mv_con.messages['FIRMWARE_VERSION_TYPE']
 
-        print('Altitude: {} - {}'.format(altitude,timestamp))
+        print('Altitude: {} - {} firmware: {}'.format(altitude,timestamp,firmware_version))
     except:
         print('No GPS_RAW_INT message received')

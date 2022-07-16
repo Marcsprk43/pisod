@@ -41,7 +41,7 @@ class SimpleMavlink:
 
 
 # Start a connection listening on a UDP port
-mv_con = SimpleMavlink('/dev/ttyAMA0',57600)
+mv_con = SimpleMavlink('/dev/ttyAMA0', 57600, verbose=True)
 
 # Wait for the first heartbeat 
 #   This sets the system and component ID of remote system for the link

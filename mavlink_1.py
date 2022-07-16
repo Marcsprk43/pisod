@@ -23,7 +23,7 @@ while ( count < 100 ):
 while ( 1 ):
     # Once connected, use 'the_connection' to get and send messages
     try: 
-        altitude = the_connection.messages['GPS_RAW_INT'].alt  # Note, you can access message fields as attributes!
-        timestamp = the_connection.time_since('GPS_RAW_INT')
+        altitude = the_connection.messages['AHRS2'].pitch  # Note, you can access message fields as attributes!
+        timestamp = the_connection.time_since('AHRS2')
     except:
         print('.')

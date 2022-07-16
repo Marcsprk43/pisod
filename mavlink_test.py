@@ -46,7 +46,7 @@ while True:
     time.sleep(0.1)
 
     try: 
-        altitude = mv_con.messages['GPS_RAW_INT'].alt  # Note, you can access message fields as attributes!
+        altitude = mv_con.messages['RAW_IMU'].xacc  # Note, you can access message fields as attributes!
         timestamp = mv_con.time_since('GPS_RAW_INT')
         print('Alt: {} - {}'.format(altitude, timestamp))
     except:

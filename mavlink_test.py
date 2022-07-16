@@ -11,3 +11,10 @@ mv_con.wait_heartbeat()
 print("Heartbeat from system (system %u component %u)" % (mv_con.target_system, mv_con.target_component))
 
 # Once connected, use 'the_connection' to get and send messages
+try: 
+    altitude = mv_con.messages['GPS_RAW_INT'].alt  # Note, you can access message fields as attributes!
+    timestamp = mv_con.time_since('GPS_RAW_INT')
+
+    print('Altitude: {}'.format(altitude))
+except:
+    print('No GPS_RAW_INT message received')

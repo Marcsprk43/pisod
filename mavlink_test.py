@@ -1,18 +1,19 @@
 from pymavlink import mavutil
+import time
 
-def wait_conn():
+def wait_conn(conn):
     """
     Sends a ping to stabilish the UDP communication and awaits for a response
     """
     msg = None
     while not msg:
-        master.mav.ping_send(
+        conn.mav.ping_send(
             int(time.time() * 1e6), # Unix time in microseconds
             0, # Ping number
             0, # Request ping of all systems
             0 # Request ping of all components
         )
-        msg = master.recv_match()
+        msg = conn.recv_match()
         time.sleep(0.5)
 
 # Start a connection listening on a UDP port
@@ -34,12 +35,12 @@ print("Heartbeat from system (system %u component %u)" % (mv_con.target_system, 
 #  as described before, 'udpout' connects to 'udpin',
 #  and needs to send something to allow 'udpin' to start
 #  sending data.
-wait_conn()
+wait_conn(mv_con)
 
 # Get some information !
 while True:
     try:
-        print(master.recv_match().to_dict())
+        print(mv_con.recv_match().to_dict())
     except:
         pass
     time.sleep(0.1)

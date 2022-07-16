@@ -37,7 +37,7 @@ class SimpleMavlink:
             msg = self.conn.recv_match()
             time.sleep(0.5)
         if (self.verbose):
-            print('Response from ping....')
+            print('Response from ping....{}'.format(msg))
 
 
 # Start a connection listening on a UDP port

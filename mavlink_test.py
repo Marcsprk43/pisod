@@ -15,6 +15,6 @@ try:
     altitude = mv_con.messages['GPS_RAW_INT'].alt  # Note, you can access message fields as attributes!
     timestamp = mv_con.time_since('GPS_RAW_INT')
 
-    print('Altitude: {}'.format(altitude))
+    print('Altitude: {} - {}'.format(altitude,timestamp))
 except:
     print('No GPS_RAW_INT message received')

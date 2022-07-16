@@ -58,6 +58,8 @@ print("Heartbeat from system (system %u component %u)" % (mv_con.conn.target_sys
 
 mv_con.ping_conn()
 
+time.sleep(1)
+
 # Get some information !
 while True:
 

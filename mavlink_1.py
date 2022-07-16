@@ -23,9 +23,11 @@ while ( count < 30 ):
 while ( 1 ):
     # Once connected, use 'the_connection' to get and send messages
     try: 
+        start_time = time.time_ns()
         the_connection.recv_match(blocking=False)
+        print(time.time_ns()-start_time)
         altitude = the_connection.messages['AHRS2'].pitch  # Note, you can access message fields as attributes!
         timestamp = the_connection.time_since('AHRS2')
-        print('Alt:  {} - Time since last read: {}'.format(altitude, timestamp))
+        #print('Alt:  {} - Time since last read: {}'.format(altitude, timestamp))
     except Exception as e:
         print(e)

@@ -13,7 +13,7 @@ print("Heartbeat from system (system %u component %u)" % (the_connection.target_
 count = 0 
 while ( count < 30 ):
     try:
-       the_connection.recv_match(blocking_input=False)
+       the_connection.recv_match(blocking=False)
     except:
         pass
     time.sleep(0.1)

@@ -60,11 +60,6 @@ mv_con.ping_conn()
 
 # Get some information !
 while True:
-    try:
-        print(mv_con.conn.recv_match().to_dict())
-    except:
-        pass
-    time.sleep(0.1)
 
     try: 
         altitude = mv_con.conn.messages['VIBRATION'].vibration_x  # Note, you can access message fields as attributes!

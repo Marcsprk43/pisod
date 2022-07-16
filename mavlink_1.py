@@ -1,4 +1,3 @@
-from matplotlib import blocking_input
 from pymavlink import mavutil
 import time
 

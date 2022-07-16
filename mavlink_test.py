@@ -60,11 +60,16 @@ mv_con.ping_conn()
 
 time.sleep(1)
 
+count = 0
 # Get some information !
 while True:
 
+    count += 1
     try:
-        #print(mv_con.conn.recv_match().to_dict()) 
+        if (count%100 == 0):
+            mv_con.conn.mav.heartbeat_send(mavutil.mavlink.MAV_TYPE_ONBOARD_CONTROLLER,
+                                                mavutil.mavlink.MAV_AUTOPILOT_INVALID, 0, 0, 0)
+        print('Sent heartbeat .......................') 
         pass
     except:
         pass

@@ -29,5 +29,3 @@ while ( 1 ):
         print('Alt:  {} - Time since last read: {}'.format(altitude, timestamp))
     except Exception as e:
         print(e)
-
-    time.sleep(0.2)

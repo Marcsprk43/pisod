@@ -64,7 +64,8 @@ time.sleep(1)
 while True:
 
     try:
-        print(mv_con.conn.recv_match().to_dict())
+        #print(mv_con.conn.recv_match().to_dict()) 
+        pass
     except:
         pass
     time.sleep(0.1)

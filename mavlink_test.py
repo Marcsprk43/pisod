@@ -65,8 +65,8 @@ while True:
         altitude = mv_con.conn.messages['VIBRATION'].vibration_x  # Note, you can access message fields as attributes!
         timestamp = mv_con.conn.time_since('GPS_RAW_INT')
         print('Alt: {} - {}'.format(altitude, timestamp))
-    except:
-        print('No GPS_RAW_INT message received')
+    except Exception as e:
+        print(e)
 
 
 

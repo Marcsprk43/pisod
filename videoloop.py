@@ -118,11 +118,11 @@ while(1):
 
     try: 
         the_connection.recv_match(blocking=False)
-        vu.data['Lat'] = the_connection.messages['AHRS2'].lat  # Note, you can access message fields as attributes!
-        vu.data['Lon'] = the_connection.messages['AHRS2'].lng  # Note, you can access message fields as attributes!
-        vu.data['Altitude'] = the_connection.messages['AHRS2'].altitude  # Note, you can access message fields as attributes!
-        vu.data['BattV'] = the_connection.messages['SYS_STATUS'].voltage_battery  # Note, you can access message fields as attributes!
-        vu.data['BattPercent'] = the_connection.messages['SYS_STATUS'].battery_remaining
+        mv.data['Lat'] = the_connection.messages['AHRS2'].lat  # Note, you can access message fields as attributes!
+        mv.data['Lon'] = the_connection.messages['AHRS2'].lng  # Note, you can access message fields as attributes!
+        mv.data['Altitude'] = the_connection.messages['AHRS2'].altitude  # Note, you can access message fields as attributes!
+        mv.data['BattV'] = the_connection.messages['SYS_STATUS'].voltage_battery  # Note, you can access message fields as attributes!
+        mv.data['BattPercent'] = the_connection.messages['SYS_STATUS'].battery_remaining
     except Exception as e:
         print(e)
 
@@ -132,7 +132,7 @@ while(1):
 
     if mode == ST_RAW_VIDEO:
       # set the final frame to frame
-      vu.apply_osd(frame, osd_overlay)
+      vu.apply_osd(frame, osd_overlay, mv)
 
     elif mode == ST_STABILIZE_VIDEO:
       # calc the pixel shift
@@ -141,7 +141,7 @@ while(1):
       frame = vu.image_tranlate(frame, dph, dpw)
 
       # always do this last
-      vu.apply_osd(frame, osd_overlay)
+      vu.apply_osd(frame, osd_overlay, mv)
 
     elif mode == ST_FIND_TARGET:
       # calc the pixel shift

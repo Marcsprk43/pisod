@@ -1,3 +1,4 @@
+from matplotlib import blocking_input
 from pymavlink import mavutil
 import time
 
@@ -12,7 +13,7 @@ print("Heartbeat from system (system %u component %u)" % (the_connection.target_
 count = 0 
 while ( count < 30 ):
     try:
-        print(the_connection.recv_match().to_dict())
+       the_connection.recv_match(blocking_input=False)
     except:
         pass
     time.sleep(0.1)
@@ -23,6 +24,7 @@ while ( count < 30 ):
 while ( 1 ):
     # Once connected, use 'the_connection' to get and send messages
     try: 
+        the_connection.recv_match(blocking_input=False)
         altitude = the_connection.messages['AHRS2'].pitch  # Note, you can access message fields as attributes!
         timestamp = the_connection.time_since('AHRS2')
         print('Alt:  {} - Time since last read: {}'.format(altitude, timestamp))

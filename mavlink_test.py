@@ -14,10 +14,11 @@ print("Heartbeat from system (system %u component %u)" % (mv_con.target_system, 
 
 while(1):
     try: 
-        altitude = mv_con.messages['GPS_RAW_INT'].alt  # Note, you can access message fields as attributes!
-        timestamp = mv_con.time_since('GPS_RAW_INT')
+        altitude = mv_con.messages['RAW_IMU'].xacc  # Note, you can access message fields as attributes!
+        #timestamp = mv_con.time_since('GPS_RAW_INT')
         firmware_version = mv_con.messages['FIRMWARE_VERSION_TYPE']
+        print('Altitude: {} - {} firmware: {}'.format(altitude))
 
-        print('Altitude: {} - {} firmware: {}'.format(altitude,timestamp,firmware_version))
+        #print('Altitude: {} - {} firmware: {}'.format(altitude,timestamp,firmware_version))
     except:
         print('No GPS_RAW_INT message received')

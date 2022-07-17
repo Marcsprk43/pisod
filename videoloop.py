@@ -56,7 +56,7 @@ def get_roll_pitch():
 
 # construct the argument parse and parse the arguments
 ap = argparse.ArgumentParser()
-ap.add_argument("-p", "--picamera", type=int, default=-1,
+ap.add_argument("-p", "--picamera", type=int, default=1,
     help="whether or not the Raspberry Pi camera should be used")
 args = vars(ap.parse_args())
 
@@ -77,7 +77,7 @@ sensor = vu.sensor_IMX219 # select the PiCamera V2.1 sensor
 camera = vu.configure_camera(sensor, lens_f=2.1, image_mode=5, frame_rate=30)
 
 # initialize the video stream and allow the cammera sensor to warmup
-vs = VideoStream(usePiCamera=args["picamera"] > 0).start()
+vs = VideoStream(usePicamera=True, resolution=(800,600), framerate=40).start()
 
 
 """# Create a VideoCapture object and read from input file

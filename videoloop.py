@@ -124,7 +124,7 @@ while(1):
 
   # Capture frame-by-frame
   frame = vs.read()
-  frame = imutils.resize(frame, width=680)
+  frame = imutils.resize(frame, width=800)
 
   ##############################################
   # instructions that must always run 

@@ -235,10 +235,9 @@ def draw_battery(frame, mv):
     cv2.putText(frame, 'Batt:{:3.1f}  {:3d}%'.format(mv.data['BattV'], int(mv.data['BattPercent'])), (5, 500), font, 1, (255,255, 255), 2, cv2.LINE_AA)
 
 def draw_cross_hairs(frame):
-    720/2
-    576/2
-    cv2.line(frame, (720/2,576/2-40), (720/2,576/2+0), (0, 0, 255), 3) 
-    cv2.line(frame, (720/2-40,576/2), (720/2+40,576/2), (0, 0, 255), 3) 
+
+    cv2.line(frame, (360,248), (360,328), (0, 0, 255), 3) 
+    cv2.line(frame, (320,288), (400,288), (0, 0, 255), 3) 
 
 def draw_flight_mode(frame, mv):
     cv2.putText(frame, 'FM:{}'.format(mv.data['FlightMode']), (550, 500), font, 1, (0,255, 0), 2, cv2.LINE_AA)

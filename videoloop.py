@@ -2,6 +2,7 @@
 
 import cv2
 import numpy as np
+from imutils.video.pivideostream import PiVideoStream
 import videoutils as vu
 from pymavlink import mavutil
 from imutils.video import VideoStream
@@ -77,7 +78,7 @@ sensor = vu.sensor_IMX219 # select the PiCamera V2.1 sensor
 camera = vu.configure_camera(sensor, lens_f=2.1, image_mode=5, frame_rate=30)
 
 # initialize the video stream and allow the cammera sensor to warmup
-vs = VideoStream(usePicamera=True, resolution=(800,600), framerate=30).start()
+vs = PiVideoStream(resolution=(800,600), framerate=30).start()
 
 frame = vs.read()
 

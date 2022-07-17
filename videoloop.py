@@ -77,7 +77,7 @@ sensor = vu.sensor_IMX219 # select the PiCamera V2.1 sensor
 camera = vu.configure_camera(sensor, lens_f=2.1, image_mode=5, frame_rate=30)
 
 # initialize the video stream and allow the cammera sensor to warmup
-vs = VideoStream(usePicamera=True, resolution=(800,600), framerate=40).start()
+vs = VideoStream(usePicamera=True, resolution=(800,600), framerate=30).start()
 
 frame = vs.read()
 
@@ -129,7 +129,7 @@ while(1):
 
   # Capture frame-by-frame
   frame = vs.read()
-  frame = imutils.resize(frame, width=800)
+  #frame = imutils.resize(frame, width=800)
 
   ##############################################
   # instructions that must always run 

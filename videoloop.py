@@ -5,9 +5,9 @@ import numpy as np
 from imutils.video.pivideostream import PiVideoStream
 import videoutils as vu
 from pymavlink import mavutil
-from imutils.video import VideoStream
-import imutils
 import argparse
+import time
+
 
 
 
@@ -75,10 +75,12 @@ fps = vu.FPS()
 
 sensor = vu.sensor_IMX219 # select the PiCamera V2.1 sensor
 
-camera = vu.configure_camera(sensor, lens_f=2.1, image_mode=5, frame_rate=30)
+camera = vu.configure_camera(sensor, lens_f=2.1, image_mode=5, frame_rate=32)
 
 # initialize the video stream and allow the cammera sensor to warmup
 vs = PiVideoStream(resolution=(800,600), framerate=30).start()
+
+time.sleep(1)
 
 frame = vs.read()
 

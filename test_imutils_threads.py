@@ -5,6 +5,9 @@ import argparse
 import imutils
 import time
 import cv2
+
+import videoutils as vu
+
 # construct the argument parse and parse the arguments
 ap = argparse.ArgumentParser()
 ap.add_argument("-p", "--picamera", type=int, default=-1,
@@ -14,6 +17,9 @@ args = vars(ap.parse_args())
 vs = VideoStream(usePiCamera=args["picamera"] > 0).start()
 time.sleep(2.0)
 
+fps = vu.FPS()
+
+fps.start()
 # loop over the frames from the video stream
 while True:
 	# grab the frame from the threaded video stream and resize it
@@ -27,10 +33,18 @@ while True:
 		0.35, (0, 0, 255), 1)
 	# show the frame
 	cv2.imshow("Frame", frame)
+
+    fps.update() 
+    
 	key = cv2.waitKey(1) & 0xFF
 	# if the `q` key was pressed, break from the loop
 	if key == ord("q"):
 		break
 # do a bit of cleanup
+
+# print the fps   
+fps.stop()
+print('Frames per second: ',fps.fps())
+
 cv2.destroyAllWindows()
 vs.stop()

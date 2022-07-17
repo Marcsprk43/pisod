@@ -141,7 +141,7 @@ while(1):
       mv.data['BattV'] = the_connection.messages['SYS_STATUS'].voltage_battery  # Note, you can access message fields as attributes!
       mv.data['BattPercent'] = the_connection.messages['SYS_STATUS'].battery_remaining
   except Exception as e:
-      print(e)
+      print(e, 'not received yet')
 
   ##############################################
   # State machine for video modes 
@@ -184,7 +184,7 @@ fps.stop()
 print('Frames per second: ',fps.fps())
 
 # When everything done, release the video capture object
-cap.release()
+vs.stop()
 
 # Closes all the frames
 cv2.destroyAllWindows()

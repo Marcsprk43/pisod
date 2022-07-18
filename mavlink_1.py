@@ -20,7 +20,7 @@ def request_message_interval(master, message_id: int, frequency_hz: float):
         message_freq_us = -1   # disable
 
     print('Requesting message frequency: {}  -  {}hz  {}us'.format(message_id, frequency_hz, message_freq_us))
-    
+
     master.mav.command_long_send(
         master.target_system, master.target_component,
         mavutil.mavlink.MAV_CMD_SET_MESSAGE_INTERVAL, 0,
@@ -32,7 +32,7 @@ def request_message_interval(master, message_id: int, frequency_hz: float):
 
 
 # Start a connection listening on a UDP port
-the_connection = mavutil.mavlink_connection('/dev/ttyAMA0', baud=115200,
+the_connection = mavutil.mavlink_connection('/dev/ttyAMA0', baud=921600,
                                             dialect='ardupilotmega', autoreconnect=True)
 
 # Wait for the first heartbeat 

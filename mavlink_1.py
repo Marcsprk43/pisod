@@ -23,7 +23,7 @@ def request_message_interval(master, message_id: int, frequency_hz: float):
 
 
 # Start a connection listening on a UDP port
-the_connection = mavutil.mavlink_connection('/dev/ttyAMA0', baud=115200,
+the_connection = mavutil.mavlink_connection('/dev/ttyAMA0', baud=57600,
                                             dialect='ardupilotmega', autoreconnect=True)
 
 # Wait for the first heartbeat 

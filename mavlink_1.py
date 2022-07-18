@@ -2,7 +2,8 @@ from pymavlink import mavutil
 import time
 
 # Start a connection listening on a UDP port
-the_connection = mavutil.mavlink_connection('/dev/ttyAMA0', 57600)
+the_connection = mavutil.mavlink_connection('/dev/ttyAMA0', baud=57600,
+                                            dialect='ardupilotmega', autoreconnect=True)
 
 # Wait for the first heartbeat 
 #   This sets the system and component ID of remote system for the link
@@ -10,7 +11,7 @@ the_connection.wait_heartbeat()
 print("Heartbeat from system (system %u component %u)" % (the_connection.target_system, the_connection.target_component))
 
 print('sending sys_status update rate to 30ms')
-the_connection.mav.mav_cmd_set_message_interval_send(1,30000, 0 )
+the_connection.mav_cmd_set_message_interval_send(1,30000, 0 )
 
 count = 0 
 while ( count < 100 ):

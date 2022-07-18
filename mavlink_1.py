@@ -33,8 +33,26 @@ print("Heartbeat from system (system %u component %u)" % (the_connection.target_
 the_connection.mav.system_time_send(0, 0)
 mavutil.mavlink.MAVLINK_MSG_ID_AHRS2
 print('sending sys_status update rate to 30ms')
-request_message_interval(the_connection, 1, 10)
-request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_AHRS2, 10)
+request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_SYS_STATUS, 1)
+request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_AHRS2, 30)
+request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_GLOBAL_POSITION_INT  , -1)
+request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_POWER_STATUS  , -1)
+request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_MEMINFO  , -1)
+request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_NAV_CONTROLLER_OUTPUT  , -1)
+request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_MISSION_CURRENT  , -1)
+request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_RAW_IMU  , -1)
+request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_SCALED_IMU2  , -1)
+request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_SCALED_PRESSURE  , -1)
+request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_GPS_RAW_INT  , -1)
+request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_SYSTEM_TIME  , -1)
+request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_AHRS  , -1)
+request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_HWSTATUS  , -1)
+request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_TERRAIN_REPORT  , -1)
+request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_EKF_STATUS_REPORT  , -1)
+request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_VIBRATION  , -1)
+request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_ATTITUDE  , -1)
+request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_VFR_HUD  , -1)
+
 
 count = 0 
 while ( count < 100 ):

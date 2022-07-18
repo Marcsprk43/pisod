@@ -76,6 +76,7 @@ time.sleep(1)
 
 frame = vs.read()
 
+
 print('frame size:', frame.shape)
 
 

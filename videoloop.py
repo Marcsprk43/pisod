@@ -101,7 +101,7 @@ osd_overlay = 'Screen1'
 ##############################################
 # Mavlink
 ##############################################
-
+"""
 # Start a connection 
 the_connection = mavutil.mavlink_connection('/dev/ttyAMA0', baud=115200,
                                             dialect='ardupilotmega', autoreconnect=True)
@@ -134,7 +134,7 @@ vu.request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_EKF_S
 vu.request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_VIBRATION  , 1)
 vu.request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_ATTITUDE  , 1)
 vu.request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_VFR_HUD  , 1)
-
+"""
 mv = vu.Mavlink()
 
 ##############################################
@@ -156,9 +156,9 @@ while(1):
   #roll, pitch = get_roll_pitch()
 
   try: 
-
-    m = the_connection.recv_msg()
     """
+    m = the_connection.recv_msg()
+    
       msg_tries = 0
       while not (m is None) and msg_tries < 2:  # read in all the accumulated mavlink messages
         m = the_connection.recv_msg()
@@ -176,6 +176,7 @@ while(1):
       roll = the_connection.messages['AHRS2'].roll
       pitch = the_connection.messages['AHRS2'].pitch  
       """
+    pass
   except Exception as e:
       print(e, 'not received yet')
       roll = 0.0

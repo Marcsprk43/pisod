@@ -31,9 +31,10 @@ the_connection.wait_heartbeat()
 print("Heartbeat from system (system %u component %u)" % (the_connection.target_system, the_connection.target_component))
 
 the_connection.mav.system_time_send(0, 0)
-
+mavutil.mavlink.MAVLINK_MSG_ID_AHRS2
 print('sending sys_status update rate to 30ms')
 request_message_interval(the_connection, 1, 10)
+request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_AHRS2, 10)
 
 count = 0 
 while ( count < 100 ):

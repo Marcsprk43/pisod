@@ -90,17 +90,15 @@ osd_overlay = 'Screen1'
 ##############################################
 
 # Start a connection 
-the_connection = mavutil.mavlink_connection('/dev/ttyAMA0', baud=115200,
+the_connection = mavutil.mavlink_connection('/dev/ttyAMA0', baud=57600,
                                             dialect='ardupilotmega', autoreconnect=True)
 
 # Wait for the first heartbeat 
 #   This sets the system and component ID of remote system for the link
+print("Waiting for mavlink heartbeat")
 the_connection.wait_heartbeat()
 print("Heartbeat from system (system %u component %u)" % (the_connection.target_system, the_connection.target_component))
 # Wait for the first heartbeat 
-#   This sets the system and component ID of remote system for the link
-the_connection.wait_heartbeat()
-print("Heartbeat from system (system %u component %u)" % (the_connection.target_system, the_connection.target_component))
 
 vu.request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_SYS_STATUS, 1)
 vu.request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_AHRS2, 10)

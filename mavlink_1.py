@@ -66,10 +66,20 @@ while ( count < 100 ):
 
 timestamp = 1000.0
 
-while ( 1 ):
+count = 0
+
+message_dict = {}
+
+while ( count < 10000 ):
     # Once connected, use 'the_connection' to get and send messages
     try: 
-        the_connection.recv_match(blocking=False)
+        msg = the_connection.recv_match(blocking=False).to_dict()
+        if msg['mavpackettype'] in message_dict.keys():
+            message_dict[msg['mavpackettype']] += 1
+        else:
+            message_dict[msg['mavpackettype']] = 1
+
+        #the_connection.recv_match(blocking=False)
         lat = the_connection.messages['AHRS2'].lat  # Note, you can access message fields as attributes!
         lng = the_connection.messages['AHRS2'].lng  # Note, you can access message fields as attributes!
         altitude = the_connection.messages['AHRS2'].altitude  # Note, you can access message fields as attributes!
@@ -83,3 +93,7 @@ while ( 1 ):
 
     except Exception as e:
         print(e)
+
+    count += 1
+
+print(message_dict)

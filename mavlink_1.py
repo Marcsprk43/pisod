@@ -34,7 +34,7 @@ the_connection.mav.system_time_send(0, 0)
 mavutil.mavlink.MAVLINK_MSG_ID_AHRS2
 print('sending sys_status update rate to 30ms')
 request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_SYS_STATUS, 1)
-request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_AHRS2, 10)
+request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_AHRS2, 50)
 request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_GLOBAL_POSITION_INT  , -1)
 request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_POWER_STATUS  , -1)
 request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_MEMINFO  , -1)

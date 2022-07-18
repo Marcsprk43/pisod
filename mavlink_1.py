@@ -18,7 +18,7 @@ while ( count < 100 ):
     time.sleep(0.1)
     count += 1
 
-timestamp = 0.0
+timestamp = 1000.0
 
 while ( 1 ):
     # Once connected, use 'the_connection' to get and send messages

@@ -67,7 +67,7 @@ resolution = (720,576)
 
 sensor = vu.sensor_IMX219 # select the PiCamera V2.1 sensor
 
-camera = vu.configure_camera(sensor, lens_f=2.1, image_mode=5, frame_rate=32)
+camera = vu.configure_camera(sensor, lens_f=2.1, image_mode=5, frame_rate=15)
 
 # initialize the video stream and allow the cammera sensor to warmup
 vs = PiVideoStream(resolution=resolution, framerate=30).start()
@@ -157,8 +157,7 @@ while(1):
 
   try: 
       m = the_connection.recv_msg()
-      if not (m is None):
-        print(m)
+
       msg_tries = 0
       while not (m is None) and msg_tries < 5:  # read in all the accumulated mavlink messages
         m = the_connection.recv_msg()

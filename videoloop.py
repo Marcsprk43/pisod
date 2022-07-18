@@ -4,7 +4,6 @@ import numpy as np
 from imutils.video.pivideostream import PiVideoStream
 import videoutils as vu
 from pymavlink import mavutil
-import argparse
 import time
 
 ####################################################################
@@ -158,8 +157,8 @@ while(1):
 
   try: 
 
-      m = the_connection.recv_msg()
-
+    m = the_connection.recv_msg()
+    """
       msg_tries = 0
       while not (m is None) and msg_tries < 2:  # read in all the accumulated mavlink messages
         m = the_connection.recv_msg()
@@ -175,7 +174,8 @@ while(1):
       mv.data['FlightMode'] = the_connection.messages['HEARTBEAT'].base_mode
 
       roll = the_connection.messages['AHRS2'].roll
-      pitch = the_connection.messages['AHRS2'].pitch
+      pitch = the_connection.messages['AHRS2'].pitch  
+      """
   except Exception as e:
       print(e, 'not received yet')
       roll = 0.0

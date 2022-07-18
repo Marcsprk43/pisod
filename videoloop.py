@@ -78,19 +78,6 @@ frame = vs.read()
 
 print('frame size:', frame.shape)
 
-
-"""# Create a VideoCapture object and read from input file
-# If the input is the camera, pass 0 instead of the video file name
-cap = cv2.VideoCapture(0)
-
-cap.set(cv2.CAP_PROP_FRAME_WIDTH, 800)  # Set horizontal resolution
-cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 600)  # Set vertical resolution
-cap.set(cv2.CAP_PROP_FPS, 30)
-
-# Check if camera opened successfully
-if (cap.isOpened()== False): 
-  print("Error opening video stream or file")
-"""
 # initialize the FPS tracker
 fps.start()
 

@@ -90,7 +90,7 @@ osd_overlay = 'Screen1'
 ##############################################
 
 # Start a connection 
-the_connection = mavutil.mavlink_connection('/dev/ttyAMA0', baud=57600,
+the_connection = mavutil.mavlink_connection('/dev/Serial0', baud=115200,
                                             dialect='ardupilotmega', autoreconnect=True)
 
 # Wait for the first heartbeat 

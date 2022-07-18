@@ -43,7 +43,7 @@ request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_MISSION_
 request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_RAW_IMU  , -1)
 request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_SCALED_IMU2  , -1)
 request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_SCALED_PRESSURE  , -1)
-request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_GPS_RAW_INT  , -1)
+request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_GPS_RAW_INT  , 1)
 request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_SYSTEM_TIME  , -1)
 request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_AHRS  , -1)
 request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_HWSTATUS  , -1)
@@ -53,6 +53,7 @@ request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_VIBRATIO
 request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_ATTITUDE  , -1)
 request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_VFR_HUD  , -1)
 
+time.sleep(5)
 
 count = 0 
 while ( count < 100 ):

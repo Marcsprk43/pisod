@@ -73,7 +73,7 @@ message_dict = {}
 while ( count < 10000 ):
     # Once connected, use 'the_connection' to get and send messages
     try: 
-        msg = the_connection.recv_match(blocking=False).to_dict()
+        msg = the_connection.recv_match(blocking=True).to_dict()
         if (msg):
             
             count += 1

@@ -159,8 +159,10 @@ while(1):
       m = the_connection.recv_msg()
       if not (m is None):
         print(m)
-      while not (m is None):  # read in all the accumulated mavlink messages
+      msg_tries = 0
+      while not (m is None) and msg_tries < 5:  # read in all the accumulated mavlink messages
         m = the_connection.recv_msg()
+        msg_tries += 1
         print('.', end='')
 
       #the_connection.recv_match(blocking=False)

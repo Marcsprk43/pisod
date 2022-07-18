@@ -11,6 +11,7 @@ def request_message_interval(master, message_id: int, frequency_hz: float):
         message_id (int): MAVLink message ID
         frequency_hz (float): Desired frequency in Hz
     """
+    print('Requesting message frequency: {}  -  {}'.format(message_id, frequency_hz))
     master.mav.command_long_send(
         master.target_system, master.target_component,
         mavutil.mavlink.MAV_CMD_SET_MESSAGE_INTERVAL, 0,
@@ -52,6 +53,8 @@ request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_EKF_STAT
 request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_VIBRATION  , -1)
 request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_ATTITUDE  , -1)
 request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_VFR_HUD  , -1)
+
+
 
 time.sleep(5)
 

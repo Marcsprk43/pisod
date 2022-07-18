@@ -18,7 +18,7 @@ while ( count < 100 ):
     time.sleep(0.1)
     count += 1
 
-
+timestamp = 0.0
 
 while ( 1 ):
     # Once connected, use 'the_connection' to get and send messages
@@ -30,7 +30,9 @@ while ( 1 ):
         voltage = the_connection.messages['SYS_STATUS'].voltage_battery  # Note, you can access message fields as attributes!
         #battery_remaining = the_connection.messages['SYS_STATUS'].battery_remaining
         
-        timestamp = the_connection.time_since('AHRS2')
-        print('Alt:  {} - Time since last read: {}'.format(altitude, timestamp))
+        if (the_connection.time_since('AHRS2') < timestamp):   # this means a new message has been received
+            print('Alt:  {} - Time since last read: {}'.format(altitude, timestamp))
+            timestamp = the_connection.time_since('AHRS2')
+
     except Exception as e:
         print(e)

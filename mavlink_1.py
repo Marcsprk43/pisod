@@ -12,16 +12,16 @@ def request_message_interval(master, message_id: int, frequency_hz: float):
         frequency_hz (float): Desired frequency in Hz
     """
     
+    if (frequency_hz > 0):
+        message_freq_us = 1e6 / frequency_hz
+    elif (frequency_hz == 0):
+        message_freq_us = 0   # leave default
+    else:
+        message_freq_us = -1   # disable
+
+    print('Requesting message frequency: {}  -  {}hz  {}us'.format(message_id, frequency_hz, message_freq_us))
+    
     master.mav.command_long_send(
-        if (frequency_hz > 0):
-            message_freq_us = 1e6 / frequency_hz
-        elif (frequency_hz == 0):
-            message_freq_us = 0   # leave default
-        else:
-            message_freq_us = -1   # disable
-
-        print('Requesting message frequency: {}  -  {}hz  {}us'.format(message_id, frequency_hz, message_freq_us))
-
         master.target_system, master.target_component,
         mavutil.mavlink.MAV_CMD_SET_MESSAGE_INTERVAL, 0,
         message_id, # The MAVLink message ID

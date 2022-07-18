@@ -32,7 +32,8 @@ while ( 1 ):
         
         if (the_connection.time_since('AHRS2') < timestamp):   # this means a new message has been received
             print('Alt:  {} - Time since last read: {}'.format(altitude, timestamp))
-            timestamp = the_connection.time_since('AHRS2')
+
+        timestamp = the_connection.time_since('AHRS2')
 
     except Exception as e:
         print(e)

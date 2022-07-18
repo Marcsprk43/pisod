@@ -156,10 +156,12 @@ while(1):
   #roll, pitch = get_roll_pitch()
 
   try: 
-      while the_connection.recv_match(blocking=False):  # read in all the accumulated mavlink messages
+      m = the_connection.recv_msg()
+      while m:  # read in all the accumulated mavlink messages
+        m = the_connection.recv_msg()
         print('.', end='')
-        pass
-      the_connection.recv_match(blocking=False)
+
+      #the_connection.recv_match(blocking=False)
       mv.data['Lat'] = the_connection.messages['AHRS2'].lat  # Note, you can access message fields as attributes!
       mv.data['Lon'] = the_connection.messages['AHRS2'].lng  # Note, you can access message fields as attributes!
       mv.data['Altitude'] = the_connection.messages['AHRS2'].altitude  # Note, you can access message fields as attributes!

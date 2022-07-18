@@ -48,11 +48,10 @@ def get_roll_pitch():
     return filtered_roll, filtered_pitch
 
 """
-# construct the argument parse and parse the arguments
-ap = argparse.ArgumentParser()
-ap.add_argument("-p", "--picamera", type=int, default=1,
-    help="whether or not the Raspberry Pi camera should be used")
-args = vars(ap.parse_args())
+
+roll = 0.0
+pitch = 0.0
+
 
 ####################################################################
 # this is simple class to calculate frames per second
@@ -104,7 +103,8 @@ osd_overlay = 'Screen1'
 ##############################################
 
 # Start a connection 
-the_connection = mavutil.mavlink_connection('/dev/ttyAMA0', 921600)
+the_connection = mavutil.mavlink_connection('/dev/ttyAMA0', baud=921600,
+                                            dialect='ardupilotmega', autoreconnect=True)
 
 # Wait for the first heartbeat 
 #   This sets the system and component ID of remote system for the link
@@ -170,9 +170,6 @@ while(1):
       print(e, 'not received yet')
       roll = 0.0
       pitch = 0.0
-
-  roll = the_connection.messages['AHRS2'].roll
-  pitch = the_connection.messages['AHRS2'].pitch
 
 
   ##############################################

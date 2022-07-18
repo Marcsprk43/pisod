@@ -70,7 +70,7 @@ sensor = vu.sensor_IMX219 # select the PiCamera V2.1 sensor
 camera = vu.configure_camera(sensor, lens_f=2.1, image_mode=5, frame_rate=15)
 
 # initialize the video stream and allow the cammera sensor to warmup
-vs = PiVideoStream(resolution=resolution, framerate=15).start()
+vs = PiVideoStream(resolution=resolution, framerate=30).start()
 
 time.sleep(1)
 
@@ -103,7 +103,7 @@ osd_overlay = 'Screen1'
 ##############################################
 
 # Start a connection 
-the_connection = mavutil.mavlink_connection('/dev/ttyAMA0', baud=921600,
+the_connection = mavutil.mavlink_connection('/dev/ttyAMA0', baud=115200,
                                             dialect='ardupilotmega', autoreconnect=True)
 
 # Wait for the first heartbeat 

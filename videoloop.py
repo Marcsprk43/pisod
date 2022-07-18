@@ -94,8 +94,6 @@ if (cap.isOpened()== False):
 """
 # initialize the FPS tracker
 fps.start()
-# initialize the roll pitch
-roll, pitch = get_roll_pitch()
 
 
 mode =  ST_STABILIZE_VIDEO

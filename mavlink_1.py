@@ -28,7 +28,7 @@ while ( 1 ):
         lng = the_connection.messages['AHRS2'].lng  # Note, you can access message fields as attributes!
         altitude = the_connection.messages['AHRS2'].altitude  # Note, you can access message fields as attributes!
         voltage = the_connection.messages['SYS_STATUS'].voltage_battery  # Note, you can access message fields as attributes!
-        battery_remaining = the_connection.messages['SYS_STATUS'].battery_remaining
+        #battery_remaining = the_connection.messages['SYS_STATUS'].battery_remaining
         
         timestamp = the_connection.time_since('AHRS2')
         print('Alt:  {} - Time since last read: {}'.format(altitude, timestamp))

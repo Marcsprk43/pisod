@@ -114,12 +114,36 @@ osd_overlay = 'Screen1'
 ##############################################
 
 # Start a connection 
-the_connection = mavutil.mavlink_connection('/dev/ttyAMA0', 57600)
+the_connection = mavutil.mavlink_connection('/dev/ttyAMA0', 921600)
 
 # Wait for the first heartbeat 
 #   This sets the system and component ID of remote system for the link
 the_connection.wait_heartbeat()
 print("Heartbeat from system (system %u component %u)" % (the_connection.target_system, the_connection.target_component))
+# Wait for the first heartbeat 
+#   This sets the system and component ID of remote system for the link
+the_connection.wait_heartbeat()
+print("Heartbeat from system (system %u component %u)" % (the_connection.target_system, the_connection.target_component))
+
+vu.request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_SYS_STATUS, 1)
+vu.request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_AHRS2, 50)
+vu.request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_GLOBAL_POSITION_INT  , 1)
+vu.request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_POWER_STATUS  , 1)
+vu.request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_MEMINFO  , 1)
+vu.request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_NAV_CONTROLLER_OUTPUT  , 1)
+vu.request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_MISSION_CURRENT  , 1)
+vu.request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_RAW_IMU  , 1)
+vu.request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_SCALED_IMU2  , 1)
+vu.request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_SCALED_PRESSURE  , 1)
+vu.request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_GPS_RAW_INT  , 1)
+vu.request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_SYSTEM_TIME  , 1)
+vu.request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_AHRS  , 1)
+vu.request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_HWSTATUS  , 1)
+vu.request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_TERRAIN_REPORT  , 1)
+vu.request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_EKF_STATUS_REPORT  , 1)
+vu.request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_VIBRATION  , 1)
+vu.request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_ATTITUDE  , 1)
+vu.request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_VFR_HUD  , 1)
 
 mv = vu.Mavlink()
 
@@ -139,7 +163,7 @@ while(1):
   # instructions that must always run 
   ##############################################
   # get the instantaneous roll/pitch
-  roll, pitch = get_roll_pitch()
+  #roll, pitch = get_roll_pitch()
 
   try: 
       the_connection.recv_match(blocking=False)
@@ -149,8 +173,17 @@ while(1):
       mv.data['BattV'] = the_connection.messages['SYS_STATUS'].voltage_battery  # Note, you can access message fields as attributes!
       mv.data['BattPercent'] = the_connection.messages['SYS_STATUS'].battery_remaining
       mv.data['FlightMode'] = the_connection.messages['HEARTBEAT'].base_mode
+
+      roll = the_connection.messages['AHRS2'].roll
+      pitch = the_connection.messages['AHRS2'].pitch
   except Exception as e:
       print(e, 'not received yet')
+      roll = 0.0
+      pitch = 0.0
+
+  roll = the_connection.messages['AHRS2'].roll
+  pitch = the_connection.messages['AHRS2'].pitch
+
 
   ##############################################
   # State machine for video modes 

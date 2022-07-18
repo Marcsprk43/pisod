@@ -1,4 +1,5 @@
 from math import tan, degrees, radians
+
 import cv2
 
 # A function to calculate pixel shift based on roll/pitch and camera properties
@@ -273,5 +274,34 @@ class Mavlink:
         'DisplayMode':'st'
     }
 
+from pymavlink import mavutil
 
+def request_message_interval(master, message_id: int, frequency_hz: float):
+    """
+    Request MAVLink message in a desired frequency,
+    documentation for SET_MESSAGE_INTERVAL:
+        https://mavlink.io/en/messages/common.html#MAV_CMD_SET_MESSAGE_INTERVAL
+
+    Args:
+        message_id (int): MAVLink message ID
+        frequency_hz (float): Desired frequency in Hz
+    """
+    
+    if (frequency_hz > 0):
+        message_freq_us = 1e6 / frequency_hz
+    elif (frequency_hz == 0):
+        message_freq_us = 0   # leave default
+    else:
+        message_freq_us = -1   # disable
+
+    print('Requesting message frequency: {}  -  {}hz  {}us'.format(message_id, frequency_hz, message_freq_us))
+
+    master.mav.command_long_send(
+        master.target_system, master.target_component,
+        mavutil.mavlink.MAV_CMD_SET_MESSAGE_INTERVAL, 0,
+        message_id, # The MAVLink message ID
+        message_freq_us, # The interval between two messages in microseconds. Set to -1 to disable and 0 to request default rate.
+        0, 0, 0, 0, # Unused parameters
+        0, # Target address of message stream (if message has target address fields). 0: Flight-stack default (recommended), 1: address of requestor, 2: broadcast.
+    )
 

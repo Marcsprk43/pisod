@@ -1,5 +1,4 @@
 # Main video loop
-
 import cv2
 import numpy as np
 from imutils.video.pivideostream import PiVideoStream
@@ -8,21 +7,16 @@ from pymavlink import mavutil
 import argparse
 import time
 
-
-
-
-
 ####################################################################
 # Video system states
 ####################################################################
 ST_RAW_VIDEO = 0
 ST_STABILIZE_VIDEO = 1
 ST_FIND_TARGET = 2
-
-
 ####################################################################
 # Set up the accelerometer for roll/pitch calcs
 ####################################################################
+"""
 from mpu6050.MPU6050 import MPU6050
 from math import sqrt, asin, atan, degrees
 
@@ -46,7 +40,6 @@ filtered_pitch = 0
 filter = 0.4
 one_minus_filter = 1-filter
 
-# function to get roll and pitch (in radians)
 def get_roll_pitch():
     global filtered_roll, filtered_pitch
     accel = mpu.get_acceleration()    
@@ -54,14 +47,12 @@ def get_roll_pitch():
     filtered_roll = filter*filtered_roll + one_minus_filter*atan(accel[1]/accel[2])
     return filtered_roll, filtered_pitch
 
-
+"""
 # construct the argument parse and parse the arguments
 ap = argparse.ArgumentParser()
 ap.add_argument("-p", "--picamera", type=int, default=1,
     help="whether or not the Raspberry Pi camera should be used")
 args = vars(ap.parse_args())
-
-
 
 ####################################################################
 # this is simple class to calculate frames per second
@@ -72,6 +63,7 @@ fps = vu.FPS()
 ####################################################################
 # Setup the camera
 ####################################################################
+
 resolution = (720,576)
 
 sensor = vu.sensor_IMX219 # select the PiCamera V2.1 sensor

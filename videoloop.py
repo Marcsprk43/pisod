@@ -5,6 +5,7 @@ from imutils.video.pivideostream import PiVideoStream
 import videoutils as vu
 from pymavlink import mavutil
 import time
+import math
 
 ####################################################################
 # Video system states
@@ -100,6 +101,7 @@ the_connection.wait_heartbeat()
 print("Heartbeat from system (system %u component %u)" % (the_connection.target_system, the_connection.target_component))
 # Wait for the first heartbeat 
 
+# Set up the message type frequencies
 vu.request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_SYS_STATUS, 1)
 vu.request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_AHRS2, 30)
 vu.request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_GLOBAL_POSITION_INT  , 1)
@@ -120,6 +122,7 @@ vu.request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_VIBRA
 vu.request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_ATTITUDE  , 1)
 vu.request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_VFR_HUD  , 1)
 
+# Initialize the OSD data dictionary
 mv = vu.Mavlink()
 
 ##############################################
@@ -155,8 +158,8 @@ while(1):
     mv.data['Altitude'] = the_connection.messages['AHRS2'].altitude  # Note, you can access message fields as attributes!
     mv.data['BattV'] = the_connection.messages['SYS_STATUS'].voltage_battery  # Note, you can access message fields as attributes!
     mv.data['BattPercent'] = the_connection.messages['SYS_STATUS'].battery_remaining
-    mv.data['BaseMode'] = the_connection.messages['HEARTBEAT'].base_mode
-    mv.data['FlightMode'] = the_connection.messages['HEARTBEAT'].custom_mode
+    mv.data['BaseMode'] = the_connection.messages['HEARTBEAT'].base_mode  # the base_mode describes the armed, disarmed, etc. status
+    mv.data['FlightMode'] = the_connection.messages['HEARTBEAT'].custom_mode  # this is the flight mode (STAB, LOITER, AUTO, etc)
 
     roll = the_connection.messages['AHRS2'].roll
     pitch = the_connection.messages['AHRS2'].pitch  
@@ -166,6 +169,10 @@ while(1):
       roll = 0.0
       pitch = 0.0
 
+  if ((abs(roll) > math.pi/4) or (abs(pitch)> math.pi/4)):    # if the drone is pitched more than 45 degrees stop stabilize
+    roll = 0.0
+    pitch = 0.0
+ 
 
   ##############################################
   # State machine for video modes 
@@ -199,8 +206,12 @@ while(1):
   fps.update()
 
   # Press Q on keyboard to  exit
-  if cv2.waitKey(1) & 0xFF == ord('q'):
+  key = cv2.waitKey(1) & 0xFF
+  if key == ord('q'):
     break
+  elif (key == ord('i')):
+    # take still and save
+    img = 
 
 
 # print the fps   

@@ -148,7 +148,6 @@ while(1):
     while not (m is None) and msg_tries < 2:  # read in all the accumulated mavlink messages
       m = the_connection.recv_msg()
       msg_tries += 1
-      print('.', end='')
 
     #the_connection.recv_match(blocking=False)
     mv.data['Lat'] = the_connection.messages['AHRS2'].lat  # Note, you can access message fields as attributes!

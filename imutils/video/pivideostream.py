@@ -28,7 +28,7 @@ class PiVideoStream:
     def start(self):
         # initialize the stream
         self.rawCapture = PiRGBArray(self.camera, size=self.resize)
-        self.stream = self.camera.capture_continuous(self.rawCapture,
+        self.stream = self.camera.capture_continuous(self.rawCapture, resize=self.resize
                                                     format="bgr", use_video_port=True)
 
         # initialize the frame and the variable used to indicate

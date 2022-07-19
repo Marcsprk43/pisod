@@ -269,7 +269,11 @@ def draw_cross_hairs(frame):
 
 def draw_flight_mode(frame, mv):
     print(mv.data['FlightMode'])
-    cv2.putText(frame, 'FM:{}'.format(flight_mode_dict[mv.data['FlightMode']]), (500, 570), font, 1, (0,255, 0), 2, cv2.LINE_AA)
+    if type(mv.data['FlightMode']) == int:
+        cv2.putText(frame, 'FM:{}'.format(flight_mode_dict[mv.data['FlightMode']]), (500, 570), font, 1, (0,255, 0), 2, cv2.LINE_AA)
+    else:
+        cv2.putText(frame, 'FM:{}'.format(mv.data['FlightMode']), (500, 570), font, 1, (0,255, 0), 2, cv2.LINE_AA)
+
 
 
 def apply_osd(frame, osd, mv):

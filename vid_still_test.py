@@ -189,11 +189,8 @@ while(1):
     # take still and save
     # stop the video stream
     print('Stopping video')
-    vs.stop()
+    vs.capture('~/image_{}.jpeg')
 
-    # initialize the video stream and allow the cammera sensor to warmup
-    print('Starting up video camera')
-    vs.start()
 
 
     

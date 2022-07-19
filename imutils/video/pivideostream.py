@@ -53,7 +53,7 @@ class PiVideoStream:
             if self.stopped:
                 self.stream.close()
                 self.rawCapture.close()
-                #self.camera.close()
+                self.camera.close()
                 return
 
     def read(self):
@@ -64,5 +64,6 @@ class PiVideoStream:
         # indicate that the thread should be stopped
         self.stopped = True
 
-    def capture(self):
-        pass
+    def capture(self, filename):
+        self.camera.capture(filename, use_video_port=False)
+        

@@ -28,10 +28,13 @@ fps = vu.FPS()
 # Setup the camera
 ####################################################################
 resolution = (720,576)
+framerate = 20
+
+image_number = 0 # for still images filename
 
 def SetupCamera(resolution, framerate):
     # initialize the video stream and allow the cammera sensor to warmup
-    vs = PiVideoStream(resolution=resolution, framerate=20)
+    vs = PiVideoStream(resolution=resolution, framerate=framerate)
     return vs
 
 
@@ -41,7 +44,7 @@ sensor = vu.sensor_IMX219 # select the PiCamera V2.1 sensor
 camera = vu.configure_camera(sensor, lens_f=2.1, image_mode=5, frame_rate=15)
 
 # initialize the video stream and allow the cammera sensor to warmup
-vs = SetupCamera(resolution=resolution, framerate=20)
+vs = SetupCamera(resolution=resolution, framerate=framerate)
 vs.start()
 
 time.sleep(1)
@@ -183,9 +186,31 @@ while(1):
     break
   elif (key == ord('i')):
     # take still and save
-    #img = 
-    pass
+    # stop the video stream
+    print('Stopping video')
+    vs.stop()
+    print('Starting sill camera')
+    still_camera = SetupCamera(resolution=(3280,2464), framerate=10)
+    still_camera.start()
+    time.sleep(0.1)
+    try: 
+        print('Capturing image')
+        still = still_camera.read()
+        print('Writing image')
+        cv2.imwrite('~/image{}.jpg'.format(image_number), still)
+    except Exception as e:
+        print("Still image failed")
+        print(e)
+    image_number += 1
+    still_camera.stop()
 
+    # initialize the video stream and allow the cammera sensor to warmup
+    print('Starting up video camera')
+    vs = SetupCamera(resolution=resolution, framerate=framerate)
+    vs.start()
+
+
+    
 
 # print the fps   
 fps.stop()

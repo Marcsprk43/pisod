@@ -159,6 +159,7 @@ while(1):
     mv.data['Lat'] = the_connection.messages['AHRS2'].lat  # Note, you can access message fields as attributes!
     mv.data['Lon'] = the_connection.messages['AHRS2'].lng  # Note, you can access message fields as attributes!
     mv.data['Altitude'] = the_connection.messages['AHRS2'].altitude  # Note, you can access message fields as attributes!
+    mv.data['Yaw'] = the_connection.messages['AHRS2'].yaw  # Note, you can access message fields as attributes!
     mv.data['BattV'] = the_connection.messages['SYS_STATUS'].voltage_battery  # Note, you can access message fields as attributes!
     mv.data['BattPercent'] = the_connection.messages['SYS_STATUS'].battery_remaining
     mv.data['BaseMode'] = the_connection.messages['HEARTBEAT'].base_mode  # the base_mode describes the armed, disarmed, etc. status
@@ -187,9 +188,14 @@ while(1):
 
   elif mode == ST_STABILIZE_VIDEO:
     # calc the pixel shift
-    dph, dpw = vu.get_pixel_shift(roll, pitch, camera, factor=.75)
+    dph, dpw = vu.get_pixel_shift(roll, pitch, camera, factor=.7)
 
     frame = vu.image_tranlate(frame, dph, dpw)
+
+    #if ((mv.data['Altitude'] > 10) and ((mv.data['Altitude'] < 20))):
+    if (1):
+      vu.draw_capture_grid(yaw=mv.data['Yaw'],altitude=mv.data['Altitude'])
+      
 
     # always do this last
     vu.apply_osd(frame, osd_overlay, mv)

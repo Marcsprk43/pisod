@@ -1,4 +1,4 @@
-from math import tan, degrees, radians
+from math import tan, degrees, radians, sin, cos
 
 import cv2
 
@@ -273,7 +273,28 @@ def draw_flight_mode(frame, mv):
     else:
         cv2.putText(frame, 'FM:{}'.format(mv.data['FlightMode']), (500, 570), font, 1, (0,255, 0), 2, cv2.LINE_AA)
 
+def rotate_vector(x,y,theta):
+    xc = x
+    yc = y
 
+    x1 = xc* cos(theta) - yc*sin(theta)
+    y1 = xc* sin(theta) + yc*cos(theta)
+
+    return x1, y1
+
+def draw_capture_grid(frame, yaw,altitude):
+    x = 5*360/altitude
+    y = 8*288/altitude
+    x1, y1 = rotate_vector(x,y, yaw)
+    x2, y2 = rotate_vector(-x,y, yaw)
+    x3, y3 = rotate_vector(-x, -y, yaw)
+    x4, y4 = rotate_vector(x, -y, yaw)
+
+    cv2.line(frame, (x1+360,y1+288), (x2+360,y2+288), (0, 0, 255), 2)
+    cv2.line(frame, (x2+360,y2+288), (x3+360,y3+288), (0, 0, 255), 2)
+    cv2.line(frame, (x3+360,y3+288), (x4+360,y4+288), (0, 0, 255), 2)
+    cv2.line(frame, (x4+360,y4+288), (x1+360,y1+288), (0, 0, 255), 2)
+    
 
 def apply_osd(frame, osd, mv):
     # possibly move this to functions:

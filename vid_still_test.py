@@ -188,8 +188,9 @@ while(1):
   elif (key == ord('i')):
     # take still and save
     # stop the video stream
-    print('Taking still')
-    vs.capture('/home/pi/image_{}.jpeg'.format(image_number))
+    print('Taking still. ')
+    vs.capture('image_{}.jpeg'.format(image_number))
+    print('Saving to {}'.format('image_{}.jpeg'.format(image_number)))
     image_number += 1
 
 

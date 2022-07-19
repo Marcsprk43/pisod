@@ -222,6 +222,33 @@ class FPS:
         # compute the (approximate) frames per second
         return self._numFrames / self.elapsed()
 
+flight_mode_dict = {
+    0	:"STABILIZE",	
+1	:"ACRO",	
+2	:"ALT_HOLD",	
+3	:"AUTO",	
+4	:"GUIDED",	
+5	:"LOITER",	
+6	:"RTL",	
+7	:"CIRCLE",	
+9	:"LAND",	
+11	:"DRIFT",	
+13	:"SPORT",	
+14	:"FLIP",	
+15	:"AUTOTUNE",	
+16	:"POSHOLD",	
+17	:"BRAKE",	
+18	:"THROW",	
+19	:"AVOID_ADSB",	
+20	:"GUIDED_NOGPS",	
+21	:"SMART_RTL",	
+22	:"FLOWHOLD",	
+23	:"FOLLOW",	
+24	:"ZIGZAG",	
+25	:"SYSTEMID",	
+26	:"AUTOROTATE",	
+27	:"AUTO_RTL"
+}
 
 font = cv2.FONT_HERSHEY_SIMPLEX
 
@@ -241,7 +268,7 @@ def draw_cross_hairs(frame):
     cv2.line(frame, (320,288), (400,288), (0, 0, 255), 3) 
 
 def draw_flight_mode(frame, mv):
-    cv2.putText(frame, 'FM:{}'.format(mv.data['FlightMode']), (550, 570), font, 1, (0,255, 0), 2, cv2.LINE_AA)
+    cv2.putText(frame, 'FM:{}'.format(flight_mode_dict[mv.data['FlightMode']]), (500, 570), font, 1, (0,255, 0), 2, cv2.LINE_AA)
 
 
 def apply_osd(frame, osd, mv):

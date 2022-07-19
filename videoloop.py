@@ -155,7 +155,8 @@ while(1):
     mv.data['Altitude'] = the_connection.messages['AHRS2'].altitude  # Note, you can access message fields as attributes!
     mv.data['BattV'] = the_connection.messages['SYS_STATUS'].voltage_battery  # Note, you can access message fields as attributes!
     mv.data['BattPercent'] = the_connection.messages['SYS_STATUS'].battery_remaining
-    mv.data['FlightMode'] = the_connection.messages['HEARTBEAT'].base_mode
+    mv.data['BaseMode'] = the_connection.messages['HEARTBEAT'].base_mode
+    mv.data['FlightMode'] = the_connection.messages['HEARTBEAT'].custom_mode
 
     roll = the_connection.messages['AHRS2'].roll
     pitch = the_connection.messages['AHRS2'].pitch  

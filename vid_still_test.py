@@ -190,21 +190,9 @@ while(1):
     # stop the video stream
     print('Stopping video')
     vs.stop()
-    print('Starting sill camera')
-    try:
-        still_camera = PiCamera(resolution=(3280,2464))
-        time.sleep(0.1)
-        still_camera.capture('~/image{}.jpg'.format(image_number), format='jpeg')
-        time.sleep(0.1)
-       
-    except Exception as e:
-        print("Still image failed")
-        print(e)
-    image_number += 1
 
     # initialize the video stream and allow the cammera sensor to warmup
     print('Starting up video camera')
-    vs = SetupCamera(resolution=resolution, framerate=framerate)
     vs.start()
 
 

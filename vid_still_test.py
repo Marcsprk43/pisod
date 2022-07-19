@@ -201,7 +201,6 @@ while(1):
         print("Still image failed")
         print(e)
     image_number += 1
-    still_camera.stop()
 
     # initialize the video stream and allow the cammera sensor to warmup
     print('Starting up video camera')

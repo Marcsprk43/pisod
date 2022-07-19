@@ -48,9 +48,9 @@ class PiVideoStream:
             # if the thread indicator variable is set, stop the thread
             # and resource camera resources
             if self.stopped:
-                self.stream.close()
-                self.rawCapture.close()
-                self.camera.close()
+                #self.stream.close()
+                #self.rawCapture.close()
+                #self.camera.close()
                 return
 
     def read(self):
@@ -60,3 +60,6 @@ class PiVideoStream:
     def stop(self):
         # indicate that the thread should be stopped
         self.stopped = True
+
+    def capture(self):
+        pass

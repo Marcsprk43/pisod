@@ -226,7 +226,7 @@ class FPS:
 font = cv2.FONT_HERSHEY_SIMPLEX
 
 def draw_altitude(frame, mv):
-    cv2.putText(frame, 'Alt:{:2.1f}'.format(mv.data['Altitude']*3.28), (550, 25), font, 1, (0, 0, 255), 2, cv2.LINE_AA)
+    cv2.putText(frame, 'A:{:2.1f}'.format(mv.data['Altitude']*3.28), (570, 25), font, 1, (0, 0, 255), 2, cv2.LINE_AA)
 
 def draw_lat_lon(frame, mv):
     cv2.putText(frame, 'Lat:{:.7f}'.format(mv.data['Lat']), (5, 25), font, 1, (255,0, 0), 2, cv2.LINE_AA)

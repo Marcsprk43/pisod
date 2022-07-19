@@ -226,14 +226,14 @@ class FPS:
 font = cv2.FONT_HERSHEY_SIMPLEX
 
 def draw_altitude(frame, mv):
-    cv2.putText(frame, 'Alt:{:2.1f}'.format(mv.data['Altitude']), (500, 25), font, 1, (0, 0, 255), 2, cv2.LINE_AA)
+    cv2.putText(frame, 'Alt:{:2.1f}'.format(mv.data['Altitude']), (525, 25), font, 1, (0, 0, 255), 2, cv2.LINE_AA)
 
 def draw_lat_lon(frame, mv):
-    cv2.putText(frame, 'Lat:{:.6f}'.format(mv.data['Lat']), (5, 25), font, 1, (255,0, 0), 2, cv2.LINE_AA)
-    cv2.putText(frame, 'Lon:{:.6f}'.format(mv.data['Lat']), (280, 25), font, 1, (255,0, 0), 2, cv2.LINE_AA)
+    cv2.putText(frame, 'Lat:{:.7f}'.format(mv.data['Lat']), (5, 25), font, 1, (255,0, 0), 2, cv2.LINE_AA)
+    cv2.putText(frame, 'Lon:{:.7f}'.format(mv.data['Lat']), (280, 25), font, 1, (255,0, 0), 2, cv2.LINE_AA)
 
 def draw_battery(frame, mv):
-    cv2.putText(frame, 'Batt:{:3.1f}  {:3d}%'.format(mv.data['BattV'], int(mv.data['BattPercent'])), (5, 500), font, 1, (255,255, 255), 2, cv2.LINE_AA)
+    cv2.putText(frame, 'B:{:3.1f}V  {:3d}%'.format(mv.data['BattV'], int(mv.data['BattPercent'])), (5, 570), font, 1, (255,255, 255), 2, cv2.LINE_AA)
 
 def draw_cross_hairs(frame):
 
@@ -241,7 +241,7 @@ def draw_cross_hairs(frame):
     cv2.line(frame, (320,288), (400,288), (0, 0, 255), 3) 
 
 def draw_flight_mode(frame, mv):
-    cv2.putText(frame, 'FM:{}'.format(mv.data['FlightMode']), (550, 500), font, 1, (0,255, 0), 2, cv2.LINE_AA)
+    cv2.putText(frame, 'FM:{}'.format(mv.data['FlightMode']), (550, 570), font, 1, (0,255, 0), 2, cv2.LINE_AA)
 
 
 def apply_osd(frame, osd, mv):

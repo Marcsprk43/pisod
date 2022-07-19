@@ -5,6 +5,7 @@ from imutils.video.pivideostream import PiVideoStream
 import videoutils as vu
 from pymavlink import mavutil
 import time
+from picamera import PiCamera
 import math
 
 ####################################################################
@@ -190,14 +191,12 @@ while(1):
     print('Stopping video')
     vs.stop()
     print('Starting sill camera')
-    still_camera = SetupCamera(resolution=(3280,2464), framerate=10)
-    still_camera.start()
-    time.sleep(0.1)
-    try: 
-        print('Capturing image')
-        still = still_camera.read()
-        print('Writing image')
-        cv2.imwrite('~/image{}.jpg'.format(image_number), still)
+    try:
+        still_camera = PiCamera(resolution=(3280,2464))
+        time.sleep(0.1)
+        still_camera.capture('~/image{}.jpg'.format(image_number), format='jpeg')
+        time.sleep(0.1)
+       
     except Exception as e:
         print("Still image failed")
         print(e)

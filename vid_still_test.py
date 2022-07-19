@@ -189,7 +189,7 @@ while(1):
     # take still and save
     # stop the video stream
     print('Stopping video')
-    vs.capture('~/image_{}.jpeg')
+    vs.capture('image_{}.jpeg'.format(image_number))
 
 
 

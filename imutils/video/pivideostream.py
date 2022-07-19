@@ -20,17 +20,18 @@ class PiVideoStream:
             print('Setting paramater: {} - {}'.format(arg, value))
             setattr(self.camera, arg, value)
 
+ 
+
+    def start(self):
         # initialize the stream
         self.rawCapture = PiRGBArray(self.camera, size=resolution)
         self.stream = self.camera.capture_continuous(self.rawCapture,
-            format="bgr", use_video_port=True)
+                                                    format="bgr", use_video_port=True)
 
         # initialize the frame and the variable used to indicate
         # if the thread should be stopped
         self.frame = None
         self.stopped = False
-
-    def start(self):
         # start the thread to read frames from the video stream
         t = Thread(target=self.update, args=())
         t.daemon = True
@@ -48,8 +49,8 @@ class PiVideoStream:
             # if the thread indicator variable is set, stop the thread
             # and resource camera resources
             if self.stopped:
-                #self.stream.close()
-                #self.rawCapture.close()
+                self.stream.close()
+                self.rawCapture.close()
                 #self.camera.close()
                 return
 

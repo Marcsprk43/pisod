@@ -331,7 +331,11 @@ def draw_capture_grid(frame, yaw,altitude):
     x1, y1 = rotate_vector(x, 0, yaw)
     cv2.putText(frame, 'E+', (x1+360, -y1+288), font, .5, (0,255, 255), 1, cv2.LINE_AA)
     cv2.putText(frame, 'W-', (-x1+360, y1+288), font, .5, (0,255, 255), 1, cv2.LINE_AA)
-  
+
+def draw_base_mode(frame, mv):
+    if (mv.data['BaseMode'] & 128):
+
+        cv2.putText(frame, 'ARMED', (400, 570), font, 1, (0, 0, 255), 2, cv2.LINE_AA)
 
 def apply_osd(frame, osd, mv):
     # possibly move this to functions:
@@ -344,6 +348,9 @@ def apply_osd(frame, osd, mv):
             draw_battery(frame, mv)
             draw_flight_mode(frame, mv)
             draw_cross_hairs(frame)
+            draw_base_mode(frame, mv)
+            
+
         elif (osd == 'Screen2'):
             cv2.putText(frame, 'A:{:2.1f}'.format(mv.data['Altitude']), (650, 25), font, 1, (0, 0, 255), 2, cv2.LINE_AA)
 

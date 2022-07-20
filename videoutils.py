@@ -280,7 +280,7 @@ def rotate_vector(x,y,theta):
     x1 = xc* cos(theta) - yc*sin(theta)
     y1 = xc* sin(theta) + yc*cos(theta)
 
-    return x1, y1
+    return int(x1), int(y1)
 
 def draw_capture_grid(frame, yaw,altitude):
     x = 5*360/altitude

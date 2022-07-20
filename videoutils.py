@@ -292,16 +292,19 @@ def draw_capture_grid(frame, yaw,altitude):
     x2, y2 = rotate_vector(-x,y, yaw)
     x3, y3 = rotate_vector(-x, -y, yaw)
     x4, y4 = rotate_vector(x, -y, yaw)
-
+    # draw outside box 5th digit
     cv2.line(frame, (x1+360,-y1+288), (x2+360,-y2+288), (0,255, 255), 1)
     cv2.line(frame, (x2+360,-y2+288), (x3+360,-y3+288), (0,255, 255), 1)
     cv2.line(frame, (x3+360,-y3+288), (x4+360,-y4+288), (0,255, 255), 1)
     cv2.line(frame, (x4+360,-y4+288), (x1+360,-y1+288), (0,255, 255), 1)
 
+    # draw lat-lon axes
     x1, y1 = rotate_vector(0, y, yaw)
-    cv2.line(frame, (360-x1,288+y1), (x1+360,-y1+288), (0, 255, 255), 1)
+    cv2.line(frame, (360-x1,288+y1), (x1+360,-y1+288), (255, 255, 255), 1)
     x1, y1 = rotate_vector(x, 0, yaw)
-    cv2.line(frame, (360-x1,288+y1), (x1+360,-y1+288), (0, 255, 255), 1)
+    cv2.line(frame, (360-x1,288+y1), (x1+360,-y1+288), (255, 255, 255), 1)
+
+    # draw in side box half of 5th digit
 
     x = x/2
     y = y/2
@@ -309,16 +312,17 @@ def draw_capture_grid(frame, yaw,altitude):
     x1, y1 = rotate_vector(x, y, yaw)
     x2, y2 = rotate_vector(-x,y, yaw)
 
-    cv2.line(frame, (x1+360,-y1+288), (x2+360,-y2+288), (0, 255, 255), 1)
-    cv2.line(frame, (x2+360,-y2+288), (-x1+360,y1+288), (0, 255, 255), 1)
-    cv2.line(frame, (-x1+360,y1+288), (-x2+360,y2+288), (0, 255, 255), 1)
-    cv2.line(frame, (-x2+360,y2+288), (x1+360,-y1+288), (0, 255, 255), 1)
+    cv2.line(frame, (x1+360,-y1+288), (x2+360,-y2+288), (255, 255, 255), 1)
+    cv2.line(frame, (x2+360,-y2+288), (-x1+360,y1+288), (255, 255, 255), 1)
+    cv2.line(frame, (-x1+360,y1+288), (-x2+360,y2+288), (255, 255, 255), 1)
+    cv2.line(frame, (-x2+360,y2+288), (x1+360,-y1+288), (255, 255, 255), 1)
 
+    # draw N, S labels
     x1, y1 = rotate_vector(0, y, yaw)
-
     cv2.putText(frame, 'N+', (x1+360, -y1+288), font, .5, (0,255, 255), 1, cv2.LINE_AA)
     cv2.putText(frame, 'S-', (-x1+360, y1+288), font, .5, (0,255, 255), 1, cv2.LINE_AA)
    
+    # draw E, W labels
     x1, y1 = rotate_vector(x, 0, yaw)
     cv2.putText(frame, 'E+', (x1+360, -y1+288), font, .5, (0,255, 255), 1, cv2.LINE_AA)
     cv2.putText(frame, 'W-', (-x1+360, y1+288), font, .5, (0,255, 255), 1, cv2.LINE_AA)

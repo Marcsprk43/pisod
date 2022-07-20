@@ -255,7 +255,7 @@ font = cv2.FONT_HERSHEY_SIMPLEX
 def draw_altitude(frame, mv):
     if (mv.data['Altitude']*3.28 > 50):
         text_color = (0,255,0)  # Green
-    elif (mv.data['Altitude'] > 40):
+    elif (mv.data['Altitude']*3.28 > 40):
         text_color = (0,153,255)  # Orange
     else:
         text_color = (0,0,255)  # Red

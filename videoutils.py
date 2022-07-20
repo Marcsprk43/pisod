@@ -260,7 +260,7 @@ def draw_altitude(frame, mv):
     else:
         text_color = (0,0,255)  # Red
 
-    cv2.putText(frame, 'A:{:2.1f}'.format(mv.data['Altitude']*3.28), (570, 25), font, 1, (0, 0, 255), 2, cv2.LINE_AA)
+    cv2.putText(frame, 'A:{:2.1f}'.format(mv.data['Altitude']*3.28), (570, 25), font, 1, text_color, 2, cv2.LINE_AA)
 
 def draw_lat_lon(frame, mv):
     cv2.putText(frame, 'Lat:{:2.6f}'.format(mv.data['Lat']), (5, 25), font, 1, (255,0, 0), 2, cv2.LINE_AA)

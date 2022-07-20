@@ -193,9 +193,12 @@ while(1):
 
     frame = vu.image_tranlate(frame, dph, dpw)
 
-    #if ((mv.data['Altitude'] > 10) and ((mv.data['Altitude'] < 20))):
-    if (1):
+    mv.data['Altitude'] = 9
+
+    if ((mv.data['Altitude'] > 10) and ((mv.data['Altitude'] < 20))):
       vu.draw_capture_grid(frame, yaw=mv.data['Yaw'], altitude=mv.data['Altitude']) #mv.data['Altitude'])
+
+    
       
 
     # always do this last

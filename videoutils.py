@@ -296,6 +296,8 @@ def draw_capture_grid(frame, yaw,altitude):
     cv2.line(frame, (x2+360,y2+288), (x3+360,y3+288), (0, 0, 255), 2)
     cv2.line(frame, (x3+360,y3+288), (x4+360,y4+288), (0, 0, 255), 2)
     cv2.line(frame, (x4+360,y4+288), (x1+360,y1+288), (0, 0, 255), 2)
+
+    cv2.line(frame, (360,-50), (800,288), (0, 225, 255), 2)
     
 
 def apply_osd(frame, osd, mv):

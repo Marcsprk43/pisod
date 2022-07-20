@@ -260,7 +260,7 @@ def draw_altitude(frame, mv):
     else:
         text_color = (0,0,255)  # Red
 
-    cv2.putText(frame, 'A:{:2.1f}'.format(mv.data['Altitude']*3.28), (570, 25), font, 1, text_color, 2, cv2.LINE_AA)
+    cv2.putText(frame, 'A:{:2.1f}'.format(mv.data['Altitude']*3.28), (520, 25), font, 1, text_color, 2, cv2.LINE_AA)
 
 def draw_lat_lon(frame, mv):
     cv2.putText(frame, 'Lat:{:2.6f}'.format(mv.data['Lat']), (5, 25), font, 1, (255,0, 0), 2, cv2.LINE_AA)
@@ -278,7 +278,7 @@ def draw_flight_mode(frame, mv):
     if type(mv.data['FlightMode']) == int:
         cv2.putText(frame, 'FM:{}'.format(flight_mode_dict[mv.data['FlightMode']]), (500, 570), font, 1, (0,255, 0), 2, cv2.LINE_AA)
     else:
-        cv2.putText(frame, 'FM:{}'.format(mv.data['FlightMode']), (500, 570), font, 1, (0,255, 0), 2, cv2.LINE_AA)
+        cv2.putText(frame, 'FM:{}'.format(mv.data['FlightMode']), (500, 520), font, 1, (0,255, 0), 2, cv2.LINE_AA)
 
 def rotate_vector(x,y,theta):
     xc = x
@@ -335,7 +335,7 @@ def draw_capture_grid(frame, yaw,altitude):
 def draw_base_mode(frame, mv):
     if (mv.data['BaseMode'] & 128):
 
-        cv2.putText(frame, 'ARMED', (370, 570), font, 1, (0, 0, 255), 2, cv2.LINE_AA)
+        cv2.putText(frame, 'ARMED', (370, 520), font, 1, (0, 0, 255), 2, cv2.LINE_AA)
 
 def apply_osd(frame, osd, mv):
     # possibly move this to functions:

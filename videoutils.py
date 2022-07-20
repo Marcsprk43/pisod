@@ -367,7 +367,8 @@ class Mavlink:
         'BattV':14.5,
         'BattPercent':45,
         'FlightMode':'STAB',
-        'DisplayMode':'st'
+        'DisplayMode':'st',
+        'BaseMode':128
     }
 
 from pymavlink import mavutil

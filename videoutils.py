@@ -264,8 +264,8 @@ def draw_battery(frame, mv):
 
 def draw_cross_hairs(frame):
 
-    cv2.line(frame, (360,248), (360,328), (0, 0, 255), 3) 
-    cv2.line(frame, (320,288), (400,288), (0, 0, 255), 3) 
+    cv2.line(frame, (360,278), (360,298), (0, 0, 255), 3) 
+    cv2.line(frame, (350,288), (370,288), (0, 0, 255), 3) 
 
 def draw_flight_mode(frame, mv):
     if type(mv.data['FlightMode']) == int:
@@ -290,13 +290,18 @@ def draw_capture_grid(frame, yaw,altitude):
     x3, y3 = rotate_vector(-x, -y, yaw)
     x4, y4 = rotate_vector(x, -y, yaw)
 
-    cv2.line(frame, (x1+360,y1+288), (x2+360,y2+288), (0, 0, 255), 2)
-    cv2.line(frame, (x2+360,y2+288), (x3+360,y3+288), (0, 0, 255), 2)
-    cv2.line(frame, (x3+360,y3+288), (x4+360,y4+288), (0, 0, 255), 2)
-    cv2.line(frame, (x4+360,y4+288), (x1+360,y1+288), (0, 0, 255), 2)
+    cv2.line(frame, (x1+360,y1+288), (x2+360,y2+288), (0, 0, 255), 1)
+    cv2.line(frame, (x2+360,y2+288), (x3+360,y3+288), (0, 0, 255), 1)
+    cv2.line(frame, (x3+360,y3+288), (x4+360,y4+288), (0, 0, 255), 1)
+    cv2.line(frame, (x4+360,y4+288), (x1+360,y1+288), (0, 0, 255), 1)
+
+    x1, y1 = rotate_vector(0, 300, yaw)
+
+    cv2.putText(frame, 'N' (x1+360, y1+288), font, .5, (0,255, 0), 2, cv2.LINE_AA)
 
     x = x/2
-    y = y/3
+    y = y/2
+
     x1, y1 = rotate_vector(x, y, yaw)
     x2, y2 = rotate_vector(-x,y, yaw)
 

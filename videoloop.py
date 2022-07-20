@@ -107,6 +107,7 @@ print("Heartbeat from system (system %u component %u)" % (the_connection.target_
 # Set up the message type frequencies
 vu.request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_SYS_STATUS, 1)
 vu.request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_AHRS2, 30)
+vu.request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_ATTITUDE, 1)
 vu.request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_GLOBAL_POSITION_INT  , 1)
 vu.request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_POWER_STATUS  , 1)
 vu.request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_MEMINFO  , 1)
@@ -194,7 +195,7 @@ while(1):
 
     #if ((mv.data['Altitude'] > 10) and ((mv.data['Altitude'] < 20))):
     if (1):
-      vu.draw_capture_grid(frame, yaw=mv.data['Yaw'], altitude=mv.data['Altitude'])
+      vu.draw_capture_grid(frame, yaw=mv.data['Yaw'], altitude=20) #mv.data['Altitude'])
       
 
     # always do this last

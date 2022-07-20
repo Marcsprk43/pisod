@@ -285,7 +285,7 @@ def rotate_vector(x,y,theta):
 def draw_capture_grid(frame, yaw,altitude):
     x = 5*360/altitude
     y = 8*288/altitude
-    x1, y1 = rotate_vector(x,y, yaw)
+    x1, y1 = rotate_vector(x, y, yaw)
     x2, y2 = rotate_vector(-x,y, yaw)
     x3, y3 = rotate_vector(-x, -y, yaw)
     x4, y4 = rotate_vector(x, -y, yaw)
@@ -295,8 +295,16 @@ def draw_capture_grid(frame, yaw,altitude):
     cv2.line(frame, (x3+360,y3+288), (x4+360,y4+288), (0, 0, 255), 2)
     cv2.line(frame, (x4+360,y4+288), (x1+360,y1+288), (0, 0, 255), 2)
 
-    cv2.line(frame, (360,-50), (800,288), (0, 225, 255), 2)
-    
+    x = x/2
+    y = y/3
+    x1, y1 = rotate_vector(x, y, yaw)
+    x2, y2 = rotate_vector(-x,y, yaw)
+
+    cv2.line(frame, (x1+360,y1+288), (x2+360,y2+288), (0, 255, 255), 1)
+    cv2.line(frame, (x2+360,y2+288), (-x1+360,-y1+288), (0, 255, 255), 1)
+    cv2.line(frame, (-x1+360,-y1+288), (-x2+360,-y2+288), (0, 255, 255), 1)
+    cv2.line(frame, (-x2+360,-y2+288), (x1+360,y1+288), (0, 255, 255), 1)
+   
 
 def apply_osd(frame, osd, mv):
     # possibly move this to functions:

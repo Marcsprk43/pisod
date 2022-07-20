@@ -297,7 +297,7 @@ def draw_capture_grid(frame, yaw,altitude):
 
     x1, y1 = rotate_vector(0, 300, yaw)
 
-    cv2.putText(frame, 'N' (x1+360, y1+288), font, .5, (0,255, 0), 2, cv2.LINE_AA)
+    cv2.putText(frame, 'N', (x1+360, y1+288), font, .5, (0,255, 0), 2, cv2.LINE_AA)
 
     x = x/2
     y = y/2

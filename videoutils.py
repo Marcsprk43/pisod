@@ -260,11 +260,11 @@ def draw_altitude(frame, mv):
     else:
         text_color = (0,0,255)  # Red
 
-    cv2.putText(frame, 'A:{:2.1f}'.format(mv.data['Altitude']*3.28), (505, 25), font, 1, text_color, 2, cv2.LINE_AA)
+    cv2.putText(frame, 'A:{:2.1f}'.format(mv.data['Altitude']*3.28), (550, 25), font, 1, text_color, 2, cv2.LINE_AA)
 
 def draw_lat_lon(frame, mv):
-    cv2.putText(frame, 'Lat:{:2.6f}'.format(mv.data['Lat']), (5, 25), font, 1, (255,0, 0), 2, cv2.LINE_AA)
-    cv2.putText(frame, 'Lon:{:3.6f}'.format(mv.data['Lat']), (280, 25), font, 1, (255,0, 0), 2, cv2.LINE_AA)
+    cv2.putText(frame, 'Lat:{:10d}'.format(int(mv.data['Lat']/10)), (5, 25), font, 1, (0,255, 255), 2, cv2.LINE_AA)
+    cv2.putText(frame, 'Lon:{:10d}'.format(int(mv.data['Lon']/10)), (280, 25), font, 1, (0,255, 255), 2, cv2.LINE_AA)
 
 def draw_battery(frame, mv):
     cv2.putText(frame, 'B:{:3.1f}V  {:3d}%'.format(mv.data['BattV'], int(mv.data['BattPercent'])), (5, 505), font, 1, (255,255, 255), 2, cv2.LINE_AA)
@@ -290,47 +290,48 @@ def rotate_vector(x,y,theta):
     return int(x1), int(y1)
 
 def draw_capture_grid(frame, yaw,altitude):
-    x = 5*360/altitude
-    y = 5*360/altitude
+    if (altitude >5):
+        x = 5*360/altitude
+        y = 5*360/altitude
 
-    x1, y1 = rotate_vector(x, y, yaw)
-    x2, y2 = rotate_vector(-x,y, yaw)
-    x3, y3 = rotate_vector(-x, -y, yaw)
-    x4, y4 = rotate_vector(x, -y, yaw)
-    # draw outside box 5th digit
-    cv2.line(frame, (x1+360,-y1+288), (x2+360,-y2+288), (0,255, 255), 1)
-    cv2.line(frame, (x2+360,-y2+288), (x3+360,-y3+288), (0,255, 255), 1)
-    cv2.line(frame, (x3+360,-y3+288), (x4+360,-y4+288), (0,255, 255), 1)
-    cv2.line(frame, (x4+360,-y4+288), (x1+360,-y1+288), (0,255, 255), 1)
+        x1, y1 = rotate_vector(x, y, yaw)
+        x2, y2 = rotate_vector(-x,y, yaw)
+        x3, y3 = rotate_vector(-x, -y, yaw)
+        x4, y4 = rotate_vector(x, -y, yaw)
+        # draw outside box 5th digit
+        cv2.line(frame, (x1+360,-y1+288), (x2+360,-y2+288), (0,255, 255), 1)
+        cv2.line(frame, (x2+360,-y2+288), (x3+360,-y3+288), (0,255, 255), 1)
+        cv2.line(frame, (x3+360,-y3+288), (x4+360,-y4+288), (0,255, 255), 1)
+        cv2.line(frame, (x4+360,-y4+288), (x1+360,-y1+288), (0,255, 255), 1)
 
-    # draw lat-lon axes
-    x1, y1 = rotate_vector(0, y, yaw)
-    cv2.line(frame, (360-x1,288+y1), (x1+360,-y1+288), (255, 255, 255), 1)
-    x1, y1 = rotate_vector(x, 0, yaw)
-    cv2.line(frame, (360-x1,288+y1), (x1+360,-y1+288), (255, 255, 255), 1)
+        # draw lat-lon axes
+        x1, y1 = rotate_vector(0, y, yaw)
+        cv2.line(frame, (360-x1,288+y1), (x1+360,-y1+288), (255, 255, 255), 1)
+        x1, y1 = rotate_vector(x, 0, yaw)
+        cv2.line(frame, (360-x1,288+y1), (x1+360,-y1+288), (255, 255, 255), 1)
 
-    # draw in side box half of 5th digit
+        # draw in side box half of 5th digit
 
-    x = x/2
-    y = y/2
+        x = x/2
+        y = y/2
 
-    x1, y1 = rotate_vector(x, y, yaw)
-    x2, y2 = rotate_vector(-x,y, yaw)
+        x1, y1 = rotate_vector(x, y, yaw)
+        x2, y2 = rotate_vector(-x,y, yaw)
 
-    cv2.line(frame, (x1+360,-y1+288), (x2+360,-y2+288), (255, 255, 255), 1)
-    cv2.line(frame, (x2+360,-y2+288), (-x1+360,y1+288), (255, 255, 255), 1)
-    cv2.line(frame, (-x1+360,y1+288), (-x2+360,y2+288), (255, 255, 255), 1)
-    cv2.line(frame, (-x2+360,y2+288), (x1+360,-y1+288), (255, 255, 255), 1)
+        cv2.line(frame, (x1+360,-y1+288), (x2+360,-y2+288), (255, 255, 255), 1)
+        cv2.line(frame, (x2+360,-y2+288), (-x1+360,y1+288), (255, 255, 255), 1)
+        cv2.line(frame, (-x1+360,y1+288), (-x2+360,y2+288), (255, 255, 255), 1)
+        cv2.line(frame, (-x2+360,y2+288), (x1+360,-y1+288), (255, 255, 255), 1)
 
-    # draw N, S labels
-    x1, y1 = rotate_vector(0, y, yaw)
-    cv2.putText(frame, 'N+', (x1+360, -y1+288), font, .5, (0,255, 255), 1, cv2.LINE_AA)
-    cv2.putText(frame, 'S-', (-x1+360, y1+288), font, .5, (0,255, 255), 1, cv2.LINE_AA)
-   
-    # draw E, W labels
-    x1, y1 = rotate_vector(x, 0, yaw)
-    cv2.putText(frame, 'E+', (x1+360, -y1+288), font, .5, (0,255, 255), 1, cv2.LINE_AA)
-    cv2.putText(frame, 'W-', (-x1+360, y1+288), font, .5, (0,255, 255), 1, cv2.LINE_AA)
+        # draw N, S labels
+        x1, y1 = rotate_vector(0, y, yaw)
+        cv2.putText(frame, 'N+', (x1+360, -y1+288), font, .5, (0,255, 255), 1, cv2.LINE_AA)
+        cv2.putText(frame, 'S-', (-x1+360, y1+288), font, .5, (0,255, 255), 1, cv2.LINE_AA)
+    
+        # draw E, W labels
+        x1, y1 = rotate_vector(x, 0, yaw)
+        cv2.putText(frame, 'E+', (x1+360, -y1+288), font, .5, (0,255, 255), 1, cv2.LINE_AA)
+        cv2.putText(frame, 'W-', (-x1+360, y1+288), font, .5, (0,255, 255), 1, cv2.LINE_AA)
 
 def draw_base_mode(frame, mv):
     if (mv.data['BaseMode'] & 128):
@@ -365,6 +366,7 @@ class Mavlink:
         'Lat':33.521117, 
         'Lon':-84.581361, 
         'BattV':14.5,
+        'Yaw':0,
         'BattPercent':45,
         'FlightMode':'STAB',
         'DisplayMode':'st',

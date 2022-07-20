@@ -159,7 +159,7 @@ while(1):
     #the_connection.recv_match(blocking=False)
     mv.data['Lat'] = the_connection.messages['AHRS2'].lat  # Note, you can access message fields as attributes!
     mv.data['Lon'] = the_connection.messages['AHRS2'].lng  # Note, you can access message fields as attributes!
-    mv.data['Altitude'] = the_connection.messages['AHRS2'].altitude  # Note, you can access message fields as attributes!
+    mv.data['Altitude'] = the_connection.messages['AHRS2'].altitude - 275.  # Note, you can access message fields as attributes!
     mv.data['Yaw'] = the_connection.messages['AHRS2'].yaw  # Note, you can access message fields as attributes!
     mv.data['BattV'] = the_connection.messages['SYS_STATUS'].voltage_battery  # Note, you can access message fields as attributes!
     mv.data['BattPercent'] = the_connection.messages['SYS_STATUS'].battery_remaining
@@ -168,7 +168,7 @@ while(1):
 
     roll = the_connection.messages['AHRS2'].roll
     pitch = the_connection.messages['AHRS2'].pitch  
-      
+    
   except Exception as e:
       print(e, 'not received yet')
       roll = 0.0
@@ -192,7 +192,6 @@ while(1):
     dph, dpw = vu.get_pixel_shift(roll, pitch, camera, factor=.7)
 
     frame = vu.image_tranlate(frame, dph, dpw)
-
     if ((mv.data['Altitude'] > 10) and ((mv.data['Altitude'] < 20))):
       vu.draw_capture_grid(frame, yaw=mv.data['Yaw'], altitude=mv.data['Altitude']) #mv.data['Altitude'])
 

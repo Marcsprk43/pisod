@@ -335,7 +335,7 @@ def draw_capture_grid(frame, yaw,altitude):
 def draw_base_mode(frame, mv):
     if (mv.data['BaseMode'] & 128):
 
-        cv2.putText(frame, 'ARMED', (400, 570), font, 1, (0, 0, 255), 2, cv2.LINE_AA)
+        cv2.putText(frame, 'ARMED', (370, 570), font, 1, (0, 0, 255), 2, cv2.LINE_AA)
 
 def apply_osd(frame, osd, mv):
     # possibly move this to functions:

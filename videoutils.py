@@ -310,11 +310,11 @@ def draw_capture_grid(frame, yaw,altitude):
 
     x1, y1 = rotate_vector(0, y+10, yaw)
     cv2.putText(frame, 'N+', (x1+360, y1+288), font, .5, (0,255, 255), 2, cv2.LINE_AA)
-    cv2.putText(frame, 'S-', (x1-360, y1-288), font, .5, (0,255, 255), 2, cv2.LINE_AA)
+    cv2.putText(frame, 'S-', (-x1+360, -y1+288), font, .5, (0,255, 255), 2, cv2.LINE_AA)
    
     x1, y1 = rotate_vector(x+10, 0, yaw)
     cv2.putText(frame, 'E+', (x1+360, y1+288), font, .5, (0,255, 255), 2, cv2.LINE_AA)
-    cv2.putText(frame, 'W+', (x1-360, y1-288), font, .5, (0,255, 255), 2, cv2.LINE_AA)
+    cv2.putText(frame, 'W+', (-x1+360, -y1+288), font, .5, (0,255, 255), 2, cv2.LINE_AA)
   
 
 def apply_osd(frame, osd, mv):

@@ -267,7 +267,7 @@ def draw_lat_lon(frame, mv):
     cv2.putText(frame, 'Lon:{:3.6f}'.format(mv.data['Lat']), (280, 25), font, 1, (255,0, 0), 2, cv2.LINE_AA)
 
 def draw_battery(frame, mv):
-    cv2.putText(frame, 'B:{:3.1f}V  {:3d}%'.format(mv.data['BattV'], int(mv.data['BattPercent'])), (5, 570), font, 1, (255,255, 255), 2, cv2.LINE_AA)
+    cv2.putText(frame, 'B:{:3.1f}V  {:3d}%'.format(mv.data['BattV'], int(mv.data['BattPercent'])), (5, 520), font, 1, (255,255, 255), 2, cv2.LINE_AA)
 
 def draw_cross_hairs(frame):
 
@@ -276,7 +276,7 @@ def draw_cross_hairs(frame):
 
 def draw_flight_mode(frame, mv):
     if type(mv.data['FlightMode']) == int:
-        cv2.putText(frame, 'FM:{}'.format(flight_mode_dict[mv.data['FlightMode']]), (500, 570), font, 1, (0,255, 0), 2, cv2.LINE_AA)
+        cv2.putText(frame, 'FM:{}'.format(flight_mode_dict[mv.data['FlightMode']]), (500, 520), font, 1, (0,255, 0), 2, cv2.LINE_AA)
     else:
         cv2.putText(frame, 'FM:{}'.format(mv.data['FlightMode']), (500, 520), font, 1, (0,255, 0), 2, cv2.LINE_AA)
 

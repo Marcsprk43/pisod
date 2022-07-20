@@ -305,20 +305,20 @@ def draw_capture_grid(frame, yaw,altitude):
     x1, y1 = rotate_vector(x, y, yaw)
     x2, y2 = rotate_vector(-x,y, yaw)
 
-    cv2.line(frame, (x1+360,y1+288), (x2+360,y2+288), (0, 255, 255), 1)
-    cv2.line(frame, (x2+360,y2+288), (-x1+360,-y1+288), (0, 255, 255), 1)
-    cv2.line(frame, (-x1+360,-y1+288), (-x2+360,-y2+288), (0, 255, 255), 1)
-    cv2.line(frame, (-x2+360,-y2+288), (x1+360,y1+288), (0, 255, 255), 1)
+    cv2.line(frame, (x1+360,-y1+288), (x2+360,-y2+288), (0, 255, 255), 1)
+    cv2.line(frame, (x2+360,-y2+288), (-x1+360,y1+288), (0, 255, 255), 1)
+    cv2.line(frame, (-x1+360,y1+288), (-x2+360,y2+288), (0, 255, 255), 1)
+    cv2.line(frame, (-x2+360,y2+288), (x1+360,-y1+288), (0, 255, 255), 1)
 
     x1, y1 = rotate_vector(0, y, yaw)
-    cv2.line(frame, (360,288), (x1+360,y1+288), (0, 255, 255), 1)
+    cv2.line(frame, (360,288), (x1+360,-y1+288), (0, 255, 255), 1)
 
-    cv2.putText(frame, 'N+', (x1+360, y1+288), font, .5, (0,255, 255), 1, cv2.LINE_AA)
-    cv2.putText(frame, 'S-', (-x1+360, -y1+288), font, .5, (0,255, 255), 1, cv2.LINE_AA)
+    cv2.putText(frame, 'N+', (x1+360, -y1+288), font, .5, (0,255, 255), 1, cv2.LINE_AA)
+    cv2.putText(frame, 'S-', (-x1+360, y1+288), font, .5, (0,255, 255), 1, cv2.LINE_AA)
    
     x1, y1 = rotate_vector(x, 0, yaw)
-    cv2.putText(frame, 'E+', (x1+360, y1+288), font, .5, (0,255, 255), 1, cv2.LINE_AA)
-    cv2.putText(frame, 'W+', (-x1+360, -y1+288), font, .5, (0,255, 255), 1, cv2.LINE_AA)
+    cv2.putText(frame, 'E+', (x1+360, -y1+288), font, .5, (0,255, 255), 1, cv2.LINE_AA)
+    cv2.putText(frame, 'W+', (-x1+360, y1+288), font, .5, (0,255, 255), 1, cv2.LINE_AA)
   
 
 def apply_osd(frame, osd, mv):

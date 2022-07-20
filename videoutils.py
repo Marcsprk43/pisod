@@ -253,6 +253,12 @@ flight_mode_dict = {
 font = cv2.FONT_HERSHEY_SIMPLEX
 
 def draw_altitude(frame, mv):
+    if (mv.data['Altitude']*3.28 > 50):
+        text_color = (0,255,0)
+    elif (mv.data['Altitude'] > 40):
+        text_color = (0,153,255)
+    else:
+        text_color = (0,0,255)
     cv2.putText(frame, 'A:{:2.1f}'.format(mv.data['Altitude']*3.28), (570, 25), font, 1, (0, 0, 255), 2, cv2.LINE_AA)
 
 def draw_lat_lon(frame, mv):

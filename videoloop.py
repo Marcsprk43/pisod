@@ -195,7 +195,7 @@ while(1):
 
     #if ((mv.data['Altitude'] > 10) and ((mv.data['Altitude'] < 20))):
     if (1):
-      vu.draw_capture_grid(frame, yaw=mv.data['Yaw'], altitude=10) #mv.data['Altitude'])
+      vu.draw_capture_grid(frame, yaw=mv.data['Yaw'], altitude=mv.data['Altitude']) #mv.data['Altitude'])
       
 
     # always do this last

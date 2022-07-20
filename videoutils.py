@@ -290,8 +290,6 @@ def draw_capture_grid(frame, yaw,altitude):
     x3, y3 = rotate_vector(-x, -y, yaw)
     x4, y4 = rotate_vector(x, -y, yaw)
 
-    print(x1, y1, x2, y2, x3, y3, x4, y4 )
-
     cv2.line(frame, (x1+360,y1+288), (x2+360,y2+288), (0, 0, 255), 2)
     cv2.line(frame, (x2+360,y2+288), (x3+360,y3+288), (0, 0, 255), 2)
     cv2.line(frame, (x3+360,y3+288), (x4+360,y4+288), (0, 0, 255), 2)

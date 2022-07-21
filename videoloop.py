@@ -180,7 +180,7 @@ while(1):
     pitch = 0.0
   else: 
     # set the home alt if we are still in home location
-    if ( home_location and (mv.data['BaseMode'] & 128) ):
+    if ( home_location and not (mv.data['BaseMode'] & 128) ):
       home_alt = 0.9*home_alt + 0.1*mv.data['Altitude_MSL']     # filter the home alt readings
       print(home_alt)
 
@@ -195,7 +195,7 @@ while(1):
     mv.data['FlightMode'] = the_connection.messages['HEARTBEAT'].custom_mode  # this is the flight mode (STAB, LOITER, AUTO, etc)
     # if the vehicle has been armed assume that it is no longer in the home location 
 
-    if (home_location and (not (mv.data['BaseMode'] & 128))):
+    if (home_location and  (mv.data['BaseMode'] & 128)):
       home_location = False
 
   except Exception as e:

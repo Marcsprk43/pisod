@@ -271,8 +271,8 @@ def draw_battery(frame, mv):
 
 def draw_cross_hairs(frame):
 
-    cv2.line(frame, (360,278), (360,298), (0, 0, 255), 1) 
-    cv2.line(frame, (350,288), (370,288), (0, 0, 255), 1) 
+    cv2.line(frame, (360,268), (360,308), (0, 0, 255), 2) 
+    cv2.line(frame, (340,288), (380,288), (0, 0, 255), 2) 
 
 def draw_flight_mode(frame, mv):
     if type(mv.data['FlightMode']) == int:
@@ -326,12 +326,12 @@ def draw_capture_grid(frame, yaw,altitude):
         # draw N, S labels
         x1, y1 = rotate_vector(0, y, yaw)
         cv2.putText(frame, 'N+', (x1+360, -y1+288), font, 1, (0, 0, 255), 2, cv2.LINE_AA)
-        cv2.putText(frame, 'S-', (-x1+360, y1+288), font, .5, (0,255, 255), 1, cv2.LINE_AA)
+        cv2.putText(frame, 'S-', (-x1+360, y1+288), font, .5, (0, 0, 255), 1, cv2.LINE_AA)
     
         # draw E, W labels
         x1, y1 = rotate_vector(x, 0, yaw)
-        cv2.putText(frame, 'E+', (x1+360, -y1+288), font, .5, (0,255, 255), 1, cv2.LINE_AA)
-        cv2.putText(frame, 'W-', (-x1+360, y1+288), font, .5, (0,255, 255), 1, cv2.LINE_AA)
+        cv2.putText(frame, 'E+', (x1+360, -y1+288), font, .5, (0, 0, 255), 1, cv2.LINE_AA)
+        cv2.putText(frame, 'W-', (-x1+360, y1+288), font, .5, (0, 0, 255), 1, cv2.LINE_AA)
 
 def draw_base_mode(frame, mv):
     if (mv.data['BaseMode'] & 128):

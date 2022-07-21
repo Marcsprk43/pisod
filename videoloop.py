@@ -231,7 +231,7 @@ while(1):
     # adjust the video
     frame = vu.image_tranlate(frame, dph, dpw)
     # if the altitude is right draw the capture grid
-    mv.data['Altitude'] = 10
+    #mv.data['Altitude'] = 10
     if ((mv.data['Altitude'] > 5) and ((mv.data['Altitude'] < 20))):
       vu.draw_capture_grid(frame, yaw=mv.data['Yaw'], altitude=mv.data['Altitude'])
 

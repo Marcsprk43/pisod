@@ -189,7 +189,7 @@ while(1):
       print(home_alt)
 
   try:    # extract SYS_STATUS message
-    mv.data['BattV'] = the_connection.messages['SYS_STATUS'].voltage_battery  # Note, you can access message fields as attributes!
+    mv.data['BattV'] = round(the_connection.messages['SYS_STATUS'].voltage_battery/1000,1)  # Note, you can access message fields as attributes!
     mv.data['BattPercent'] = the_connection.messages['SYS_STATUS'].battery_remaining
   except Exception as e:
     print('SYS_STATUS message not recieved yet',e)  
@@ -210,7 +210,7 @@ while(1):
     roll = 0.0
     pitch = 0.0
  
-
+  mv.data['FlightMode'] = 5
   if (mv.data['FlightMode'] == 5):  # Loiter
     mode = ST_STABILIZE_VIDEO
   else:

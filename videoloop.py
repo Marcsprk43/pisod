@@ -162,7 +162,7 @@ while(1):
 
   try:    # extract AHRS2 message
     mv.data['Lat'] = round(the_connection.messages['AHRS2'].lat/1e7,6) # Note, you can access message fields as attributes!
-    mv.data['Lon'] = round(the_connection.messages['AHRS2'].lng.lat/1e7,6)  # Note, you can access message fields as attributes!
+    mv.data['Lon'] = round(the_connection.messages['AHRS2'].lng/1e7,6)  # Note, you can access message fields as attributes!
     mv.data['Altitude_MSL'] = the_connection.messages['AHRS2'].altitude  # Note, you can access message fields as attributes!
     mv.data['Yaw'] = the_connection.messages['AHRS2'].yaw  # Note, you can access message fields as attributes!
 

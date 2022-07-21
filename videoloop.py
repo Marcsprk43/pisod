@@ -174,8 +174,8 @@ while(1):
 
   except Exception as e:
     print('AHRS2 message not recieved yet',e)
-      roll = 0.0
-      pitch = 0.0
+    roll = 0.0
+    pitch = 0.0
   else: 
     # set the home alt if we are still in home location
     if ( home_location and (mv.data['BaseMode'] & 128) ):

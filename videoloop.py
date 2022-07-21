@@ -228,8 +228,10 @@ while(1):
   elif mode == ST_STABILIZE_VIDEO:
     # calc the pixel shift
     dph, dpw = vu.get_pixel_shift(roll, pitch, camera, factor=.7)
-    # adjust the vidoe
+    # adjust the video
     frame = vu.image_tranlate(frame, dph, dpw)
+    # if the altitude is right draw the capture grid
+    mv.data['Altitude'] = 10
     if ((mv.data['Altitude'] > 5) and ((mv.data['Altitude'] < 20))):
       vu.draw_capture_grid(frame, yaw=mv.data['Yaw'], altitude=mv.data['Altitude'])
 

@@ -52,8 +52,6 @@ def get_roll_pitch():
 roll = 0.0
 pitch = 0.0
 
-cv2.setWindowProperty('Frame', cv2.WND_PROP_FULLSCREEN, 1)
-
 ####################################################################
 # this is simple class to calculate frames per second
 ####################################################################
@@ -64,7 +62,7 @@ fps = vu.FPS()
 # Setup the camera
 ####################################################################
 
-resolution = (720,576)
+resolution_resize = (720,576)
 resolution = (1640,1232)
 framerate = 20
 image_number = 0 
@@ -74,7 +72,7 @@ sensor = vu.sensor_IMX219 # select the PiCamera V2.1 sensor
 camera = vu.configure_camera(sensor, lens_f=2.1, image_mode=5, frame_rate=15)
 
 # initialize the video stream and allow the cammera sensor to warmup
-vs = PiVideoStream(resolution=resolution, framerate=framerate).start()
+vs = PiVideoStream(resolution=resolution, framerate=framerate, resize=resolution_resize).start()
 
 time.sleep(1)
 
@@ -89,6 +87,11 @@ fps.start()
 
 mode =  ST_STABILIZE_VIDEO
 osd_overlay = 'Screen1'
+
+
+cv2.imshow('Frame',np.zeros((resolution_resize[0],resolution_resize[1],3), dtype=np.uint8))
+cv2.setWindowProperty('Frame', cv2.WND_PROP_FULLSCREEN, 1)
+
 
 ##############################################
 # Mavlink

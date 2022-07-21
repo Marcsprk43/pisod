@@ -260,11 +260,11 @@ def draw_altitude(frame, mv):
     else:
         text_color = (0,0,255)  # Red
 
-    cv2.putText(frame, 'A:{:.0f}'.format(mv.data['Altitude']*3.28), (550, 25), font, 1, text_color, 2, cv2.LINE_AA)
+    cv2.putText(frame, 'A:{:.40f}'.format(mv.data['Altitude']*3.28), (550, 25), font, 1, text_color, 2, cv2.LINE_AA)
 
 def draw_lat_lon(frame, mv):
-    cv2.putText(frame, 'Lat:{:10d}'.format(int(mv.data['Lat']/10)), (5, 25), font, 1, (0,255, 255), 2, cv2.LINE_AA)
-    cv2.putText(frame, 'Lon:{:10d}'.format(int(mv.data['Lon']/10)), (280, 25), font, 1, (0,255, 255), 2, cv2.LINE_AA)
+    cv2.putText(frame, 'Lat:{:02.6f}'.format(int(mv.data['Lat'])), (5, 25), font, 1, (0,255, 255), 2, cv2.LINE_AA)
+    cv2.putText(frame, 'Lon:{:02.6f}'.format(int(mv.data['Lon'])), (280, 25), font, 1, (0,255, 255), 2, cv2.LINE_AA)
 
 def draw_battery(frame, mv):
     cv2.putText(frame, 'B:{:3.1f}V  {:3d}%'.format(mv.data['BattV'], int(mv.data['BattPercent'])), (5, 505), font, 1, (255,255, 255), 2, cv2.LINE_AA)

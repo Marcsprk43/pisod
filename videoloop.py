@@ -161,8 +161,8 @@ while(1):
       print('Cannot receive messages:', e)
 
   try:    # extract AHRS2 message
-    mv.data['Lat'] = the_connection.messages['AHRS2'].lat  # Note, you can access message fields as attributes!
-    mv.data['Lon'] = the_connection.messages['AHRS2'].lng  # Note, you can access message fields as attributes!
+    mv.data['Lat'] = round(the_connection.messages['AHRS2'].lat/1e7,6) # Note, you can access message fields as attributes!
+    mv.data['Lon'] = round(the_connection.messages['AHRS2'].lng.lat/1e7,6)  # Note, you can access message fields as attributes!
     mv.data['Altitude_MSL'] = the_connection.messages['AHRS2'].altitude  # Note, you can access message fields as attributes!
     mv.data['Yaw'] = the_connection.messages['AHRS2'].yaw  # Note, you can access message fields as attributes!
 

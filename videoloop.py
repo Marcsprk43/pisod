@@ -52,7 +52,7 @@ def get_roll_pitch():
 roll = 0.0
 pitch = 0.0
 
-cv2.setWindowProperty(cv2, cv2.WND_PROP_FULLSCREEN, 1)
+cv2.setWindowProperty('Frame', cv2.WND_PROP_FULLSCREEN, 1)
 
 ####################################################################
 # this is simple class to calculate frames per second

@@ -180,6 +180,7 @@ while(1):
     # set the home alt if we are still in home location
     if ( home_location and (mv.data['BaseMode'] & 128) ):
       home_alt = 0.9*home_alt + 0.1*mv.data['Altitude_MSL']     # filter the home alt readings
+      print(home_alt)
 
   try:    # extract SYS_STATUS message
     mv.data['BattV'] = the_connection.messages['SYS_STATUS'].voltage_battery  # Note, you can access message fields as attributes!

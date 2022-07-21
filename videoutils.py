@@ -363,6 +363,7 @@ class Mavlink:
 
     data = {
         'Altitude':13,
+        'Altitude_MSL':260,
         'Lat':33.521117, 
         'Lon':-84.581361, 
         'BattV':14.5,
@@ -370,7 +371,7 @@ class Mavlink:
         'BattPercent':45,
         'FlightMode':'STAB',
         'DisplayMode':'st',
-        'BaseMode':128
+        'BaseMode':128         # this is disarmed - default before packets are recived.
     }
 
 from pymavlink import mavutil

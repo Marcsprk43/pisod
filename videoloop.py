@@ -129,6 +129,9 @@ vu.request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_VFR_H
 # Initialize the OSD data dictionary
 mv = vu.Mavlink()
 
+home_alt = 260.
+home_location = True     # flag that is set when the drone starts up
+
 ##############################################
 ##############################################
 # Main loop
@@ -139,15 +142,13 @@ while(1):
 
   # Capture frame-by-frame
   frame = vs.read()
-  #frame = imutils.resize(frame, width=800)
 
   ##############################################
   # instructions that must always run 
   ##############################################
-  # get the instantaneous roll/pitch
-  #roll, pitch = get_roll_pitch()
 
-  try: 
+
+  try:  # receive mavlink messages
     
     m = the_connection.recv_msg()
     
@@ -156,28 +157,58 @@ while(1):
       m = the_connection.recv_msg()
       msg_tries += 1
 
-    #the_connection.recv_match(blocking=False)
+  except Exception as e:
+      print('Cannot receive messages:', e)
+
+  try:    # extract AHRS2 message
     mv.data['Lat'] = the_connection.messages['AHRS2'].lat  # Note, you can access message fields as attributes!
     mv.data['Lon'] = the_connection.messages['AHRS2'].lng  # Note, you can access message fields as attributes!
-    mv.data['Altitude'] = the_connection.messages['AHRS2'].altitude - 275.  # Note, you can access message fields as attributes!
+    mv.data['Altitude_MSL'] = the_connection.messages['AHRS2'].altitude  # Note, you can access message fields as attributes!
     mv.data['Yaw'] = the_connection.messages['AHRS2'].yaw  # Note, you can access message fields as attributes!
-    mv.data['BattV'] = the_connection.messages['SYS_STATUS'].voltage_battery  # Note, you can access message fields as attributes!
-    mv.data['BattPercent'] = the_connection.messages['SYS_STATUS'].battery_remaining
-    mv.data['BaseMode'] = the_connection.messages['HEARTBEAT'].base_mode  # the base_mode describes the armed, disarmed, etc. status
-    mv.data['FlightMode'] = the_connection.messages['HEARTBEAT'].custom_mode  # this is the flight mode (STAB, LOITER, AUTO, etc)
 
+    mv.data['Altitude'] = mv.data['Altitude_MSL'] - home_alt
+
+    # save roll and pitch in global vars
     roll = the_connection.messages['AHRS2'].roll
-    pitch = the_connection.messages['AHRS2'].pitch  
-    
+    pitch = the_connection.messages['AHRS2'].pitch
+
   except Exception as e:
-      print(e, 'not received yet')
+    print('AHRS2 message not recieved yet',e)
       roll = 0.0
       pitch = 0.0
+  else: 
+    # set the home alt if we are still in home location
+    if ( home_location and (mv.data['BaseMode'] & 128) ):
+      home_alt = 0.9*home_alt + 0.1*mv.data['Altitude_MSL']     # filter the home alt readings
+
+  try:    # extract SYS_STATUS message
+    mv.data['BattV'] = the_connection.messages['SYS_STATUS'].voltage_battery  # Note, you can access message fields as attributes!
+    mv.data['BattPercent'] = the_connection.messages['SYS_STATUS'].battery_remaining
+  except Exception as e:
+    print('SYS_STATUS message not recieved yet',e)  
+
+  try:   #extract the HEARTBEAT message
+    mv.data['BaseMode'] = the_connection.messages['HEARTBEAT'].base_mode  # the base_mode describes the armed, disarmed, etc. status
+    mv.data['FlightMode'] = the_connection.messages['HEARTBEAT'].custom_mode  # this is the flight mode (STAB, LOITER, AUTO, etc)
+    # if the vehicle has been armed assume that it is no longer in the home location 
+
+    if (home_location and (not (mv.data['BaseMode'] & 128))):
+      home_location = False
+
+  except Exception as e:
+    print('HEARTBEAT message not recieved yet',e)  
+
 
   if ((abs(roll) > math.pi/4) or (abs(pitch)> math.pi/4)):    # if the drone is pitched more than 45 degrees stop stabilize
     roll = 0.0
     pitch = 0.0
  
+
+  if (mv.data['FlightMode'] == 5):  # Loiter
+    mode = ST_STABILIZE_VIDEO
+  else:
+    mode = ST_RAW_VIDEO
+
 
   ##############################################
   # State machine for video modes 
@@ -190,13 +221,10 @@ while(1):
   elif mode == ST_STABILIZE_VIDEO:
     # calc the pixel shift
     dph, dpw = vu.get_pixel_shift(roll, pitch, camera, factor=.7)
-
+    # adjust the vidoe
     frame = vu.image_tranlate(frame, dph, dpw)
-    if ((mv.data['Altitude'] > 10) and ((mv.data['Altitude'] < 20))):
-      vu.draw_capture_grid(frame, yaw=mv.data['Yaw'], altitude=mv.data['Altitude']) #mv.data['Altitude'])
-
-    
-      
+    if ((mv.data['Altitude'] > 5) and ((mv.data['Altitude'] < 20))):
+      vu.draw_capture_grid(frame, yaw=mv.data['Yaw'], altitude=mv.data['Altitude'])
 
     # always do this last
     vu.apply_osd(frame, osd_overlay, mv)
@@ -206,9 +234,6 @@ while(1):
     dph, dpw = vu.get_pixel_shift(roll, pitch, camera)
     # stabilize the frame
     frame = vu.image_tranlate(frame, dph, dpw)
-
-      ### do other stuff here
-
     
   # Display the resulting frame
   cv2.imshow('Frame',frame)

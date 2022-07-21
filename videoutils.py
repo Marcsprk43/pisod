@@ -325,7 +325,7 @@ def draw_capture_grid(frame, yaw,altitude):
 
         # draw N, S labels
         x1, y1 = rotate_vector(0, y, yaw)
-        cv2.putText(frame, 'N+', (x1+360, -y1+288), font, 2, (0, 0, 255), 1, cv2.LINE_AA)
+        cv2.putText(frame, 'N+', (x1+360, -y1+288), font, 1, (0, 0, 255), 2, cv2.LINE_AA)
         cv2.putText(frame, 'S-', (-x1+360, y1+288), font, .5, (0,255, 255), 1, cv2.LINE_AA)
     
         # draw E, W labels

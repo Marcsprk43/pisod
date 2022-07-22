@@ -353,6 +353,10 @@ def apply_osd(frame, osd, mv):
             draw_flight_mode(frame, mv)
             draw_cross_hairs(frame)
             draw_base_mode(frame, mv)
+
+            if camera_capture:
+              draw_camera_capture(frame, 1)
+
             
 
         elif (osd == 'Screen2'):

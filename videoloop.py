@@ -103,6 +103,7 @@ mv = vu.Mavlink()
 home_alt = 260.
 home_location = True     # flag that is set when the drone starts up
 camera_trigger = None
+chan7_lock = False
 
 ##############################################
 ##############################################
@@ -174,13 +175,16 @@ while(1):
     print('HEARTBEAT message not recieved yet',e)  
 
 
-  try:   #extract the DIGICAM_CONTROL message
+  try:   #extract the camera trigger message
+    chan7_value = the_connection.messages['RC_CHANNELS'].chan7_raw
+    if ( chan7_lock ):  
+      if (chan7_value < 1500 ):    # trigger switch flipped off
+        chan7_lock = False
+    else:
+      if (chan7_value > 1500 ):    # trigger switch flipped on
+        chan7_lock = True
+        camera_trigger = True
 
-    print(the_connection.messages['RC_CHANNELS'].chan7_raw)
-
-    if( (camera_trigger == False) and 
-        (the_connection.messages['RC_CHANNELS'].chan7_raw > 1500)): # this is the camera trigger
-      camera_trigger = True
   except Exception as e:
     print('RC_CHANNELS_RAW message not recieved yet',e)  
 

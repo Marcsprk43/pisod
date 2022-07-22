@@ -190,7 +190,7 @@ def image_tranlate(img, dy, dx):
 	[1, 0, int(dx)],
 	[0, 1, int(dy)]])
 
-    return cv2.warpAffine(img, M, (img.shape[1], img.shape[0]))
+    img = cv2.warpAffine(img, M, (img.shape[1], img.shape[0]))
 
 
 import datetime
@@ -280,6 +280,9 @@ def draw_flight_mode(frame, mv):
     else:
         cv2.putText(frame, 'FM:{}'.format(mv.data['FlightMode']), (500, 505), font, 1, (0,255, 0), 2, cv2.LINE_AA)
 
+def camera_capture(frame, image_number):
+    cv2.putText(frame, 'Image Acquired: {}'.format(image_number), (300, 288), font, 1, (255,255, 255), 2, cv2.LINE_AA)
+
 def rotate_vector(x,y,theta):
     xc = x
     yc = y
@@ -355,9 +358,6 @@ def apply_osd(frame, osd, mv):
         elif (osd == 'Screen2'):
             cv2.putText(frame, 'A:{:2.1f}'.format(mv.data['Altitude']), (650, 25), font, 1, (0, 0, 255), 2, cv2.LINE_AA)
 
-
-    else:
-        return frame
 
 class Mavlink:
 

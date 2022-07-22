@@ -13,41 +13,6 @@ import math
 ST_RAW_VIDEO = 0
 ST_STABILIZE_VIDEO = 1
 ST_FIND_TARGET = 2
-####################################################################
-# Set up the accelerometer for roll/pitch calcs
-####################################################################
-"""
-from mpu6050.MPU6050 import MPU6050
-from math import sqrt, asin, atan, degrees
-
-i2c_bus = 1
-device_address = 0x68
-x_accel_offset = -0
-y_accel_offset = -0
-z_accel_offset = 0
-x_gyro_offset = 181
-y_gyro_offset = 32
-z_gyro_offset = 6
-enable_debug_output = False
-
-mpu = MPU6050(i2c_bus, device_address, x_accel_offset, y_accel_offset,
-              z_accel_offset, x_gyro_offset, y_gyro_offset, z_gyro_offset,
-              sample_rate_divider=1, dlpf=0x04,
-              a_debug=enable_debug_output)
-
-filtered_roll = 0
-filtered_pitch = 0
-filter = 0.4
-one_minus_filter = 1-filter
-
-def get_roll_pitch():
-    global filtered_roll, filtered_pitch
-    accel = mpu.get_acceleration()    
-    filtered_pitch = filter*filtered_pitch + one_minus_filter*asin(accel[0]/sqrt(accel[0]*accel[0] + accel[1]*accel[1]+ accel[2]*accel[2] ))
-    filtered_roll = filter*filtered_roll + one_minus_filter*atan(accel[1]/accel[2])
-    return filtered_roll, filtered_pitch
-
-"""
 
 roll = 0.0
 pitch = 0.0
@@ -129,6 +94,8 @@ vu.request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_EKF_S
 vu.request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_VIBRATION  , 1)
 vu.request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_ATTITUDE  , 1)
 vu.request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_VFR_HUD  , 1)
+vu.request_message_interval(the_connection, mavutil.ardupilotmega.MAV_CMD_DO_DIGICAM_CONTROL  , 1)
+
 
 # Initialize the OSD data dictionary
 mv = vu.Mavlink()
@@ -206,12 +173,25 @@ while(1):
     print('HEARTBEAT message not recieved yet',e)  
 
 
+  try:   #extract the DIGICAM_CONTROL message
+    camera_trigger = the_connection.messages['DIGICAM_CONTROL'].shot  # this is the camera trigger
+
+    if (home_location and  (mv.data['BaseMode'] & 128)):
+      home_location = False
+
+  except Exception as e:
+    print('DIGICAM_CONTROL message not recieved yet',e)  
+
+
   if ((abs(roll) > math.pi/4) or (abs(pitch)> math.pi/4)):    # if the drone is pitched more than 45 degrees stop stabilize
     roll = 0.0
     pitch = 0.0
  
-  mv.data['FlightMode'] = 5
-  if (mv.data['FlightMode'] == 5):  # Loiter
+  mv.data['FlightMode'] = mavutil.ardupilotmega.COPTER_MODE_LOITER   # comment this out after testing
+
+
+  if (mv.data['FlightMode'] in [mavutil.ardupilotmega.COPTER_MODE_LOITER, 
+                                mavutil.ardupilotmega.COPTER_MODE_LAND ] ):  # Loiter
     mode = ST_STABILIZE_VIDEO
   else:
     mode = ST_RAW_VIDEO
@@ -229,7 +209,7 @@ while(1):
     # calc the pixel shift
     dph, dpw = vu.get_pixel_shift(roll, pitch, camera, factor=.7)
     # adjust the video
-    frame = vu.image_tranlate(frame, dph, dpw)
+    vu.image_tranlate(frame, dph, dpw)
     # if the altitude is right draw the capture grid
     #mv.data['Altitude'] = 10
     if ((mv.data['Altitude'] > 5) and ((mv.data['Altitude'] < 20))):
@@ -242,8 +222,21 @@ while(1):
     # calc the pixel shift
     dph, dpw = vu.get_pixel_shift(roll, pitch, camera)
     # stabilize the frame
-    frame = vu.image_tranlate(frame, dph, dpw)
+    vu.image_tranlate(frame, dph, dpw)
     
+  if (camera_trigger):    # take a still picture
+    print('Taking still. ')
+
+    vu.draw_camera_capture(frame,image_number)
+    cv2.imshow('Frame',frame)
+
+    vs.capture('image_{}.jpeg'.format(image_number))
+
+    print('Saving to {}'.format('image_{}.jpeg'.format(image_number)))
+    image_number += 1    
+
+
+
   # Display the resulting frame
   cv2.imshow('Frame',frame)
 
@@ -257,8 +250,15 @@ while(1):
     # take still and save
     # stop the video stream
     print('Taking still. ')
-    vs.capture('image_{}.jpeg'.format(image_number))
-    print('Saving to {}'.format('image_{}.jpeg'.format(image_number)))
+
+    vu.draw_camera_capture(frame,image_number)  # appply message to osd
+
+    cv2.imshow('Frame',frame)     # write the image
+
+    vs.capture('image_{}.jpeg'.format(image_number))  # capture and save the picture
+    
+    print('Saving to {}'.format('image_{}.jpeg'.format(image_number)))   
+    
     image_number += 1
 
 

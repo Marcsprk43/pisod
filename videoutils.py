@@ -281,7 +281,6 @@ def draw_flight_mode(frame, mv):
         cv2.putText(frame, 'FM:{}'.format(mv.data['FlightMode']), (500, 505), font, 1, (0,255, 0), 2, cv2.LINE_AA)
 
 def draw_camera_capture(frame, image_number):
-    print("Drawing camera capture")
     cv2.putText(frame, 'Image Acquired: {}'.format(image_number), (300, 288), font, 1, (255,255, 255), 2, cv2.LINE_AA)
 
 def rotate_vector(x,y,theta):

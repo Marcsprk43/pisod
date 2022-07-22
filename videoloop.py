@@ -256,6 +256,8 @@ while(1):
     cv2.imshow('Frame',frame)     # write the image
 
     vs.capture('image_{}.jpeg'.format(image_number))  # capture and save the picture
+
+    time.sleep(1)
     
     print('Saving to {}'.format('image_{}.jpeg'.format(image_number)))   
 

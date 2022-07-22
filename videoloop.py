@@ -202,7 +202,7 @@ while(1):
 
   if mode == ST_RAW_VIDEO:
     # set the final frame to frame
-    vu.apply_osd(frame, osd_overlay, mv)
+    vu.apply_osd(frame, osd_overlay, mv, camera_trigger)
 
   elif mode == ST_STABILIZE_VIDEO:
     # calc the pixel shift
@@ -215,7 +215,7 @@ while(1):
       vu.draw_capture_grid(frame, yaw=mv.data['Yaw'], altitude=mv.data['Altitude'])
 
     # always do this last
-    vu.apply_osd(frame, osd_overlay, mv)
+    vu.apply_osd(frame, osd_overlay, mv, camera_trigger)
 
   elif mode == ST_FIND_TARGET:
     # calc the pixel shift

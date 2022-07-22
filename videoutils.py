@@ -341,7 +341,7 @@ def draw_base_mode(frame, mv):
 
         cv2.putText(frame, 'ARMED', (370, 505), font, 1, (0, 0, 255), 2, cv2.LINE_AA)
 
-def apply_osd(frame, osd, mv):
+def apply_osd(frame, osd, mv, camera_capture):
     # possibly move this to functions:
 
     if (osd):

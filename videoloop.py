@@ -94,7 +94,7 @@ vu.request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_EKF_S
 vu.request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_VIBRATION  , 1)
 vu.request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_ATTITUDE  , 1)
 vu.request_message_interval(the_connection, mavutil.mavlink.MAVLINK_MSG_ID_VFR_HUD  , 1)
-vu.request_message_interval(the_connection, mavutil.ardupilotmega.MAVLINK_MSG_ID_CAMERA_STATUS  , 2)
+vu.request_message_interval(the_connection, mavutil.ardupilotmega.MAVLINK_MSG_ID_RC_CHANNELS  , 2)
 
 
 # Initialize the OSD data dictionary
@@ -176,13 +176,13 @@ while(1):
 
   try:   #extract the DIGICAM_CONTROL message
 
-    print(the_connection.messages['CAMERA_STATUS'].event_id)
-    
+    print(the_connection.messages['RC_CHANNELS'].chan7_raw)
+
     if( (camera_trigger == False) and 
-        (the_connection.messages['CAMERA_STATUS'].event_id == mavutil.ardupilotmega.CAMERA_STATUS_TYPE_TRIGGER)): # this is the camera trigger
+        (the_connection.messages['RC_CHANNELS'].chan7_raw > 1500)): # this is the camera trigger
       camera_trigger = True
   except Exception as e:
-    print('CAMERA_STATUS message not recieved yet',e)  
+    print('RC_CHANNELS_RAW message not recieved yet',e)  
 
 
   if ((abs(roll) > math.pi/4) or (abs(pitch)> math.pi/4)):    # if the drone is pitched more than 45 degrees stop stabilize

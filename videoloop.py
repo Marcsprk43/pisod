@@ -177,6 +177,7 @@ while(1):
   try:   #extract the DIGICAM_CONTROL message
 
     print(the_connection.messages['CAMERA_STATUS'].event_id)
+    
     if( (camera_trigger == False) and 
         (the_connection.messages['CAMERA_STATUS'].event_id == mavutil.ardupilotmega.CAMERA_STATUS_TYPE_TRIGGER)): # this is the camera trigger
       camera_trigger = True

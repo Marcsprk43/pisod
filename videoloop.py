@@ -102,6 +102,7 @@ mv = vu.Mavlink()
 
 home_alt = 260.
 home_location = True     # flag that is set when the drone starts up
+camera_trigger = None
 
 ##############################################
 ##############################################
@@ -258,7 +259,7 @@ while(1):
     vs.capture('image_{}.jpeg'.format(image_number))  # capture and save the picture
     
     print('Saving to {}'.format('image_{}.jpeg'.format(image_number)))   
-    
+
     image_number += 1
 
 

@@ -140,7 +140,7 @@ while(1):
 
     mv.data['Altitude'] = mv.data['Altitude_MSL'] - home_alt
 
-    print(mv.data['Altitude_MSL'], home_alt, mv.data['Altitude'], mv.data['BaseMode'])
+    # print(mv.data['Altitude_MSL'], home_alt, mv.data['Altitude'], mv.data['BaseMode'])
 
     # save roll and pitch in global vars
     roll = the_connection.messages['AHRS2'].roll
